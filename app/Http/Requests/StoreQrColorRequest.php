@@ -21,23 +21,11 @@ class StoreQrColorRequest extends FormRequest
                 'string',
                 'nullable',
             ],
-            'color_hex' => [
+            'corner_inner' => [
                 'string',
                 'nullable',
             ],
-            'primary' => [
-                'string',
-                'nullable',
-            ],
-            'button' => [
-                'string',
-                'nullable',
-            ],
-            'gradient' => [
-                'string',
-                'nullable',
-            ],
-            'secondary' => [
+            'corner_outer' => [
                 'string',
                 'nullable',
             ],

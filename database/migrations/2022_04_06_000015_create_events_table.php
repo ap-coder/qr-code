@@ -10,8 +10,8 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->boolean('active')->default(0)->nullable();
             $table->string('qr_name')->nullable();
-            $table->boolean('published')->default(0)->nullable();
             $table->string('organizer')->nullable();
             $table->string('title');
             $table->string('sub_title')->nullable();

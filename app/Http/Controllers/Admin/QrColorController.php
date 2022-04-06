@@ -46,20 +46,11 @@ class QrColorController extends Controller
             $table->editColumn('color', function ($row) {
                 return $row->color ? $row->color : '';
             });
-            $table->editColumn('color_hex', function ($row) {
-                return $row->color_hex ? $row->color_hex : '';
+            $table->editColumn('corner_inner', function ($row) {
+                return $row->corner_inner ? $row->corner_inner : '';
             });
-            $table->editColumn('primary', function ($row) {
-                return $row->primary ? $row->primary : '';
-            });
-            $table->editColumn('button', function ($row) {
-                return $row->button ? $row->button : '';
-            });
-            $table->editColumn('gradient', function ($row) {
-                return $row->gradient ? $row->gradient : '';
-            });
-            $table->editColumn('secondary', function ($row) {
-                return $row->secondary ? $row->secondary : '';
+            $table->editColumn('corner_outer', function ($row) {
+                return $row->corner_outer ? $row->corner_outer : '';
             });
 
             $table->rawColumns(['actions', 'placeholder']);

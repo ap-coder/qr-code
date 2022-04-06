@@ -184,6 +184,18 @@
                 <span class="help-block">{{ trans('cruds.vcard.fields.slug_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="address_id">{{ trans('cruds.vcard.fields.address') }}</label>
+                <select class="form-control select2 {{ $errors->has('address') ? 'is-invalid' : '' }}" name="address_id" id="address_id">
+                    @foreach($addresses as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('address_id') ? old('address_id') : $vcard->address->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('address'))
+                    <span class="text-danger">{{ $errors->first('address') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.vcard.fields.address_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label for="created_by_id">{{ trans('cruds.vcard.fields.created_by') }}</label>
                 <select class="form-control select2 {{ $errors->has('created_by') ? 'is-invalid' : '' }}" name="created_by_id" id="created_by_id">
                     @foreach($created_bies as $id => $entry)

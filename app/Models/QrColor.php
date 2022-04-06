@@ -22,11 +22,8 @@ class QrColor extends Model
 
     protected $fillable = [
         'color',
-        'color_hex',
-        'primary',
-        'button',
-        'gradient',
-        'secondary',
+        'corner_inner',
+        'corner_outer',
         'created_at',
         'updated_at',
         'deleted_at',

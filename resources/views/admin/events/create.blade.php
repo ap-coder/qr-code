@@ -10,23 +10,35 @@
         <form method="POST" action="{{ route("admin.events.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
+                <div class="form-check {{ $errors->has('active') ? 'is-invalid' : '' }}">
+                    <input type="hidden" name="active" value="0">
+                    <input class="form-check-input" type="checkbox" name="active" id="active" value="1" {{ old('active', 0) == 1 || old('active') === null ? 'checked' : '' }}>
+                    <label class="form-check-label" for="active">{{ trans('cruds.event.fields.active') }}</label>
+                </div>
+                @if($errors->has('active'))
+                    <span class="text-danger">{{ $errors->first('active') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.event.fields.active_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="design_colors_id">{{ trans('cruds.event.fields.design_colors') }}</label>
+                <select class="form-control select2 {{ $errors->has('design_colors') ? 'is-invalid' : '' }}" name="design_colors_id" id="design_colors_id">
+                    @foreach($design_colors as $id => $entry)
+                        <option value="{{ $id }}" {{ old('design_colors_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('design_colors'))
+                    <span class="text-danger">{{ $errors->first('design_colors') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.event.fields.design_colors_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label for="qr_name">{{ trans('cruds.event.fields.qr_name') }}</label>
                 <input class="form-control {{ $errors->has('qr_name') ? 'is-invalid' : '' }}" type="text" name="qr_name" id="qr_name" value="{{ old('qr_name', '') }}">
                 @if($errors->has('qr_name'))
                     <span class="text-danger">{{ $errors->first('qr_name') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.event.fields.qr_name_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <div class="form-check {{ $errors->has('published') ? 'is-invalid' : '' }}">
-                    <input type="hidden" name="published" value="0">
-                    <input class="form-check-input" type="checkbox" name="published" id="published" value="1" {{ old('published', 0) == 1 || old('published') === null ? 'checked' : '' }}>
-                    <label class="form-check-label" for="published">{{ trans('cruds.event.fields.published') }}</label>
-                </div>
-                @if($errors->has('published'))
-                    <span class="text-danger">{{ $errors->first('published') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.event.fields.published_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="header_image">{{ trans('cruds.event.fields.header_image') }}</label>
@@ -193,6 +205,18 @@
                     <span class="text-danger">{{ $errors->first('venue_name') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.event.fields.venue_name_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="venue_address_id">{{ trans('cruds.event.fields.venue_address') }}</label>
+                <select class="form-control select2 {{ $errors->has('venue_address') ? 'is-invalid' : '' }}" name="venue_address_id" id="venue_address_id">
+                    @foreach($venue_addresses as $id => $entry)
+                        <option value="{{ $id }}" {{ old('venue_address_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('venue_address'))
+                    <span class="text-danger">{{ $errors->first('venue_address') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.event.fields.venue_address_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="about">{{ trans('cruds.event.fields.about') }}</label>

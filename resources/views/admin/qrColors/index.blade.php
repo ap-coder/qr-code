@@ -28,19 +28,10 @@
                         {{ trans('cruds.qrColor.fields.color') }}
                     </th>
                     <th>
-                        {{ trans('cruds.qrColor.fields.color_hex') }}
+                        {{ trans('cruds.qrColor.fields.corner_inner') }}
                     </th>
                     <th>
-                        {{ trans('cruds.qrColor.fields.primary') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.qrColor.fields.button') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.qrColor.fields.gradient') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.qrColor.fields.secondary') }}
+                        {{ trans('cruds.qrColor.fields.corner_outer') }}
                     </th>
                     <th>
                         &nbsp;
@@ -100,11 +91,8 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'color', name: 'color' },
-{ data: 'color_hex', name: 'color_hex' },
-{ data: 'primary', name: 'primary' },
-{ data: 'button', name: 'button' },
-{ data: 'gradient', name: 'gradient' },
-{ data: 'secondary', name: 'secondary' },
+{ data: 'corner_inner', name: 'corner_inner' },
+{ data: 'corner_outer', name: 'corner_outer' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

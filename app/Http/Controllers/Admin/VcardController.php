@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyVcardRequest;
 use App\Http\Requests\StoreVcardRequest;
 use App\Http\Requests\UpdateVcardRequest;
+use App\Models\Address;
 use App\Models\Hour;
 use App\Models\User;
 use App\Models\Vcard;
@@ -25,7 +26,7 @@ class VcardController extends Controller
         abort_if(Gate::denies('vcard_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Vcard::with(['hours', 'created_by'])->select(sprintf('%s.*', (new Vcard())->table));
+            $query = Vcard::with(['hours', 'address', 'created_by'])->select(sprintf('%s.*', (new Vcard())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -79,9 +80,11 @@ class VcardController extends Controller
 
         $hours = Hour::pluck('day', 'id');
 
+        $addresses = Address::pluck('nickname', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $created_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.vcards.create', compact('created_bies', 'hours'));
+        return view('admin.vcards.create', compact('addresses', 'created_bies', 'hours'));
     }
 
     public function store(StoreVcardRequest $request)
@@ -109,11 +112,13 @@ class VcardController extends Controller
 
         $hours = Hour::pluck('day', 'id');
 
+        $addresses = Address::pluck('nickname', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $created_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $vcard->load('hours', 'created_by');
+        $vcard->load('hours', 'address', 'created_by');
 
-        return view('admin.vcards.edit', compact('created_bies', 'hours', 'vcard'));
+        return view('admin.vcards.edit', compact('addresses', 'created_bies', 'hours', 'vcard'));
     }
 
     public function update(UpdateVcardRequest $request, Vcard $vcard)
@@ -149,7 +154,7 @@ class VcardController extends Controller
     {
         abort_if(Gate::denies('vcard_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $vcard->load('hours', 'created_by', 'vcardsQrCodes');
+        $vcard->load('hours', 'address', 'created_by', 'vcardsQrCodes');
 
         return view('admin.vcards.show', compact('vcard'));
     }

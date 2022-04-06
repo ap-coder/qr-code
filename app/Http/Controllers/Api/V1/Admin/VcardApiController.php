@@ -20,7 +20,7 @@ class VcardApiController extends Controller
     {
         abort_if(Gate::denies('vcard_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new VcardResource(Vcard::with(['hours', 'created_by'])->get());
+        return new VcardResource(Vcard::with(['hours', 'address', 'created_by'])->get());
     }
 
     public function store(StoreVcardRequest $request)
@@ -44,7 +44,7 @@ class VcardApiController extends Controller
     {
         abort_if(Gate::denies('vcard_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new VcardResource($vcard->load(['hours', 'created_by']));
+        return new VcardResource($vcard->load(['hours', 'address', 'created_by']));
     }
 
     public function update(UpdateVcardRequest $request, Vcard $vcard)

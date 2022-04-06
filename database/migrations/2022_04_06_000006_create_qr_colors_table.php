@@ -11,11 +11,8 @@ class CreateQrColorsTable extends Migration
         Schema::create('qr_colors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('color')->nullable();
-            $table->string('color_hex')->nullable();
-            $table->string('primary')->nullable();
-            $table->string('button')->nullable();
-            $table->string('gradient')->nullable();
-            $table->string('secondary')->nullable();
+            $table->string('corner_inner')->nullable();
+            $table->string('corner_outer')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

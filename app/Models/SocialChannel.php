@@ -35,11 +35,11 @@ class SocialChannel extends Model implements HasMedia
         'active',
         'qr_name',
         'summery',
-        'created_at',
         'slug',
+        'created_by_id',
+        'created_at',
         'updated_at',
         'deleted_at',
-        'created_by_id',
     ];
 
     public function registerMediaConversions(Media $media = null): void

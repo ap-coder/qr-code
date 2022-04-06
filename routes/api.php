@@ -39,4 +39,30 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     // Event
     Route::post('events/media', 'EventApiController@storeMedia')->name('events.storeMedia');
     Route::apiResource('events', 'EventApiController');
+
+    // Image Gallery
+    Route::post('image-galleries/media', 'ImageGalleryApiController@storeMedia')->name('image-galleries.storeMedia');
+    Route::apiResource('image-galleries', 'ImageGalleryApiController');
+
+    // Video
+    Route::post('videos/media', 'VideoApiController@storeMedia')->name('videos.storeMedia');
+    Route::apiResource('videos', 'VideoApiController');
+
+    // Design Color
+    Route::apiResource('design-colors', 'DesignColorApiController');
+
+    // Address
+    Route::apiResource('addresses', 'AddressApiController');
+
+    // Download
+    Route::post('downloads/media', 'DownloadApiController@storeMedia')->name('downloads.storeMedia');
+    Route::apiResource('downloads', 'DownloadApiController');
+
+    // Pdf
+    Route::post('pdfs/media', 'PdfApiController@storeMedia')->name('pdfs.storeMedia');
+    Route::apiResource('pdfs', 'PdfApiController');
+
+    // App Promotion
+    Route::post('app-promotions/media', 'AppPromotionApiController@storeMedia')->name('app-promotions.storeMedia');
+    Route::apiResource('app-promotions', 'AppPromotionApiController');
 });

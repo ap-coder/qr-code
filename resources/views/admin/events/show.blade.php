@@ -25,18 +25,26 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.event.fields.qr_name') }}
+                            {{ trans('cruds.event.fields.active') }}
                         </th>
                         <td>
-                            {{ $event->qr_name }}
+                            <input type="checkbox" disabled="disabled" {{ $event->active ? 'checked' : '' }}>
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.event.fields.published') }}
+                            {{ trans('cruds.event.fields.design_colors') }}
                         </th>
                         <td>
-                            <input type="checkbox" disabled="disabled" {{ $event->published ? 'checked' : '' }}>
+                            {{ $event->design_colors->primary ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.event.fields.qr_name') }}
+                        </th>
+                        <td>
+                            {{ $event->qr_name }}
                         </td>
                     </tr>
                     <tr>
@@ -209,6 +217,14 @@
                         </th>
                         <td>
                             {{ $event->venue_name }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.event.fields.venue_address') }}
+                        </th>
+                        <td>
+                            {{ $event->venue_address->full_address ?? '' }}
                         </td>
                     </tr>
                     <tr>

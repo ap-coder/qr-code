@@ -20,7 +20,7 @@ class EventApiController extends Controller
     {
         abort_if(Gate::denies('event_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new EventResource(Event::with(['created_by'])->get());
+        return new EventResource(Event::with(['design_colors', 'venue_address', 'created_by'])->get());
     }
 
     public function store(StoreEventRequest $request)
@@ -52,7 +52,7 @@ class EventApiController extends Controller
     {
         abort_if(Gate::denies('event_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new EventResource($event->load(['created_by']));
+        return new EventResource($event->load(['design_colors', 'venue_address', 'created_by']));
     }
 
     public function update(UpdateEventRequest $request, Event $event)

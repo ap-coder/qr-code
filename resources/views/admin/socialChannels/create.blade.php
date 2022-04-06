@@ -55,6 +55,14 @@
                 <span class="help-block">{{ trans('cruds.socialChannel.fields.loading_image_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="slug">{{ trans('cruds.socialChannel.fields.slug') }}</label>
+                <input class="form-control {{ $errors->has('slug') ? 'is-invalid' : '' }}" type="text" name="slug" id="slug" value="{{ old('slug', '') }}">
+                @if($errors->has('slug'))
+                    <span class="text-danger">{{ $errors->first('slug') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.socialChannel.fields.slug_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label for="socials">{{ trans('cruds.socialChannel.fields.socials') }}</label>
                 <div style="padding-bottom: 4px">
                     <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
@@ -69,14 +77,6 @@
                     <span class="text-danger">{{ $errors->first('socials') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.socialChannel.fields.socials_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="slug">{{ trans('cruds.socialChannel.fields.slug') }}</label>
-                <input class="form-control {{ $errors->has('slug') ? 'is-invalid' : '' }}" type="text" name="slug" id="slug" value="{{ old('slug', '') }}">
-                @if($errors->has('slug'))
-                    <span class="text-danger">{{ $errors->first('slug') }}</span>
-                @endif
-                <span class="help-block">{{ trans('cruds.socialChannel.fields.slug_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="created_by_id">{{ trans('cruds.socialChannel.fields.created_by') }}</label>

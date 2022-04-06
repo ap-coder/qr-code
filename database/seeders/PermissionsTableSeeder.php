@@ -304,6 +304,146 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 74,
+                'title' => 'image_gallery_create',
+            ],
+            [
+                'id'    => 75,
+                'title' => 'image_gallery_edit',
+            ],
+            [
+                'id'    => 76,
+                'title' => 'image_gallery_show',
+            ],
+            [
+                'id'    => 77,
+                'title' => 'image_gallery_delete',
+            ],
+            [
+                'id'    => 78,
+                'title' => 'image_gallery_access',
+            ],
+            [
+                'id'    => 79,
+                'title' => 'video_create',
+            ],
+            [
+                'id'    => 80,
+                'title' => 'video_edit',
+            ],
+            [
+                'id'    => 81,
+                'title' => 'video_show',
+            ],
+            [
+                'id'    => 82,
+                'title' => 'video_delete',
+            ],
+            [
+                'id'    => 83,
+                'title' => 'video_access',
+            ],
+            [
+                'id'    => 84,
+                'title' => 'design_color_create',
+            ],
+            [
+                'id'    => 85,
+                'title' => 'design_color_edit',
+            ],
+            [
+                'id'    => 86,
+                'title' => 'design_color_show',
+            ],
+            [
+                'id'    => 87,
+                'title' => 'design_color_delete',
+            ],
+            [
+                'id'    => 88,
+                'title' => 'design_color_access',
+            ],
+            [
+                'id'    => 89,
+                'title' => 'address_create',
+            ],
+            [
+                'id'    => 90,
+                'title' => 'address_edit',
+            ],
+            [
+                'id'    => 91,
+                'title' => 'address_show',
+            ],
+            [
+                'id'    => 92,
+                'title' => 'address_delete',
+            ],
+            [
+                'id'    => 93,
+                'title' => 'address_access',
+            ],
+            [
+                'id'    => 94,
+                'title' => 'download_create',
+            ],
+            [
+                'id'    => 95,
+                'title' => 'download_edit',
+            ],
+            [
+                'id'    => 96,
+                'title' => 'download_show',
+            ],
+            [
+                'id'    => 97,
+                'title' => 'download_delete',
+            ],
+            [
+                'id'    => 98,
+                'title' => 'download_access',
+            ],
+            [
+                'id'    => 99,
+                'title' => 'pdf_create',
+            ],
+            [
+                'id'    => 100,
+                'title' => 'pdf_edit',
+            ],
+            [
+                'id'    => 101,
+                'title' => 'pdf_show',
+            ],
+            [
+                'id'    => 102,
+                'title' => 'pdf_delete',
+            ],
+            [
+                'id'    => 103,
+                'title' => 'pdf_access',
+            ],
+            [
+                'id'    => 104,
+                'title' => 'app_promotion_create',
+            ],
+            [
+                'id'    => 105,
+                'title' => 'app_promotion_edit',
+            ],
+            [
+                'id'    => 106,
+                'title' => 'app_promotion_show',
+            ],
+            [
+                'id'    => 107,
+                'title' => 'app_promotion_delete',
+            ],
+            [
+                'id'    => 108,
+                'title' => 'app_promotion_access',
+            ],
+            [
+                'id'    => 109,
                 'title' => 'profile_password_edit',
             ],
         ];

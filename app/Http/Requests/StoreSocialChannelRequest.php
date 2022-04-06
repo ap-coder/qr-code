@@ -26,15 +26,15 @@ class StoreSocialChannelRequest extends FormRequest
                 'max:120',
                 'nullable',
             ],
+            'slug' => [
+                'string',
+                'nullable',
+            ],
             'socials.*' => [
                 'integer',
             ],
             'socials' => [
                 'array',
-            ],
-            'slug' => [
-                'string',
-                'nullable',
             ],
         ];
     }

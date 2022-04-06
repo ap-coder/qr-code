@@ -38,8 +38,9 @@ class Event extends Model implements HasMedia
     ];
 
     protected $fillable = [
+        'active',
+        'design_colors_id',
         'qr_name',
-        'published',
         'organizer',
         'title',
         'sub_title',
@@ -57,6 +58,7 @@ class Event extends Model implements HasMedia
         'button_link',
         'button_icon_class',
         'venue_name',
+        'venue_address_id',
         'about',
         'contact',
         'phone',
@@ -75,6 +77,11 @@ class Event extends Model implements HasMedia
     {
         $this->addMediaConversion('thumb')->fit('crop', 50, 50);
         $this->addMediaConversion('preview')->fit('crop', 120, 120);
+    }
+
+    public function design_colors()
+    {
+        return $this->belongsTo(DesignColor::class, 'design_colors_id');
     }
 
     public function getHeaderImageAttribute()
@@ -134,6 +141,11 @@ class Event extends Model implements HasMedia
     public function setSignupDeadlineAttribute($value)
     {
         $this->attributes['signup_deadline'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
+    }
+
+    public function venue_address()
+    {
+        return $this->belongsTo(Address::class, 'venue_address_id');
     }
 
     public function getLoadingImageAttribute()

@@ -80,6 +80,44 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('events/media', 'EventController@storeMedia')->name('events.storeMedia');
     Route::post('events/ckmedia', 'EventController@storeCKEditorImages')->name('events.storeCKEditorImages');
     Route::resource('events', 'EventController');
+
+    // Image Gallery
+    Route::delete('image-galleries/destroy', 'ImageGalleryController@massDestroy')->name('image-galleries.massDestroy');
+    Route::post('image-galleries/media', 'ImageGalleryController@storeMedia')->name('image-galleries.storeMedia');
+    Route::post('image-galleries/ckmedia', 'ImageGalleryController@storeCKEditorImages')->name('image-galleries.storeCKEditorImages');
+    Route::resource('image-galleries', 'ImageGalleryController');
+
+    // Video
+    Route::delete('videos/destroy', 'VideoController@massDestroy')->name('videos.massDestroy');
+    Route::post('videos/media', 'VideoController@storeMedia')->name('videos.storeMedia');
+    Route::post('videos/ckmedia', 'VideoController@storeCKEditorImages')->name('videos.storeCKEditorImages');
+    Route::resource('videos', 'VideoController');
+
+    // Design Color
+    Route::delete('design-colors/destroy', 'DesignColorController@massDestroy')->name('design-colors.massDestroy');
+    Route::resource('design-colors', 'DesignColorController');
+
+    // Address
+    Route::delete('addresses/destroy', 'AddressController@massDestroy')->name('addresses.massDestroy');
+    Route::resource('addresses', 'AddressController');
+
+    // Download
+    Route::delete('downloads/destroy', 'DownloadController@massDestroy')->name('downloads.massDestroy');
+    Route::post('downloads/media', 'DownloadController@storeMedia')->name('downloads.storeMedia');
+    Route::post('downloads/ckmedia', 'DownloadController@storeCKEditorImages')->name('downloads.storeCKEditorImages');
+    Route::resource('downloads', 'DownloadController');
+
+    // Pdf
+    Route::delete('pdfs/destroy', 'PdfController@massDestroy')->name('pdfs.massDestroy');
+    Route::post('pdfs/media', 'PdfController@storeMedia')->name('pdfs.storeMedia');
+    Route::post('pdfs/ckmedia', 'PdfController@storeCKEditorImages')->name('pdfs.storeCKEditorImages');
+    Route::resource('pdfs', 'PdfController');
+
+    // App Promotion
+    Route::delete('app-promotions/destroy', 'AppPromotionController@massDestroy')->name('app-promotions.massDestroy');
+    Route::post('app-promotions/media', 'AppPromotionController@storeMedia')->name('app-promotions.storeMedia');
+    Route::post('app-promotions/ckmedia', 'AppPromotionController@storeCKEditorImages')->name('app-promotions.storeCKEditorImages');
+    Route::resource('app-promotions', 'AppPromotionController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password

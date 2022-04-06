@@ -25,10 +25,10 @@
                         {{ trans('cruds.event.fields.id') }}
                     </th>
                     <th>
-                        {{ trans('cruds.event.fields.qr_name') }}
+                        {{ trans('cruds.event.fields.active') }}
                     </th>
                     <th>
-                        {{ trans('cruds.event.fields.published') }}
+                        {{ trans('cruds.event.fields.qr_name') }}
                     </th>
                     <th>
                         {{ trans('cruds.event.fields.organizer') }}
@@ -50,6 +50,9 @@
                     </th>
                     <th>
                         {{ trans('cruds.event.fields.link_2_text') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.event.fields.venue_address') }}
                     </th>
                     <th>
                         {{ trans('cruds.event.fields.created_by') }}
@@ -111,8 +114,8 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
+{ data: 'active', name: 'active' },
 { data: 'qr_name', name: 'qr_name' },
-{ data: 'published', name: 'published' },
 { data: 'organizer', name: 'organizer' },
 { data: 'title', name: 'title' },
 { data: 'event_date_time', name: 'event_date_time' },
@@ -120,6 +123,7 @@
 { data: 'link_1_text', name: 'link_1_text' },
 { data: 'link_2', name: 'link_2' },
 { data: 'link_2_text', name: 'link_2_text' },
+{ data: 'venue_address_full_address', name: 'venue_address.full_address' },
 { data: 'created_by_name', name: 'created_by.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],

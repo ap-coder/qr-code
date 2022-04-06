@@ -7,6 +7,8 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyEventRequest;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use App\Models\Address;
+use App\Models\DesignColor;
 use App\Models\Event;
 use App\Models\User;
 use Gate;
@@ -24,7 +26,7 @@ class EventController extends Controller
         abort_if(Gate::denies('event_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Event::with(['created_by'])->select(sprintf('%s.*', (new Event())->table));
+            $query = Event::with(['design_colors', 'venue_address', 'created_by'])->select(sprintf('%s.*', (new Event())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -48,11 +50,11 @@ class EventController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
+            $table->editColumn('active', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->active ? 'checked' : null) . '>';
+            });
             $table->editColumn('qr_name', function ($row) {
                 return $row->qr_name ? $row->qr_name : '';
-            });
-            $table->editColumn('published', function ($row) {
-                return '<input type="checkbox" disabled ' . ($row->published ? 'checked' : null) . '>';
             });
             $table->editColumn('organizer', function ($row) {
                 return $row->organizer ? $row->organizer : '';
@@ -73,11 +75,15 @@ class EventController extends Controller
             $table->editColumn('link_2_text', function ($row) {
                 return $row->link_2_text ? $row->link_2_text : '';
             });
+            $table->addColumn('venue_address_full_address', function ($row) {
+                return $row->venue_address ? $row->venue_address->full_address : '';
+            });
+
             $table->addColumn('created_by_name', function ($row) {
                 return $row->created_by ? $row->created_by->name : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'published', 'created_by']);
+            $table->rawColumns(['actions', 'placeholder', 'active', 'venue_address', 'created_by']);
 
             return $table->make(true);
         }
@@ -89,9 +95,13 @@ class EventController extends Controller
     {
         abort_if(Gate::denies('event_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $design_colors = DesignColor::pluck('primary', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $venue_addresses = Address::pluck('full_address', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $created_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.events.create', compact('created_bies'));
+        return view('admin.events.create', compact('created_bies', 'design_colors', 'venue_addresses'));
     }
 
     public function store(StoreEventRequest $request)
@@ -125,11 +135,15 @@ class EventController extends Controller
     {
         abort_if(Gate::denies('event_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $design_colors = DesignColor::pluck('primary', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $venue_addresses = Address::pluck('full_address', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $created_bies = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $event->load('created_by');
+        $event->load('design_colors', 'venue_address', 'created_by');
 
-        return view('admin.events.edit', compact('created_bies', 'event'));
+        return view('admin.events.edit', compact('created_bies', 'design_colors', 'event', 'venue_addresses'));
     }
 
     public function update(UpdateEventRequest $request, Event $event)
@@ -193,7 +207,7 @@ class EventController extends Controller
     {
         abort_if(Gate::denies('event_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $event->load('created_by');
+        $event->load('design_colors', 'venue_address', 'created_by');
 
         return view('admin.events.show', compact('event'));
     }

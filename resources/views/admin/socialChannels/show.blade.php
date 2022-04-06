@@ -73,20 +73,20 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.socialChannel.fields.slug') }}
+                        </th>
+                        <td>
+                            {{ $socialChannel->slug }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.socialChannel.fields.socials') }}
                         </th>
                         <td>
                             @foreach($socialChannel->socials as $key => $socials)
                                 <span class="label label-info">{{ $socials->title }}</span>
                             @endforeach
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.socialChannel.fields.slug') }}
-                        </th>
-                        <td>
-                            {{ $socialChannel->slug }}
                         </td>
                     </tr>
                     <tr>

@@ -50,6 +50,7 @@ class Vcard extends Model implements HasMedia
         'fax_number',
         'created_at',
         'slug',
+        'address_id',
         'updated_at',
         'deleted_at',
         'created_by_id',
@@ -93,6 +94,11 @@ class Vcard extends Model implements HasMedia
     public function hours()
     {
         return $this->belongsToMany(Hour::class);
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class, 'address_id');
     }
 
     public function created_by()

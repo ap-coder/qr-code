@@ -33,42 +33,18 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.qrColor.fields.color_hex') }}
+                            {{ trans('cruds.qrColor.fields.corner_inner') }}
                         </th>
                         <td>
-                            {{ $qrColor->color_hex }}
+                            {{ $qrColor->corner_inner }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.qrColor.fields.primary') }}
+                            {{ trans('cruds.qrColor.fields.corner_outer') }}
                         </th>
                         <td>
-                            {{ $qrColor->primary }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.qrColor.fields.button') }}
-                        </th>
-                        <td>
-                            {{ $qrColor->button }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.qrColor.fields.gradient') }}
-                        </th>
-                        <td>
-                            {{ $qrColor->gradient }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.qrColor.fields.secondary') }}
-                        </th>
-                        <td>
-                            {{ $qrColor->secondary }}
+                            {{ $qrColor->corner_outer }}
                         </td>
                     </tr>
                 </tbody>

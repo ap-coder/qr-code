@@ -195,6 +195,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.vcard.fields.address') }}
+                        </th>
+                        <td>
+                            {{ $vcard->address->nickname ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.vcard.fields.created_by') }}
                         </th>
                         <td>
