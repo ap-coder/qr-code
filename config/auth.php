@@ -39,7 +39,14 @@ return [
             'driver'   => 'session',
             'provider' => 'users',
         ],
-
+        'member' => [
+            'driver'   => 'session',
+            'provider' => 'members',
+        ],
+        'client' => [
+            'driver' => 'session',
+            'provider' => 'clients',
+        ],
         'api' => [
             'driver'   => 'token',
             'provider' => 'users',
@@ -69,7 +76,14 @@ return [
             'driver' => 'eloquent',
             'model'  => App\Models\User::class,
         ],
-
+        'members' => [
+            'driver' => 'eloquent',
+            'model'  => App\Models\Member::class,
+        ],
+        'clients' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Client::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
