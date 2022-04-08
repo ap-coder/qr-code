@@ -37,6 +37,8 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->middleware('guest:member')->except('logout');
+        $this->middleware('guest:client')->except('logout');
     }
 
     public function memberLogin(Request $request)
@@ -46,15 +48,15 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        if(auth()->guard('member')->attempt(['email' => request('email'), 'password' => request('password')])){
+        if(auth()->guard('member')->attempt(['email' => request('email'), 'password' => request('password')],$request->get('remember'))){
             
             $member = Member::select('members.*')->find(auth()->guard('member')->user()->id);
             $success =  $member;
 
             return redirect()->intended('qrcode/manage');
 
-        }else{ 
-            dd('error');
+        }else{
+            return redirect()->route('partners.qrcode-login')->with('message','Email-Address Or Password Are Wrong.');
         }
     }
 
