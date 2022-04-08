@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\Member;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -37,13 +39,24 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function memberLogin()
+    public function memberLogin(Request $request)
     {
-        return view('site.pages.qr-codes.login.index');
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if(auth()->guard('member')->attempt(['email' => request('email'), 'password' => request('password')])){
+            
+            $member = Member::select('members.*')->find(auth()->guard('member')->user()->id);
+            $success =  $member;
+
+            return redirect()->intended('qrcode/manage');
+
+        }else{ 
+            dd('error');
+        }
     }
 
-    public function memberSignup()
-    {
-        return view('site.pages.qr-codes.signup.index');
-    }
+    
 }

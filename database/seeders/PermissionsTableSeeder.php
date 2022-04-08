@@ -446,6 +446,11 @@ class PermissionsTableSeeder extends Seeder
                 'id'    => 109,
                 'title' => 'profile_password_edit',
             ],
+            [
+                'id'    => 110,
+                'title' => 'qrcode_portal_access',
+            ]
+           
         ];
 
         Permission::insert($permissions);

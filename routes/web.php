@@ -120,8 +120,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('app-promotions', 'AppPromotionController');
 });
 
-Route::get('member/login','Auth\LoginController@memberLogin')->name('member.login');
-Route::get('member/signup','Auth\LoginController@memberSignup')->name('member.signup');
+Route::post('member/login','Auth\LoginController@memberLogin')->name('member.login');
+
+Route::post('member/register','Auth\RegisterController@memberCreate')->name('member.register');
 
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password
@@ -132,3 +133,10 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
         Route::post('profile/destroy', 'ChangePasswordController@destroy')->name('password.destroyProfile');
     }
 });
+
+Route::group(['prefix' => 'qrcode', 'as' => 'qrcode.', 'namespace' => 'Frontend', 'middleware' => ['auth:member']], function () {
+    Route::get('manage', 'QrCodePortalController@index')->name('manage');
+});
+
+Route::get('partners/qr-code', 'SiteController@qrcode_portal_login')->name('partners.qrcode-login');
+

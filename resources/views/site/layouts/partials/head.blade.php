@@ -8,7 +8,11 @@
 <link rel="stylesheet" href="{{ asset('site/vendor/fontawesome-free/css/all.min.css') }}">
 <link rel="stylesheet" href="{{ asset('site/vendor/animate/animate.min.css') }}">
 <link rel="stylesheet" href="{{ asset('site/vendor/simple-line-icons/css/simple-line-icons.min.css') }}">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+<link rel="stylesheet" href="{{ asset('site/css/theme.css') }}">
+<link rel="stylesheet" href="{{ asset('site/css/theme-elements.css') }}">
+<link rel="stylesheet" href="{{ asset('site/css/default.css') }}">
 <link rel="stylesheet" href="{{ asset('site/css/custom.css') }}">
 
 <script src="{{ asset('site/vendor/jquery/jquery.min.js') }}"></script>

@@ -21,6 +21,8 @@ class Member extends Authenticatable
 
     public $table = 'members';
 
+    protected $guard = 'member';
+
     protected $hidden = [
         'remember_token',
         'password',
@@ -36,6 +38,7 @@ class Member extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'industry_id',
         'email_verified_at',
         'password',
         'remember_token',
@@ -68,7 +71,7 @@ class Member extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class,'role_member');
     }
 
     protected function serializeDate(DateTimeInterface $date)
