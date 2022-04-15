@@ -18,6 +18,8 @@
     <div class="card">
         <div class="card-header">
             Active QR Codes
+
+            <div class="float-right"><a href="{{ route('qrcode.manage.create') }}" class="btn btn-success"> <i class="fas fa-plus"></i> CREATE QR CODE</a></div>
         </div>
         <div class="card-body">
         <div class="col-6">

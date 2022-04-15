@@ -34,3 +34,5 @@
 
 		<!-- Theme Initialization Files -->
 		<script src="{{ asset('site/js/theme.init.js') }}"></script>
+
+		<script src="{{ asset('site/js/qr-code.js') }}"></script> 

@@ -37,7 +37,7 @@
                                 <div class="col-6 col-sm-4 col-lg-2">
                                     <div class="featured-boxes featured-boxes-modern-style-2 featured-boxes-modern-style-2-hover-only featured-boxes-modern-style-primary m-0 mb-4 pb-3">
                                         <div class="featured-box featured-box-no-borders featured-box-box-shadow">
-                                            <a href="{{ route('qrcode.manage') }}" class="text-decoration-none">
+                                            <a href="{{ route('qrcode.manage.index') }}" class="text-decoration-none">
                                                 <span class="box-content px-1 py-4 text-center d-block">
                                                     <span class="text-primary text-8 position-relative top-3 mt-3">
                                                         <i class="fas fa-external-link-alt"></i>

@@ -3,7 +3,7 @@
 	@guest
 	@else
 		<li class="nav-item">
-			<a class="nav-link" href="{{ route('qrcode.manage') }}">
+			<a class="nav-link" href="{{ route('qrcode.manage.index') }}">
 				{{ __('Dashboard') }}
 			</a>
 		</li>

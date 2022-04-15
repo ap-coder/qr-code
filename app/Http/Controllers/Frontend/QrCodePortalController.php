@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Gate;
+use App\Models\QrType;
+use App\Models\QrIndustry;
 
 class QrCodePortalController extends Controller
 {
@@ -28,7 +30,9 @@ class QrCodePortalController extends Controller
      */
     public function create()
     {
-        //
+        $qrTypes = QrType::published()->get();
+        $qrIndustries = QrIndustry::get();
+        return view('frontend.qrcode-portal.create',compact('qrTypes','qrIndustries'));
     }
 
     /**
@@ -85,5 +89,20 @@ class QrCodePortalController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getTypePreview(Request $request)
+    {
+        $qrType=QrType::where('id',$request->id)->first();
+
+        $data['icon']=$qrType->icon_class;
+
+        if ($qrType->mock_image) {
+            $data['mock_image']=$qrType->mock_image->getUrl();
+        }
+        if ($qrType->hover_over_image) {
+            $data['hover_over_image']=$qrType->hover_over_image->getUrl();
+        }
+        echo json_encode($data);
     }
 }

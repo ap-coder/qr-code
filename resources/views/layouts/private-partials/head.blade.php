@@ -1,4 +1,6 @@
 	<head>
+		<input type="hidden" id="basUrl" name="basUrl" value="{{ url('') }}/">
+		<meta name="csrf-token" content="{{ csrf_token() }}" />
 		<!-- Web Fonts  -->
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CShadows+Into+Light" rel="stylesheet" type="text/css">
 		<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Permanent+Marker&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
@@ -29,6 +31,7 @@
 
 		<!-- Theme Custom CSS -->
 		<link rel="stylesheet" href="{{ asset('site/css/custom.css') }}">
+		<link rel="stylesheet" href="{{ asset('site/css/qr-code.css') }}">
 
 		
 

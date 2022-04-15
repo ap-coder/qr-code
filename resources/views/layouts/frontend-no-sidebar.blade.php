@@ -24,15 +24,18 @@
 				</div>
 			</section>
 
+			
 			<div class="container py-5">
 				<div class="row">
-
-						<div class="col-lg-12 order-1 order-lg-2">
+					<div class="col-lg-12 order-1 order-lg-2">
+						@if(\Route::current()->getName()=='qrcode.manage.index')
 							@include('layouts.private-partials.topnav.qrcode')
-							@yield('content')
-						</div>
+						@endif
+						@yield('content')
 					</div>
 				</div>
+			</div>
+			
 		</div>
 	</div>
 </body>
