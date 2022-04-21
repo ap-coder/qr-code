@@ -28,7 +28,10 @@
 		<!-- Current Page Vendor and Views -->
 		<script src="{{ asset('site/vendor/circle-flip-slideshow/js/jquery.flipshow.min.js') }}"></script>
 
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.3.3/js/bootstrap-colorpicker.min.js"></script>
 
+		<script src="{{ asset('site/slick/slick.js') }}" type="text/javascript" charset="utf-8"></script>
+		
 		<!-- Theme Custom -->
 		<script src="{{ asset('site/js/custom.js') }}"></script>
 

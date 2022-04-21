@@ -28,11 +28,13 @@
         </div>
     </div> --}}
 
-    <div class="row mb-5">
+    <div class="generator-row">
 
-        @include('frontend.qrcode-portal.partials.stepone')
+        {{-- @include('frontend.qrcode-portal.partials.stepone')
 
-        @include('frontend.qrcode-portal.partials.websiteStep')
+        @include('frontend.qrcode-portal.partials.websiteStep') --}}
+
+        @include('frontend.qrcode-portal.partials.socialMediaStep')
 
         @include('frontend.qrcode-portal.partials.footerGenerator')
 
@@ -44,4 +46,10 @@
 
 @section('scripts')
     @parent
+
+    <script>
+        $('.color-picker').colorpicker({
+            
+        });
+    </script>
 @endsection

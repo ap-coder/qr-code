@@ -5,12 +5,12 @@
     <div class="table-cell-middle">
         <div class="container" style="width: 100%;">
             <div class="col-lg-12 col-xs-12">
-                <div class="row firststep">
+                <div class="row firststep" style="display: block;">
                     <div class="section-content section-content_generator-footer">
                         <div class="grid">
                             <div class="col">
                                 <div class="col-lg-12">
-                                    <button class="btn green lc big btn-generator-next pull-right col-lg-6 btn_create_next ladda-button" data-test="creation-button-next" data-style="expand-left">
+                                    <button class="btn green lc big btn-generator-next pull-right col-lg-6 btn_create_next ladda-button" data-test="creation-button-next" data-style="expand-left" type="0" disabled>
                                         <div class="sk-three-bounce">
                                             <div class="sk-child sk-bounce1"></div>
                                             <div class="sk-child sk-bounce2"></div>
@@ -24,13 +24,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="row secondstep">
+                <div class="row secondstep" style="display:none;">
                     <div class="section-content section-content_generator-footer">
                         <div class="grid">
                             <div class="col footer__left">
                                 <button class="btn lc btn-generator-prev pull-left"><i class="fas fa-chevron-left  pull-left"></i> Back</button>
                                 
-                                <button type="button" class="btn green lc big block btn-generator-save-directly pull-right col-lg-6 ladda-button" data-style="expand-left"><span class="ladda-label">Next</span><span class="ladda-spinner"></span></button>
+                                <button type="button" class="btn green lc big block btn-generator-save-directly pull-right col-lg-6 ladda-button" data-style="expand-left">
+                                    <div class="sk-three-bounce">
+                                        <div class="sk-child sk-bounce1"></div>
+                                        <div class="sk-child sk-bounce2"></div>
+                                        <div class="sk-child sk-bounce3"></div>
+                                    </div>
+                                    <span class="ladda-label">Next</span>
+                                </button>
                             </div>
                             
                         </div>
