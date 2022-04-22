@@ -7,7 +7,7 @@
                 </div>
                 <div class="section-title__name">
                     <input type="text" name="qrcode_title" id="qrcode_title_2" class="input--title-editing"
-                        placeholder="My Website QR Code">
+                        placeholder="My Social Media QR Code">
                     <label class="section-title__label" for="qrcode_title_2">Name your QR Code</label>
                     <span class="btn-help-icon section-title__icon_tooltip" rel="tooltip" data-trigger="hover"
                         data-placement="left"
@@ -18,6 +18,7 @@
         
             @include('frontend.qrcode-portal.partials.social-media.design-customizations')    
             @include('frontend.qrcode-portal.partials.social-media.basic-information')    
+            @include('frontend.qrcode-portal.partials.social-media.social-media-channels')    
 
         </form>
     </div>

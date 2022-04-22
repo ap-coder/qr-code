@@ -2082,3 +2082,91 @@ code__url a {
     overflow: auto;
     resize: vertical;
 }
+
+.ml-10 {
+    margin-left: 10px !important;
+}
+
+div[class^='channel-bgd-'] {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    float: right;
+    margin-top: -10px;
+    text-align: center;
+    position: relative;
+}
+
+div[class^='channel-bgd-'] i {
+    position: absolute;
+    font-size: 18px;
+    color: #fff;
+    line-height: 41px;
+    left: 11px;
+}
+
+.channel-bgd-website {
+    background: #616568;
+}
+
+.channels-container .input-group {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.channels-container .input-group .input-group-addon {
+    width: 95px;
+    background: #f7f7f7;
+    border-width: 2px;
+    border-color: #eaeaea;
+    font-size: 15px;
+    color: #797d80;
+    font-weight: 500;
+    border-radius: 2px;
+}
+
+.input-group-addon:first-child {
+    border-right: 0;
+}
+
+ul.channels-list {
+    padding: 0;
+}
+
+.channels-list li {
+    display: inline-block;
+    font-size: 22px;
+    color: #797d80;
+    cursor: pointer;
+    margin-right: 30px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.mt-10 {
+    margin-top: 10px !important;
+}
+
+.mb-20 {
+    margin-bottom: 20px !important;
+}
+
+.channels-list li:hover {
+    color: #AE2025;
+}
+
+.channels-list .channel-icon-name {
+    display: none;
+    font-size: 14px;
+    color: #AE2025;
+    position: absolute;
+    bottom: -20px;
+    left: -40px;
+    min-width: 100px;
+    text-align: center;
+    width: 100%;
+}
+
+.channels-list li:hover .channel-icon-name {
+    display: block;
+}

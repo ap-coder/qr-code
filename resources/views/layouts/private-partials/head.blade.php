@@ -7,6 +7,7 @@
 		<!-- Vendor CSS -->
 		<link rel="stylesheet" href="{{ asset('site/vendor/bootstrap/css/bootstrap.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('site/vendor/fontawesome-free/css/all.min.css') }}">
+		{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"> --}}
 		<link rel="stylesheet" href="{{ asset('site/vendor/animate/animate.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('site/vendor/simple-line-icons/css/simple-line-icons.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('site/vendor/owl.carousel/assets/owl.carousel.min.css') }}">
