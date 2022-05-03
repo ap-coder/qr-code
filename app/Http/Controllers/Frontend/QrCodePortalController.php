@@ -105,4 +105,15 @@ class QrCodePortalController extends Controller
         }
         echo json_encode($data);
     }
+
+    public function getsocialchannel(Request $request)
+    {
+        $type=$request->type;
+
+        $html = view('frontend.qrcode-portal.partials.common.'.$type)->render();
+
+        $data['html']=$html;
+
+        echo json_encode($data);
+    }
 }

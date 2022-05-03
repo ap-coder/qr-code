@@ -193,6 +193,44 @@ $(document).ready(function() {
 
     });
 
+    $('ul.channels-list li').click(function() {
+
+        var type = $(this).attr('type');
+
+        var _token = $('meta[name="csrf-token"]').attr('content');
+
+        $.ajax({
+            url: basUrl + "qrcode/getsocialchannel",
+            method: "POST",
+            dataType: 'Json',
+            data: {
+                type: type,
+                _token: _token
+            },
+            success: function(response) {
+
+                $('.channel-row').append(response.html);
+                $('.btn-help-icon').tooltip();
+            }
+        })
+
+    });
+
+    $(document).on('click', '.control-remove .fa-times', function() {
+        $(this).parents('.channels-container').remove();
+    });
+
+    $(document).on('click', '.control-arrange i', function() {
+        var parentDiv = $(this).parents('.channels-container'),
+            dir = $(this).attr('sort');
+
+        if (dir === 'up') {
+            parentDiv.insertBefore(parentDiv.prev())
+        } else if (dir === 'down') {
+            parentDiv.insertAfter(parentDiv.next())
+        }
+    });
+
     // $('.color-picker-circle-input').change(function() {
 
     //     var color = $(this).val();

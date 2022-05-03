@@ -2109,6 +2109,128 @@ div[class^='channel-bgd-'] i {
     background: #616568;
 }
 
+.channel-bgd-facebook {
+    background: #3b5998;
+}
+
+.channel-bgd-youtube {
+    background: #cd201f;
+}
+
+.channel-bgd-twitter {
+    background: #1da1f2;
+}
+
+.channel-bgd-instagram {
+    background: #e1306c;
+}
+
+.channel-bgd-whatsapp {
+    background: #25d366;
+}
+
+.channel-bgd-tiktok {
+    background: #000;
+}
+
+.channel-bgd-snapchat {
+    background: #fffc00;
+}
+
+.channel-bgd-telegram {
+    background: linear-gradient(180deg, #2AABEE 0%, #229ED9 99.26%);
+}
+
+.channel-bgd-messenger {
+    background: radial-gradient(108.96% 108.96% at 19.25% 99.47%, #002FFF 0%, #A033FF 60.98%, #FF5280 93.48%, #FF7061 100%);
+}
+
+.channel-bgd-yelp {
+    background: #F43939;
+}
+
+.channel-bgd-googlereview {
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+}
+
+.channel-bgd-pinterest {
+    background: #bd081c;
+}
+
+.channel-bgd-linkedin {
+    background: #0077b5;
+}
+
+.channel-bgd-xing {
+    background: #026466;
+}
+
+.channel-bgd-flickr {
+    background: #ff0084;
+}
+
+.channel-bgd-vimeo {
+    background: #1ab7ea;
+}
+
+.channel-bgd-dribbble {
+    background: #ea4c89;
+}
+
+.channel-bgd-vkontakte {
+    background: #45668e;
+}
+
+.channel-bgd-reddit {
+    background: #ff4500;
+}
+
+.channel-bgd-tumblr {
+    background: #35465c;
+}
+
+.channel-bgd-github {
+    background: #191717;
+}
+
+.channel-bgd-soundcloud {
+    background: linear-gradient(180deg, #F79810 0%, #F8310E 100%);
+}
+
+.channel-bgd-spotify {
+    background: #1ED760;
+}
+
+.channel-bgd-skype {
+    background: #00aff0;
+}
+
+.channel-bgd-tripadvisor {
+    background: #589442;
+}
+
+.channel-bgd-line {
+    background: #00c300;
+}
+
+.channel-bgd-googlereview i {
+    color: #4285F4 !important;
+}
+
+.channel-bgd-snapchat i {
+    color: #000 !important;
+}
+
+.input-group__tooltip-icon {
+    font-size: 19px;
+    color: #D4D4D4;
+    position: absolute;
+    z-index: 23;
+    top: 13px;
+    right: 15px;
+}
+
 .channels-container .input-group {
     width: 100%;
     margin-bottom: 12px;
@@ -2169,4 +2291,38 @@ ul.channels-list {
 
 .channels-list li:hover .channel-icon-name {
     display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.channel-row {
+    width: 100%;
+}
+
+.channel-controller {
+    display: none;
+    position: absolute;
+    z-index: 99;
+    right: 0;
+    top: 0;
+}
+
+.channel-controller i {
+    font-size: 14px;
+    color: #a4a6a8;
+    cursor: pointer;
+}
+
+.channels-container:hover .channel-controller {
+    display: block;
+}
+
+.channels-container {
+    float: left;
+    width: 105%;
+    margin-bottom: 13px;
+    padding-right: 5%;
+    position: relative;
 }

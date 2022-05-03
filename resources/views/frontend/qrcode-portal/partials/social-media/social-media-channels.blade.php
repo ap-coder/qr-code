@@ -17,32 +17,15 @@
                 <div class="col-lg-offset-1 col-sm-12 col-lg-11 mb-10">
                     <p class="section-subheadline">Add your username or links to social media pages below. Delete a channel or use the arrows to rearrange the order of the links as they appear.</p>
                 </div>
-
-                <div class="row col-md-12 mb-10 channels-container">
-                    <div class="col-sm-12 col-md-3 box-label">
-                        Website:
-                        <span class="ml-10">
-                            <div class="channel-bgd-website">
-                                <i class="fas fa-globe"></i>
-                            </div>
-                        </span>
-                    </div>
-                    <div class="col-sm-12 col-md-8 channel-input-container">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="prefix-addon0">
-                                URL *
-                            </span>
-                            <input type="text" class="form-control" placeholder="www.mywebsite.com" required="required" id="channelInput-0" name="channelInput-0">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon" id="label-addon0">Text</span>
-                            <input type="text" class="form-control" placeholder="Visit our website" id="formly__qr_media_channels_channels_0" name="formly__qr_media_channels_channels_0">
-                        </div>
-                    </div>
-
-                    @include('frontend.qrcode-portal.partials.social-icons')
-
+                
+                <div class="channel-row">
+                    @include('frontend.qrcode-portal.partials.common.website')
+                    @include('frontend.qrcode-portal.partials.common.facebook')
+                    @include('frontend.qrcode-portal.partials.common.youtube')
                 </div>
+
+                @include('frontend.qrcode-portal.partials.common.social-icons')
+
                 
             </div>
         </div>
