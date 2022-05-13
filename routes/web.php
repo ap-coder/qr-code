@@ -138,7 +138,9 @@ Route::group(['prefix' => 'qrcode', 'as' => 'qrcode.', 'namespace' => 'Frontend'
     Route::resource('manage', 'QrCodePortalController');
     Route::post('getTypePreview', 'QrCodePortalController@getTypePreview')->name('manage.getTypePreview');
     Route::post('getsocialchannel', 'QrCodePortalController@getsocialchannel')->name('manage.getsocialchannel');
+    Route::post('crop-image-upload', 'QrCodePortalController@uploadCropImage')->name('manage.uploadCropImage');
 });
 
 Route::get('partners/qr-code', 'SiteController@qrcode_portal_login')->name('partners.qrcode-login');
+Route::get('social-media-preview', 'QrCodePreviewContoller@socialMediaPreview')->name('qrcode.social-media-preview');
 

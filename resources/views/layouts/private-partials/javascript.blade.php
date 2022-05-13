@@ -32,6 +32,8 @@
 
 		<script src="{{ asset('site/slick/slick.js') }}" type="text/javascript" charset="utf-8"></script>
 		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
+		
 		<!-- Theme Custom -->
 		<script src="{{ asset('site/js/custom.js') }}"></script>
 

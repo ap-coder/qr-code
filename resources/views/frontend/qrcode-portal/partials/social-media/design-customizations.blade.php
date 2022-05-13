@@ -153,7 +153,7 @@
 
                                                 <div class="input-group color-picker colorpicker-element color-picker-circle">
                                                     <input type="text" class="form-control color-picker-circle-input" value="">
-                                                    <span class="input-group-addon" id="myaddoncolor">
+                                                    <span class="input-group-addon">
                                                         
                                                     </span>
                                                 </div>
@@ -181,8 +181,14 @@
                                                 <div class="custom-colors-square"
                                                     style="background-color: rgb(121, 0, 0);"></div>
 
-                                                <div class="input-group color-picker colorpicker-element color-picker-circle color-selected">
+
+                                                <div class="input-group color-picker colorpicker-element color-picker-circle">
+                                                    <input type="text" class="form-control color-picker-circle-input" value="">
+                                                    <span class="input-group-addon">
+                                                        
+                                                    </span>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -206,8 +212,12 @@
                                                 <div class="custom-colors-square"
                                                     style="background-color: rgb(121, 0, 0);"></div>
 
-                                                <div class="input-group color-picker colorpicker-element color-picker-circle color-selected">
-                                                </div>
+                                                    <div class="input-group color-picker colorpicker-element color-picker-circle">
+                                                        <input type="text" class="form-control color-picker-circle-input" value="">
+                                                        <span class="input-group-addon">
+                                                            
+                                                        </span>
+                                                    </div>
                                             </div>
                                         </div>
                                     </div>

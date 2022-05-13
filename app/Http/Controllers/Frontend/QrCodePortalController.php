@@ -114,6 +114,53 @@ class QrCodePortalController extends Controller
 
         $data['html']=$html;
 
+        $socialChannel='<a target="_self" class="channel-container"
+        id="channel-item-'.$type.'" href="#channel-item-'.$type.'">
+            <div class="pl-55 pos-relative">
+                <div class="channel-bgd-'.$type.' channel-bgd">
+                    <i class="fab fa-'.$type.'"></i>
+                </div>
+                <div class="channel-prop-container pull-left">
+                    <span>
+                    <span>
+                            <div class="channel-name mb-5">
+                                Watch our videos
+                            </div>
+                            <div class="channel-label">
+                                www.youtube.com/user/mychannel
+                            </div>
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </a>';
+
+        $data['channel']=$socialChannel;
+
         echo json_encode($data);
+    }
+
+    public function uploadCropImage(Request $request)
+    {
+        $folderPath = public_path('upload/');
+ 
+        $image_parts = explode(";base64,", $request->image);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        $image_base64 = base64_decode($image_parts[1]);
+ 
+        $imageName = uniqid() . '.png';
+ 
+        $imageFullPath = $folderPath.$imageName;
+
+        // dd($imageFullPath);
+ 
+        file_put_contents($imageFullPath, $image_base64);
+ 
+        //  $saveFile = new Picture;
+        //  $saveFile->name = $imageName;
+        //  $saveFile->save();
+    
+        return response()->json(['success'=>'Crop Image Uploaded Successfully']);
     }
 }

@@ -30,9 +30,9 @@
 
     <div class="generator-row">
 
-        {{-- @include('frontend.qrcode-portal.partials.stepone')
+        @include('frontend.qrcode-portal.partials.stepone')
 
-        @include('frontend.qrcode-portal.partials.websiteStep') --}}
+        @include('frontend.qrcode-portal.partials.websiteStep')
 
         @include('frontend.qrcode-portal.partials.socialMediaStep')
 

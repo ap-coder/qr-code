@@ -31,6 +31,8 @@
 		<link rel="stylesheet" href="{{ asset('site/slick/slick.css') }}">
 		<link rel="stylesheet" href="{{ asset('site/slick/slick-theme.css') }}">
 
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css"/>
+		
 		<!-- Skin CSS -->
 		{{-- <link rel="stylesheet" href="{{ asset('site/css/skins/default.css') }}"> --}}
 		<link rel="stylesheet" href="{{ asset('site/css/default.css') }}">

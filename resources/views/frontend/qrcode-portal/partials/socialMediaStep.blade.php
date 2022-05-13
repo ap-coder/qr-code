@@ -1,4 +1,4 @@
-<div class="row" type="2" id="stepform2">
+<div class="row" type="2" id="stepform2" style="display: none;">
     <div class="col-md-8">
         <form action="">
             <div class="section-title">
@@ -19,6 +19,8 @@
             @include('frontend.qrcode-portal.partials.social-media.design-customizations')    
             @include('frontend.qrcode-portal.partials.social-media.basic-information')    
             @include('frontend.qrcode-portal.partials.social-media.social-media-channels')    
+            @include('frontend.qrcode-portal.partials.social-media.welcome-screen')    
+            @include('frontend.qrcode-portal.partials.social-media.advanced-options')    
 
         </form>
     </div>
@@ -29,25 +31,10 @@
             <button type="button" class="btn qrcodetab">QR Code</button>
         </div>
         <div class="preview-smartphone clearfix active mockup__smartphone">
-            <div class="preview-smartphone-wrapper noVideo mockup__smartphone-wrapper" style="display: block;">
+            <div class="preview-smartphone-wrapper mockup__smartphone-wrapper social-media-preview" style="display: block;">
                 <div id="smartphonePlaceholder" class="placeholder ratchet">
                     <div class="template template-url">
-                        <header class="bar bar-nav">
-                            <div class="pure-g">
-                                <div class="browser-input pure-u-5-6"></div>
-                                <div class="browser-refresh pure-u-1-6">
-                                </div>
-                            </div>
-                        </header>
-
-                        <div class="text-center content template_url" style="padding-top:200px;background-image:none;">
-                            <div class="arrow_box">
-                                <span>Some QR Codes types will show a live preview here but not this one. View and test
-                                    your
-                                    QR Code in the next step!</span>
-                            </div>
-                            <img src="{{ asset('site/img/CodyE_PointingLeft.svg') }}">
-                        </div>
+                        <iframe src="{{ route('qrcode.social-media-preview') }}" frameborder="0"></iframe>
                     </div>
                 </div>
             </div>

@@ -155,6 +155,9 @@ $(document).ready(function() {
         $('#primary_color').trigger('change');
         $('#button_color').trigger('change');
 
+        $('.social-media-preview iframe').contents().find('.event-section-title').css({ 'background': c1 });
+        $('.social-media-preview iframe').contents().find('.fabshare').css({ 'background': c2 });
+
     });
 
     $('.colorswapper').click(function() {
@@ -166,6 +169,38 @@ $(document).ready(function() {
         $('#primary_color').trigger('change');
         $('#button_color').trigger('change');
 
+        $('.social-media-preview iframe').contents().find('.event-section-title').css({ 'background': c2 });
+        $('.social-media-preview iframe').contents().find('.fabshare').css({ 'background': c1 });
+
+    });
+
+    $('.colorpicker').on('click', function() {
+        var c1 = $('#primary_color').val();
+        var c2 = $('#button_color').val();
+        var circleColor = $('.show-custom-color .color-picker-circle-input').val();
+
+        $('.social-media-preview iframe').contents().find('.event-section-title').css({ 'background': c1 });
+        $('.social-media-preview iframe').contents().find('.fabshare').css({ 'background': c2 });
+        $('.social-media-preview iframe').contents().find('.avatar-container').css({ 'background-color': circleColor });
+        $('.custom-image-border.color-selected div').css('background-color', circleColor);
+    });
+
+    $('#formly_qrinput_title').on('keyup', function() {
+        var text = $(this).val();
+        $('.social-media-preview iframe').contents().find('.event-title').text(text);
+    });
+
+    $('#formly_qrinput_textarea_teaser').on('keyup', function() {
+        var text = $(this).val();
+        $('.social-media-preview iframe').contents().find('.event-teaser').text(text);
+    });
+
+    $('#share_button').change(function() {
+        if ($(this).is(':checked')) {
+            $('.social-media-preview iframe').contents().find('#shareFab').show();
+        } else {
+            $('.social-media-preview iframe').contents().find('#shareFab').hide();
+        }
     });
 
     $('.custom-image-border').click(function() {
@@ -176,14 +211,27 @@ $(document).ready(function() {
         $('.custom-color-container').removeClass('show-custom-color');
         $(this).next('.custom-color-container').addClass('show-custom-color');
 
+        var image = $(this).find('div').css("mask-image");
+        var bgColor = $(this).find('div').css("background-color");
+
+        var imgUrl = image.replace(/(?:^url\(["']?|["']?\)$)/g, "");
+        var imgArray = image.replace(/(?:^url\(["']?|["']?\)$)/g, "").split('/');
+        var fileName = imgArray[imgArray.length - 1];
+        console.log('imgUrl', imgUrl);
+
+        $('.social-media-preview iframe').contents().find('.avatar-container').css({ '-webkit-mask-image': 'url(' + imgUrl + ')', 'background-color': bgColor });
+
     });
 
     $('.custom-colors-square').click(function() {
 
-        var color = $(this).css("background-color");
-        $('.custom-image-border.color-selected div').css('background-color', color);
+        var bgColor = $(this).css("background-color");
+        $('.custom-image-border.color-selected div').css('background-color', bgColor);
+
+        $('.social-media-preview iframe').contents().find('.avatar-container').css({ 'background-color': bgColor });
 
     });
+
 
     $('.aboutSocialMedia').keydown(function() {
 
@@ -209,8 +257,11 @@ $(document).ready(function() {
             },
             success: function(response) {
 
+                $('.social-media-preview iframe').contents().find('#devent-details').append(response.channel);
+
                 $('.channel-row').append(response.html);
                 $('.btn-help-icon').tooltip();
+
             }
         })
 
@@ -231,33 +282,79 @@ $(document).ready(function() {
         }
     });
 
-    // $('.color-picker-circle-input').change(function() {
+    $(".welcomeImage, .croppreviewimage, .changeWelcomeImage").click(function() {
+        $("input[id='welcome_image']").click();
+    });
 
-    //     var color = $(this).val();
-    //     alert(color);
-    //     $('.custom-image-border.color-selected div').css('background-color', color);
+    var $modal = $('#modal');
+    var image = document.getElementById('cropimage');
+    var cropper;
+    $("body").on("change", "#welcome_image", function(e) {
+        var files = e.target.files;
+        var done = function(url) {
+            image.src = url;
+            $modal.modal({
+                show: true,
+                backdrop: 'static',
+                keyboard: false
+            });
+        };
+        var reader;
+        var file;
+        var url;
+        if (files && files.length > 0) {
+            file = files[0];
+            if (URL) {
+                done(URL.createObjectURL(file));
+            } else if (FileReader) {
+                reader = new FileReader();
+                reader.onload = function(e) {
+                    done(reader.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    });
+    $modal.on('shown.bs.modal', function() {
+        cropper = new Cropper(image, {
+            // aspectRatio: 1,
+            viewMode: 1,
+            preview: '.croppreview'
+        });
+    }).on('hidden.bs.modal', function() {
+        cropper.destroy();
+        cropper = null;
+    });
+    $("#crop").click(function() {
+        canvas = cropper.getCroppedCanvas({
+            width: 160,
+            height: 160,
+        });
+        canvas.toBlob(function(blob) {
+            url = URL.createObjectURL(blob);
+            var reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = function() {
+                var base64data = reader.result;
 
-    // });
+                var _token = $('meta[name="csrf-token"]').attr('content');
 
-    // $("#myaddoncolor").on("propertychange change click keyup input paste", function() {
-    //     alert();
-    // });
-
-    // $('#primary_color').change(function() {
-    //     alert();
-    //     // $('.colors-list li a').removeClass('active');
-
-    // });
-
-    // $('#button_color').blur(function() {
-
-    //     $('.colors-list li a').removeClass('active');
-
-    // });
-
-
-
-
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: basUrl + "qrcode/crop-image-upload",
+                    data: { '_token': _token, 'image': base64data },
+                    success: function(data) {
+                        console.log(data);
+                        $modal.modal('hide');
+                        $('.croppreviewimage img').attr('src', base64data);
+                        $('.croppreviewimage').show();
+                        // alert("Crop image successfully uploaded");
+                    }
+                });
+            }
+        });
+    })
 
 
     function isUrlValid(userInput) {
