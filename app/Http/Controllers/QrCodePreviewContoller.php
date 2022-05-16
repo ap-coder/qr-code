@@ -8,6 +8,6 @@ class QrCodePreviewContoller extends Controller
 {
     public function socialMediaPreview()
     {
-        return view('frontend.qrcode-portal.partials.social-media.preview');
+        return view('site.qrcode-portal.partials.social-media.preview');
     }
 }

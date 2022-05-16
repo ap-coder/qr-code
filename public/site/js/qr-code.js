@@ -14,7 +14,7 @@ $(document).ready(function() {
         var _token = $('meta[name="csrf-token"]').attr('content');
 
         $.ajax({
-            url: basUrl + "qrcode/getTypePreview",
+            url: basUrl + "getTypePreview",
             method: "POST",
             dataType: 'Json',
             data: {
@@ -248,7 +248,7 @@ $(document).ready(function() {
         var _token = $('meta[name="csrf-token"]').attr('content');
 
         $.ajax({
-            url: basUrl + "qrcode/getsocialchannel",
+            url: basUrl + "getsocialchannel",
             method: "POST",
             dataType: 'Json',
             data: {
@@ -342,7 +342,7 @@ $(document).ready(function() {
                 $.ajax({
                     type: "POST",
                     dataType: "json",
-                    url: basUrl + "qrcode/crop-image-upload",
+                    url: basUrl + "crop-image-upload",
                     data: { '_token': _token, 'image': base64data },
                     success: function(data) {
                         console.log(data);
