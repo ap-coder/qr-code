@@ -1,7 +1,7 @@
-<div class="row col-md-12 mb-10 channels-container tiktok-container">
+<div class="row col-md-12 mb-10 channels-container tiktok-container" random="{{ $rand ?? 0 }}">
     
     <div class="col-sm-12 col-md-4 box-label">
-        TikTok:
+        <span>TikTok</span>:
         <span class="ml-10">
             <div class="channel-bgd-tiktok">
                 <i class="fab fa-tiktok"></i>

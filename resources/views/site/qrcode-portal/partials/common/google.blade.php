@@ -1,7 +1,7 @@
-<div class="row col-md-12 mb-10 channels-container google-container">
+<div class="row col-md-12 mb-10 channels-container google-container" random="{{ $rand ?? 0 }}">
     
     <div class="col-sm-12 col-md-4 box-label">
-        Google Review:
+        <span>Google Review</span>:
         <span class="ml-10">
             <div class="channel-bgd-googlereview">
                 <i class="fab fa-google"></i>

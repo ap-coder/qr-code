@@ -121,16 +121,16 @@ class QrCodePortalController extends Controller
         id="channel-item-'.$type.'" href="#channel-item-'.$type.'" random="'.$rand.'">
             <div class="pl-55 pos-relative">
                 <div class="channel-bgd-'.$type.' channel-bgd">
-                    <i class="fab fa-'.$type.'"></i>
+                    <i class=""></i>
                 </div>
                 <div class="channel-prop-container pull-left">
                     <span>
                     <span>
                             <div class="channel-name mb-5">
-                                Watch our videos
+                                
                             </div>
                             <div class="channel-label">
-                                www.youtube.com/user/mychannel
+                                
                             </div>
                         </span>
                     </span>
@@ -139,6 +139,7 @@ class QrCodePortalController extends Controller
         </a>';
 
         $data['channel']=$socialChannel;
+        $data['random']=$rand;
 
         echo json_encode($data);
     }

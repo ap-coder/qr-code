@@ -1,7 +1,7 @@
-<div class="row col-md-12 mb-10 channels-container flickr-container">
+<div class="row col-md-12 mb-10 channels-container flickr-container"  random="{{ $rand ?? 0 }}">
     
     <div class="col-sm-12 col-md-4 box-label">
-        Flickr:
+        <span>Flickr</span>:
         <span class="ml-10">
             <div class="channel-bgd-flickr">
                 <i class="fab fa-flickr"></i>

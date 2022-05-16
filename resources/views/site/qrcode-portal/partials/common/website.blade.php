@@ -1,7 +1,7 @@
 <div class="row col-md-12 mb-10 channels-container website-container"  random="{{ $rand ?? 1 }}">
 
     <div class="col-sm-12 col-md-4 box-label">
-        Website:
+        <span>Website</span>:
         <span class="ml-10">
             <div class="channel-bgd-website">
                 <i class="fas fa-globe"></i>

@@ -1,7 +1,7 @@
 <div class="row col-md-12 mb-10 channels-container youtube-container" random="{{ $rand ?? 3 }}">
     
     <div class="col-sm-12 col-md-4 box-label">
-        YouTube:
+        <span>YouTube</span>:
         <span class="ml-10">
             <div class="channel-bgd-youtube">
                 <i class="fab fa-youtube"></i>

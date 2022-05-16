@@ -1,7 +1,7 @@
-<div class="row col-md-12 mb-10 channels-container snapchat-container">
+<div class="row col-md-12 mb-10 channels-container snapchat-container" random="{{ $rand ?? 0 }}">
     
     <div class="col-sm-12 col-md-4 box-label">
-        Snapchat:
+        <span>Snapchat</span>:
         <span class="ml-10">
             <div class="channel-bgd-snapchat">
                 <i class="fab fa-snapchat"></i>

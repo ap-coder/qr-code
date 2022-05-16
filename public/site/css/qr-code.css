@@ -2003,6 +2003,57 @@ code__url a {
     background: #f4f4f4 !important;
 }
 
+.box-label small {
+    display: block;
+    padding-top: 8px;
+    font-size: 12px;
+    color: #a4a6a8;
+    font-weight: 400;
+}
+
+.uploadImageText {
+    width: 273px;
+    height: 152px;
+    background-size: 100% !important;
+    margin: 20px auto 0;
+    background: url(#) 0% 0% / 100% no-repeat rgb(245, 248, 250);
+    border-radius: 0px;
+    border: 1px #eaeaea solid !important;
+    cursor: pointer;
+}
+
+.uploadImageText span {
+    position: absolute;
+    top: calc(50% - 10px);
+    font-size: 15px;
+    text-align: center;
+    width: 100%;
+    color: #a4a6a8;
+    left: 0;
+    right: 0;
+}
+
+.uploadImageButtons {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.show-default-img-btn {
+    color: #47bdef;
+    text-align: center;
+    margin-top: 10px;
+    float: left;
+    width: 100%;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.text-slim {
+    color: #a4a6a8;
+    font-size: 14px;
+    font-weight: 400;
+}
+
 
 /* .slick-slide {
     transition: all ease-in-out .3s;

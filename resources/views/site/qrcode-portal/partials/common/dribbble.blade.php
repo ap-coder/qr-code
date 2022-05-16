@@ -1,7 +1,7 @@
-<div class="row col-md-12 mb-10 channels-container dribbble-container">
+<div class="row col-md-12 mb-10 channels-container dribbble-container"  random="{{ $rand ?? 0 }}">
     
     <div class="col-sm-12 col-md-4 box-label">
-        Dribbble:
+        <span>Dribbble</span>:
         <span class="ml-10">
             <div class="channel-bgd-dribbble">
                 <i class="fab fa-dribbble"></i>

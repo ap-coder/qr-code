@@ -1,7 +1,7 @@
-<div class="row col-md-12 mb-10 channels-container pinterest-container">
+<div class="row col-md-12 mb-10 channels-container pinterest-container" random="{{ $rand ?? 0 }}">
     
     <div class="col-sm-12 col-md-4 box-label">
-        Pinterest:
+        <span>Pinterest</span>:
         <span class="ml-10">
             <div class="channel-bgd-pinterest">
                 <i class="fab fa-pinterest"></i>

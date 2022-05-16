@@ -55,6 +55,12 @@ $(document).ready(function() {
         $('.firststep').hide();
         $('.secondstep').show();
         $('#stepform' + type).show();
+
+        if ($('.photos-gallery-carousel').hasClass('slick-initialized'))
+            $('.photos-gallery-carousel').slick('setPosition');
+        else
+            initSlider();
+
     });
 
     $('.btn-generator-prev').click(function() {
@@ -257,9 +263,38 @@ $(document).ready(function() {
             },
             success: function(response) {
 
+                $('.channel-row').append(response.html);
+
+                var url = $(response.html).find('input:first').attr('placeholder');
+                var text = $(response.html).find('input:last').attr('placeholder');
+                var title = $(response.html).find('.box-label span:first').text();
+                var icon = $(response.html).find('.channel-bgd-' + type + ' i').attr('class');
+
+                // var channel = response.channel;
+                // channel = $(channel).find('.channel-bgd-' + type + ' i').addClass(icon);
+
+                // if (type == 'website') {
+                //     channel = $(channel).find('.channel-name').text(title);
+                //     channel = $(channel).find('.channel-label').text(text);
+                // } else {
+                //     channel = $(channel).find('.channel-name').text(text);
+                //     channel = $(channel).find('.channel-label').text(url);
+                // }
+
+
                 $('.social-media-preview iframe').contents().find('#devent-details').append(response.channel);
 
-                $('.channel-row').append(response.html);
+                $('.social-media-preview iframe').contents().find('#devent-details [random="' + response.random + '"] .channel-bgd-' + type + ' i').addClass(icon);
+
+                if (type == 'website') {
+                    $('.social-media-preview iframe').contents().find('#devent-details [random="' + response.random + '"] .channel-name').text(text);
+                    $('.social-media-preview iframe').contents().find('#devent-details [random="' + response.random + '"] .channel-label').text(url);
+                } else {
+                    $('.social-media-preview iframe').contents().find('#devent-details [random="' + response.random + '"] .channel-name').text(title);
+                    $('.social-media-preview iframe').contents().find('#devent-details [random="' + response.random + '"] .channel-label').text(text);
+                }
+
+
                 $('.btn-help-icon').tooltip();
 
             }
@@ -268,18 +303,29 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.control-remove .fa-times', function() {
+        var rand = $(this).parents('.channels-container').attr('random');
         $(this).parents('.channels-container').remove();
+        $('.social-media-preview iframe').contents().find('#devent-details [random="' + rand + '"]').remove();
     });
 
     $(document).on('click', '.control-arrange i', function() {
         var parentDiv = $(this).parents('.channels-container'),
             dir = $(this).attr('sort');
+        var rand = $(this).parents('.channels-container').attr('random');
+
+        var parentIframeDiv = $('.social-media-preview iframe').contents().find('#devent-details [random="' + rand + '"]');
 
         if (dir === 'up') {
-            parentDiv.insertBefore(parentDiv.prev())
+            parentDiv.insertBefore(parentDiv.prev());
+            parentIframeDiv.insertBefore(parentIframeDiv.prev());
         } else if (dir === 'down') {
-            parentDiv.insertAfter(parentDiv.next())
+            parentDiv.insertAfter(parentDiv.next());
+            parentIframeDiv.insertAfter(parentIframeDiv.next());
         }
+
+
+
+
     });
 
     $(".welcomeImage, .croppreviewimage, .changeWelcomeImage").click(function() {
@@ -365,11 +411,17 @@ $(document).ready(function() {
             return true;
     }
 
-    $('.photos-gallery-carousel').slick({
-        infinite: false,
-        slidesToShow: 2,
-        slidesToScroll: 1
-    });
+
+    initSlider();
+
+    function initSlider() {
+        $('.photos-gallery-carousel').slick({
+            infinite: false,
+            slidesToShow: 2,
+            slidesToScroll: 1
+        });
+    }
+
 
     // $('.photos-gallery-carousel').slick({
     //     centerMode: true,

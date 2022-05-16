@@ -1,7 +1,7 @@
 <div class="row col-md-12 mb-10 channels-container facebook-container"  random="{{ $rand ?? 2 }}">
     
     <div class="col-sm-12 col-md-4 box-label">
-        Facebook:
+        <span>Facebook</span>:
         <span class="ml-10">
             <div class="channel-bgd-facebook">
                 <i class="fab fa-facebook"></i>
@@ -19,7 +19,7 @@
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="label-addon1">Text</span>
-            <input type="text" class="form-control" placeholder="Like our page" value="Become a fan"
+            <input type="text" class="form-control" placeholder="Become a fan" value="Become a fan"
                 id="qr_media_channels_channels_1" name="qr_media_channels_channels_1">
         </div>
     </div>

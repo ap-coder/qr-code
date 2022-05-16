@@ -68,10 +68,10 @@
                                     <span>
                                        <span>
                                             <div class="channel-name mb-5">
-                                                Become a fan
+                                                Facebook
                                             </div>
                                             <div class="channel-label">
-                                                www.facebook.com/page
+                                                Become a fan
                                             </div>
                                         </span>
                                     </span>
@@ -88,10 +88,10 @@
                                     <span>
                                        <span>
                                             <div class="channel-name mb-5">
-                                                Watch our videos
+                                                Youtube
                                             </div>
                                             <div class="channel-label">
-                                                www.youtube.com/user/mychannel
+                                                Watch our videos
                                             </div>
                                         </span>
                                     </span>

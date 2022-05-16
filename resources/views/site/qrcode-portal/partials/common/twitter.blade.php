@@ -1,7 +1,7 @@
-<div class="row col-md-12 mb-10 channels-container twitter-container">
+<div class="row col-md-12 mb-10 channels-container twitter-container" random="{{ $rand ?? 0 }}">
     
     <div class="col-sm-12 col-md-4 box-label">
-        Twitter:
+        <span>Twitter</span>:
         <span class="ml-10">
             <div class="channel-bgd-twitter">
                 <i class="fab fa-twitter"></i>

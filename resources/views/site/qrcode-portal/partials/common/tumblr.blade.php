@@ -1,7 +1,7 @@
-<div class="row col-md-12 mb-10 channels-container tumblr-container">
+<div class="row col-md-12 mb-10 channels-container tumblr-container" random="{{ $rand ?? 0 }}">
     
     <div class="col-sm-12 col-md-4 box-label">
-        Tumblr:
+        <span>Tumblr</span>:
         <span class="ml-10">
             <div class="channel-bgd-tumblr">
                 <i class="fab fa-tumblr"></i>

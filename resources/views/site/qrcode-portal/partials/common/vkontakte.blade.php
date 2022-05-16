@@ -1,7 +1,7 @@
-<div class="row col-md-12 mb-10 channels-container vkontakte-container">
+<div class="row col-md-12 mb-10 channels-container vkontakte-container" random="{{ $rand ?? 0 }}">
     
     <div class="col-sm-12 col-md-4 box-label">
-        VKontakte:
+        <span>VKontakte</span>:
         <span class="ml-10">
             <div class="channel-bgd-vkontakte">
                 <i class="fab fa-vk"></i>

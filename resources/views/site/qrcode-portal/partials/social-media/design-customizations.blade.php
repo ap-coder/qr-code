@@ -122,8 +122,36 @@
                     <div class="header-gallery-container showGallery">
                         <div class="header-gallery-content">
                             <div class="offset-1 pl-15">
-                                Choose image from templates <a href="">or upload your own </a>
+                                Choose image from templates <a href="javascript:void(0);">or upload your own </a>
                             </div>
+
+                            {{-- <section>
+                                <div class="row col-md-12 mb-10">
+                                    <div class="col-sm-12 col-md-3 box-label">
+                                        Image: <span class="btn-help-icon visible-lg-inline-block" title="" rel="tooltip"
+                                            data-trigger="hover" data-placement="top"
+                                            data-original-title="Upload an image or logo from your computer. Images must be at least 640 x 360 px in .jpg or .png format."></span>
+                                            <small>640  x 360 px</small>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 box-input">
+                                        <div class="croppreviewimage">
+                                            <img src="{{ asset('site/img/qr_code.jpg') }}">
+                                        </div>
+                                        <div class="uploadImageText">
+                                            <span>No image uploaded</span>
+                                        </div>
+                                        <input type="file" id="banner_image" style="display: none;" />
+                                    </div>
+                                    <div class="col-sm-12 col-md-3 box-input uploadImageButtons">
+                                       <button type="button" class="btn btn-info uploadBannerImage"> <i class="fa fa-upload"></i> Upload</button>
+
+                                       <div class="show-default-img-btn">
+                                        <div class="text-slim mb-10">Or</div>
+                                        Browse images    </div>
+                                    </div>
+                
+                                </div>
+                            </section> --}}
 
 
                             <section class="photos-gallery">
