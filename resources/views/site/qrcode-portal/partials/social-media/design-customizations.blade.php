@@ -121,11 +121,11 @@
 
                     <div class="header-gallery-container showGallery">
                         <div class="header-gallery-content">
-                            <div class="offset-1 pl-15">
-                                Choose image from templates <a href="javascript:void(0);">or upload your own </a>
+                            <div class="offset-1 pl-15 customImageText">
+                                Choose image from templates <a href="javascript:void(0);" class="uploadOwn">or upload your own </a>
                             </div>
 
-                            {{-- <section>
+                            <section id="UploadCustomImage" style="display: none;">
                                 <div class="row col-md-12 mb-10">
                                     <div class="col-sm-12 col-md-3 box-label">
                                         Image: <span class="btn-help-icon visible-lg-inline-block" title="" rel="tooltip"
@@ -134,7 +134,7 @@
                                             <small>640  x 360 px</small>
                                     </div>
                                     <div class="col-sm-12 col-md-6 box-input">
-                                        <div class="croppreviewimage">
+                                        <div class="cropcustompreviewImage">
                                             <img src="{{ asset('site/img/qr_code.jpg') }}">
                                         </div>
                                         <div class="uploadImageText">
@@ -147,13 +147,12 @@
 
                                        <div class="show-default-img-btn">
                                         <div class="text-slim mb-10">Or</div>
-                                        Browse images    </div>
+                                        <span class="browseImage">Browse images </span>   </div>
                                     </div>
                 
                                 </div>
-                            </section> --}}
-
-
+                            </section>                           
+                            
                             <section class="photos-gallery">
                                 <div class="photos-gallery-carousel">
                                     <div class="image-container">
@@ -255,5 +254,29 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="customImagemodal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="img-container">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <img id="cropcustomimage" src="">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="cropcustompreview"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="customcrop">Confirm</button>
+                        </div>
+                    </div>
                 </div>
             </div>

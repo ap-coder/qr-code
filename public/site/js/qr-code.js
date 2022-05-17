@@ -400,7 +400,122 @@ $(document).ready(function() {
                 });
             }
         });
-    })
+    });
+
+    $('.uploadOwn').click(function() {
+        $('#UploadCustomImage').slideToggle().show("slow");
+        $('.photos-gallery').slideToggle().hide("slow");
+        $('.customImageText').slideToggle().hide("slow");
+    });
+
+    $('.browseImage').click(function() {
+        $('.photos-gallery').slideToggle().show("slow");
+        $('#UploadCustomImage').slideToggle().hide("slow");
+        $('.customImageText').slideToggle().show("slow");
+    });
+
+    $(".uploadImageText, .uploadBannerImage, .cropcustompreviewImage").click(function() {
+        $("input[id='banner_image']").click();
+    });
+
+    var $custommodal = $('#customImagemodal');
+    var customimage = document.getElementById('cropcustomimage');
+    var customcropper;
+    $("body").on("change", "#banner_image", function(e) {
+        var files = e.target.files;
+        var done = function(url) {
+            customimage.src = url;
+            $custommodal.modal({
+                show: true,
+                backdrop: 'static',
+                keyboard: false
+            });
+        };
+        var reader;
+        var file;
+        var url;
+        if (files && files.length > 0) {
+            file = files[0];
+            if (URL) {
+                done(URL.createObjectURL(file));
+            } else if (FileReader) {
+                reader = new FileReader();
+                reader.onload = function(e) {
+                    done(reader.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    });
+    var minCroppedWidth = 320;
+    var minCroppedHeight = 180;
+    var maxCroppedWidth = 640;
+    var maxCroppedHeight = 360;
+
+    $custommodal.on('shown.bs.modal', function() {
+        customcropper = new Cropper(customimage, {
+            // aspectRatio: 1,
+            viewMode: 1,
+            preview: '.cropcustompreview',
+            // data: {
+            //     width: (minCroppedWidth + maxCroppedWidth) / 2,
+            //     height: (minCroppedHeight + maxCroppedHeight) / 2,
+            // },
+            // crop: function(event) {
+            //     var width = event.detail.width;
+            //     var height = event.detail.height;
+
+            //     if (
+            //         width < minCroppedWidth ||
+            //         height < minCroppedHeight ||
+            //         width > maxCroppedWidth ||
+            //         height > maxCroppedHeight
+            //     ) {
+            //         customcropper.setData({
+            //             width: Math.max(minCroppedWidth, Math.min(maxCroppedWidth, width)),
+            //             height: Math.max(minCroppedHeight, Math.min(maxCroppedHeight, height)),
+            //         });
+            //     }
+            // },
+        });
+    }).on('hidden.bs.modal', function() {
+        customcropper.destroy();
+        customcropper = null;
+    });
+    $("#customcrop").click(function() {
+        canvas = customcropper.getCroppedCanvas({
+            width: 160,
+            height: 160,
+        });
+        canvas.toBlob(function(blob) {
+            url = URL.createObjectURL(blob);
+            var reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = function() {
+                var base64data = reader.result;
+
+                var _token = $('meta[name="csrf-token"]').attr('content');
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: basUrl + "crop-image-upload",
+                    data: { '_token': _token, 'image': base64data },
+                    success: function(data) {
+                        // console.log(data);
+                        $custommodal.modal('hide');
+                        $('.cropcustompreviewImage img').attr('src', base64data);
+                        $('.cropcustompreviewImage').show();
+                        $('.uploadImageText').hide();
+
+                        $('.social-media-preview iframe').contents().find('.avatar-container').css({ '-webkit-mask-image': '', 'background': 'url(' + base64data + ')', 'background-size': '100%' });
+
+                        // alert("Crop image successfully uploaded");
+                    }
+                });
+            }
+        });
+    });
 
 
     function isUrlValid(userInput) {
