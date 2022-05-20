@@ -10,6 +10,7 @@ $(document).ready(function() {
         var type = $(this).attr('type');
         $('.btn_create_next').attr('type', type);
         $('.btn-generator-prev').attr('type', type);
+        $('.btn-generator-save-directly').attr('qrtype', type);
 
         var _token = $('meta[name="csrf-token"]').attr('content');
 
@@ -122,32 +123,116 @@ $(document).ready(function() {
             $('.box-input p').hide();
             $('.preview-qrcode').removeClass('barCodeError');
             $('.mockup__qrcode-error').hide();
+
+            var _token = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: basUrl + "api/qrcode/process",
+                data: { '_token': _token, 'link': url },
+                success: function(data) {
+                    // console.log(data.content);
+                    $('.barcodeSVG').html(data.content);
+                }
+            });
+
         } else {
             $('.box-input').addClass('error');
             $('.box-input p').show();
             $('.preview-qrcode').addClass('barCodeError');
             $('.mockup__qrcode-error').show();
         }
+
+
+
+    });
+
+
+
+    $('.input--title-editing').keyup(function() {
+        var val = $(this).val();
+        if (val) {
+            $(this).parent().find('.section-title__label').addClass('section-title__label--hide');
+            $('#website_qr_title_error').hide();
+        } else {
+            $(this).parent().find('.section-title__label').removeClass('section-title__label--hide');
+            $('#website_qr_title_error').show();
+        }
+
     });
 
     $('.btn-generator-save-directly').click(function() {
-        var url = $('#UrlBarcode_url').val();
-        var check = isUrlValid(url);
-        $('.ladda-label').text('');
-        $('.sk-three-bounce').show();
-        $(".ladda-button").prop("disabled", true);
 
-        if (check) {
-            $('.box-input').removeClass('error');
-            $('.box-input p').hide();
-        } else {
-            $('.sk-three-bounce').hide();
-            $('.box-input').addClass('error');
-            $('.box-input p').show();
-            $('.ladda-label').text('Next');
-            $(".ladda-button").prop("disabled", false);
+        var type = $(this).attr('qrtype');
+
+        if (type == 1) {
+            $('#websiteForm').submit();
         }
+        // if (type == 1) {
+        //     title = $('#website_qr_title').val();
+        //     var url = $('#UrlBarcode_url').val();
+        //     var check = isUrlValid(url);
+        //     if (check == false) {
+        //         $('.box-input p').show();
+        //         return false;
+        //     } else {
+        //         $('.box-input p').hide();
+        //     }
+        // }
 
+        // $('.ladda-label').text('');
+        // $('.sk-three-bounce').show();
+        // $(".ladda-button").prop("disabled", true);
+
+        // if (title) {
+        //     $('.box-input').removeClass('error');
+        //     // $('.box-input p').hide();
+        //     $('#qr_title_error_' + type).hide();
+        // } else {
+        //     $('.sk-three-bounce').hide();
+        //     $('.box-input').addClass('error');
+        //     // $('.box-input p').show();
+        //     $('#qr_title_error_' + type).show();
+        //     $('.ladda-label').text('Next');
+        //     $(".ladda-button").prop("disabled", false);
+        // }
+
+    });
+
+    $(document).ready(function() {
+
+        $('#websiteForm').validate({ // initialize the plugin
+            rules: {
+                qrcode_title: {
+                    required: true,
+                },
+                url: {
+                    required: true,
+                    url: true
+                }
+            },
+            submitHandler: function(form) { // for demo
+
+                var formData = $('#websiteForm').serialize();
+
+                $('.ladda-label').text('');
+                $('.sk-three-bounce').show();
+                $(".ladda-button").prop("disabled", true);
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: basUrl + "api/qrcode/website",
+                    data: formData,
+                    success: function(data) {
+                        console.log(data);
+                    }
+                });
+
+                return false; // for demo
+            }
+        });
     });
 
     $('.colors-list li a').click(function() {

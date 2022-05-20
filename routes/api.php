@@ -66,3 +66,6 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     Route::post('app-promotions/media', 'AppPromotionApiController@storeMedia')->name('app-promotions.storeMedia');
     Route::apiResource('app-promotions', 'AppPromotionApiController');
 });
+
+Route::post('qrcode/process', 'Api\V1\QrProcessController@process')->name('api.qrcode.process');
+Route::post('qrcode/website', 'Api\V1\QrProcessController@website')->name('api.qrcode.website');

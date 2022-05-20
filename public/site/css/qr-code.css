@@ -2457,6 +2457,19 @@ ul.channels-list {
     border: 0;
 }
 
+.barcodeSVG {
+    min-height: 300px;
+}
+
+.barcodeSVG svg {
+    width: 100%;
+    height: 100%;
+}
+
+.section-title__label--hide {
+    display: none;
+}
+
 
 /* start preview css */
 

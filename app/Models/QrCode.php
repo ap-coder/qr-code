@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class QrCode extends Model implements HasMedia
 {
@@ -17,6 +18,7 @@ class QrCode extends Model implements HasMedia
     use MultiTenantModelTrait;
     use InteractsWithMedia;
     use HasFactory;
+    use Sluggable;
 
     public $table = 'qr_codes';
 
@@ -41,6 +43,15 @@ class QrCode extends Model implements HasMedia
         'deleted_at',
         'created_by_id',
     ];
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
 
     public function registerMediaConversions(Media $media = null): void
     {

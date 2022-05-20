@@ -7,12 +7,14 @@ use App\Traits\MultiTenantModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Website extends Model
 {
     use SoftDeletes;
     use MultiTenantModelTrait;
     use HasFactory;
+    use Sluggable;
 
     public $table = 'websites';
 
@@ -33,6 +35,15 @@ class Website extends Model
         'deleted_at',
         'created_by_id',
     ];
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'qr_name'
+            ]
+        ];
+    }
 
     public function websitesQrCodes()
     {

@@ -1,5 +1,3 @@
-
-
 <div class="apply-fixedBottom-footerGenerator">
     <div class="footer-generator-actions content-footer redesign generator-float-bottom" style="margin-left: 0px;">
     <div class="table-cell-middle">
@@ -30,7 +28,7 @@
                             <div class="col footer__left">
                                 <button class="btn lc btn-generator-prev pull-left"><i class="fas fa-chevron-left  pull-left"></i> Back</button>
                                 
-                                <button type="button" class="btn green lc big block btn-generator-save-directly pull-right col-lg-6 ladda-button" data-style="expand-left">
+                                <button type="button" class="btn green lc big block btn-generator-save-directly pull-right col-lg-6 ladda-button" data-style="expand-left" qrtype="">
                                     <div class="sk-three-bounce">
                                         <div class="sk-child sk-bounce1"></div>
                                         <div class="sk-child sk-bounce2"></div>

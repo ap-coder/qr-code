@@ -1,14 +1,14 @@
 <div class="row" type="1" id="stepform1" style="display: none;">
     <div class="col-md-8">
-        <form action="">
+        <form action="" id="websiteForm">
+            @csrf
             <div class="section-title">
                 <div class="section-title__icon">
                     <i class="icon--title-editing fas fa-link"></i>
                 </div>
                 <div class="section-title__name">
-                    <input type="text" name="qrcode_title" id="qrcode_title_0" class="input--title-editing"
-                        placeholder="My Website QR Code">
-                    <label class="section-title__label" for="qrcode_title_0">Name your QR Code</label>
+                    <input type="text" name="qr_name" id="website_qr_title" class="input--title-editing" placeholder="My Website QR Code" required>
+                    <label class="section-title__label" for="website_qr_title">Name your QR Code</label>
                     <span class="btn-help-icon section-title__icon_tooltip" rel="tooltip" data-trigger="hover"
                         data-placement="left"
                         data-original-title="Names help you to stay organized and will only appear in your account and are not displayed to customers who scan your QR Codes."></span>
@@ -41,8 +41,7 @@
                                     Website:
                                 </div>
                                 <div class="col-sm-12 col-md-8 box-input">
-                                    <input required="required" spellcheck="false" placeholder="https://www.my-website.com" name="UrlBarcode" id="UrlBarcode_url" type="text" maxlength="1500">
-                                    <p style="color: red; display:none;">Website is not a valid URL.</p>
+                                    <input required="required" spellcheck="false" placeholder="https://www.my-website.com" name="url" id="UrlBarcode_url" type="text" maxlength="1500">
                                 </div>
                             </div>
     
@@ -85,7 +84,8 @@
             <div class="preview-qrcode" style="display: none;">
                 <div class="code">
 
-                    <img id="barcodeImage" src="">
+                    {{-- <img id="barcodeImage" src=""> --}}
+                    <div class="barcodeSVG"></div>
 
                     <div class="mockup__qrcode-error">
                         <div class="mockup__qrcode-error-content">
