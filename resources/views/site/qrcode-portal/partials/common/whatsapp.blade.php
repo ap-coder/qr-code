@@ -10,17 +10,19 @@
     </div>
 
     <div class="col-sm-12 col-md-8 channel-input-container">
+        <input type="hidden" name="icon_class[]" value="fab fa-whatsapp">
+        <input type="hidden" name="social_name[]" value="WhatsApp">
         <div class="input-group">
             <span class="input-group-addon" id="prefix-addon5">
                 Phone *
             </span>
             <input type="text" class="form-control" placeholder="+12025550141" required="required"
-                id="channelInput-5" name="channelInput-5">
+                id="channelInput-5" name="url[]">
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="label-addon5">Text</span>
-            <input type="text" class="form-control" placeholder="Message us" value="Message us"
-                id="qr_media_channels_channels_5" name="qr_media_channels_channels_5">
+            <input type="text" class="form-control channelText" placeholder="Message us" value="Message us"
+                id="qr_media_channels_channels_5" name="channel_label[]">
 
                 <span class="btn-help-icon input-group__tooltip-icon" title="" rel="tooltip" data-trigger="hover" data-placement="top" data-original-title="Use a complete international phone number format. Please, do not use leading zeroes, brackets, or dashes."></span>
         </div>

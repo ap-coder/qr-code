@@ -74,6 +74,11 @@ class QrCode extends Model implements HasMedia
         return $this->belongsToMany(Website::class);
     }
 
+    public function socialChannel()
+    {
+        return $this->belongsToMany(SocialChannel::class);
+    }
+
     public function business_pages()
     {
         return $this->belongsToMany(BusinessPage::class);

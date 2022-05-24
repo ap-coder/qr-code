@@ -2727,6 +2727,10 @@ body#dsocial-body {
     .fabshare {
         margin: 0;
     }
+    #dsocial-body .fabshare>i {
+        font-size: 20px;
+        line-height: 56px;
+    }
 }
 
 @media (max-width: 768px) {

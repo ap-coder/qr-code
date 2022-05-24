@@ -8,6 +8,8 @@ use App\Libraries\QRcdrFn;
 use App\Libraries\QRcdr;
 use App\Models\Website;
 use App\Models\QrCode;
+use App\Models\SocialChannel;
+use App\Models\Social;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use DOMDocument;
 use XSLTProcessor;
@@ -16,6 +18,11 @@ class QrProcessController extends Controller
 {
     public function process(Request $request)
     {
+        $this->generateqrcode($request->all());        
+    }
+
+    public function generateqrcode($data)
+    {
         $output_data = false;
 
         $outdir = config('qrcdr.qrcodes_dir');
@@ -23,47 +30,47 @@ class QrProcessController extends Controller
         $PNG_WEB_DIR = $outdir.'/';
 
         $getsection = '#link';
-        $setbackcolor = filter_input(INPUT_POST, "backcolor", FILTER_UNSAFE_RAW);
+        $setbackcolor = $data['backcolor'] ?? '';
         $setbackcolor = $setbackcolor ? $setbackcolor : config('qrcdr.qr_bgcolor');
 
-        $setfrontcolor = filter_input(INPUT_POST, "frontcolor", FILTER_UNSAFE_RAW);
+        $setfrontcolor = $data['frontcolor'] ?? '';
         $setfrontcolor = $setfrontcolor ? $setfrontcolor : config('qrcdr.qr_color');
 
-        $optionlogo = filter_input(INPUT_POST, "optionlogo", FILTER_UNSAFE_RAW);
-        $no_logo_bg = isset($_POST['no_logo_bg']);
-        $pattern = filter_input(INPUT_POST, "pattern", FILTER_UNSAFE_RAW);
-        $radial = isset($_POST['radial']);
+        $optionlogo = $data['optionlogo'] ?? '';
+        $no_logo_bg = $data['no_logo_bg'] ?? '';
+        $pattern = $data['pattern'] ?? '';
+        $radial = $data['radial'] ?? '';
 
-        $markerOut = filter_input(INPUT_POST, "marker_out", FILTER_UNSAFE_RAW);
-        $markerIn = filter_input(INPUT_POST, "marker_in", FILTER_UNSAFE_RAW);
-        $markerOutColor = filter_input(INPUT_POST, "marker_out_color", FILTER_UNSAFE_RAW);
-        $markerInColor = filter_input(INPUT_POST, "marker_in_color", FILTER_UNSAFE_RAW);
-        $gradient = isset($_POST['gradient']);
-        $gradient_color = filter_input(INPUT_POST, "gradient_color", FILTER_UNSAFE_RAW);
-        $markers_color = isset($_POST['markers_color']);
-        $negative_qr = isset($_POST['negative_qr']);
+        $markerOut = $data['marker_out'] ?? '';
+        $markerIn = $data['marker_in'] ?? '';
+        $markerOutColor = $data['marker_out_color'] ?? '';
+        $markerInColor = $data['marker_in_color'] ?? '';
+        $gradient = $data['gradient'] ?? '';
+        $gradient_color = $data['gradient_color'] ?? '';
+        $markers_color = $data['markers_color'] ?? '';
+        $negative_qr = $data['negative_qr'] ?? '';
         $nopdf = ($gradient || $negative_qr);
 
-        $different_markers_color = isset($_POST['different_markers_color']);
+        $different_markers_color = $data['different_markers_color'] ?? '';
 
         if ($different_markers_color) {
-            $marker_top_right_outline = filter_input(INPUT_POST, "marker_top_right_outline", FILTER_UNSAFE_RAW);
-            $marker_top_right_center = filter_input(INPUT_POST, "marker_top_right_center", FILTER_UNSAFE_RAW);
-            $marker_bottom_left_outline = filter_input(INPUT_POST, "marker_bottom_left_outline", FILTER_UNSAFE_RAW);
-            $marker_bottom_left_center = filter_input(INPUT_POST, "marker_bottom_left_center", FILTER_UNSAFE_RAW);
+            $marker_top_right_outline = $data['marker_top_right_outline'] ?? '';
+            $marker_top_right_center = $data['marker_top_right_center'] ?? '';
+            $marker_bottom_left_outline = $data['marker_bottom_left_outline'] ?? '';
+            $marker_bottom_left_center = $data['marker_bottom_left_center'] ?? '';
         } else {
             $marker_top_right_outline = $marker_bottom_left_outline = $markerOutColor;
             $marker_top_right_center = $marker_bottom_left_center = $markerInColor;
         }
 
-        $outerframe = filter_input(INPUT_POST, "outer_frame", FILTER_UNSAFE_RAW);
+        $outerframe = $data['outer_frame'] ?? '';
 
-        $custom_frame_color = isset($_POST['custom_frame_color']);
-        $framecolor = filter_input(INPUT_POST, "framecolor", FILTER_UNSAFE_RAW);
-        $framelabel = filter_input(INPUT_POST, "framelabel", FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES);
-        $label_font = filter_input(INPUT_POST, "label_font", FILTER_UNSAFE_RAW);
-        $logo_size = filter_input(INPUT_POST, "logo_size", FILTER_UNSAFE_RAW);
-        $label_text_size = filter_input(INPUT_POST, "label-text-size", FILTER_UNSAFE_RAW);
+        $custom_frame_color = $data['custom_frame_color'] ?? '';
+        $framecolor = $data['framecolor'] ?? '';
+        $framelabel = $data['framelabel'] ?? '';
+        $label_font = $data['label_font'] ?? '';
+        $logo_size = $data['logo_size'] ?? '';
+        $label_text_size = $data['label-text-size'] ?? '';
 
         $optionlogo = $optionlogo ? $optionlogo : 'none';
         $outerframe = $outerframe ? $outerframe : 'none';
@@ -77,9 +84,9 @@ class QrProcessController extends Controller
         }
 
         $bg_image = 'none';
-        $transparent_code = isset($_POST['transparent_code']);
+        $transparent_code = $data['transparent_code'] ?? '';
         if ($transparent_code) {
-            $bg_image = filter_input(INPUT_POST, "bg_image", FILTER_UNSAFE_RAW);
+            $bg_image = $data['bg_image'] ?? '';
             $bg_image = $bg_image ? $bg_image : 'none';  
         }
 
@@ -117,7 +124,7 @@ class QrProcessController extends Controller
         $backcolor = QRcdrFn::hexdecColor($stringbackcolor, '#FFFFFF');
         $frontcolor = QRcdrFn::hexdecColor($stringfrontcolor, '#000000');
 
-        $level = filter_input(INPUT_POST, "level", FILTER_UNSAFE_RAW);
+        $level = $data['level'] ?? '';
         $level = $level ? $level : config('qrcdr.precision');
 
         if (in_array($level, array('L','M','Q','H'))) {
@@ -126,18 +133,18 @@ class QrProcessController extends Controller
                 $errorCorrectionLevel = 'M';
             }
         }
-        $size = filter_input(INPUT_POST, "size", FILTER_UNSAFE_RAW);
+        $size = $data['size'] ?? '';
         $size = $size ? $size : 16;
         $matrixPointSize = min(max((int)$size, 4), 32);
 
-        $link = filter_input(INPUT_POST, 'link', FILTER_UNSAFE_RAW);
+        $link = $data['link'] ?? '';
 
         $output_data = QRcdrFn::validateUrl($link);
 
                 
         if ($output_data) {
 
-            $backcolor = isset($_POST['transparent']) ? 'transparent' : $backcolor;
+            $backcolor = $link ? 'transparent' : $backcolor;
 
             // $optionlogo = $optionlogo && $optionlogo !== 'none' ? $optionlogo : false;
             $filename = $PNG_TEMP_DIR.md5($output_data.'|'.$errorCorrectionLevel.'|'.$matrixPointSize.time());
@@ -161,7 +168,7 @@ class QrProcessController extends Controller
                 )
             );
         }
-        echo $result;
+        return $result;
     }
 
     public function website(Request $request)
@@ -180,83 +187,123 @@ class QrProcessController extends Controller
             'name'=> $request->qr_name,
             'slug' => SlugService::createSlug(QrCode::class, 'slug', $request->qr_name),
             'active'=> 1,
+            'published'=> 1,
         ];
 
         $qrCode = QrCode::create($qrData);
 
         $qrCode->websites()->sync($website->id);
 
-        $outdir = config('qrcdr.qrcodes_dir');
-        $PNG_TEMP_DIR = storage_path($outdir);
-        $PNG_WEB_DIR = $outdir.'/';
-        
-        $level = config('qrcdr.precision');
+        echo json_encode(1);
+    }
 
-        if (in_array($level, array('L','M','Q','H'))) {
-            $errorCorrectionLevel = $level;
-            if ($optionlogo !== 'none' && $errorCorrectionLevel == 'L') {
-                $errorCorrectionLevel = 'M';
+    public function socialChannel(Request $request)
+    {
+
+        $socialChannelData=[
+            'qr_name'=> $request->qr_name,
+            'summery'=> $request->summery,
+            'active'=> 1,
+            'is_sharing'=> $request->is_sharing,
+            'is_custom_banner'=> $request->is_custom_banner,
+            'primary_color'=> $request->primary_color,
+            'button_color'=> $request->button_color,
+            'headline'=> $request->headline,
+            'banner_color'=> $request->banner_color,
+            'existing_banner'=> $request->existing_banner,
+        ];
+
+        if ($request->socialId) {
+            $socialChannel=SocialChannel::where('id',$request->socialId)->first();
+
+            if($socialChannel->qr_name != $request->qr_name){
+                $socialChannelData['slug'] = SlugService::createSlug(SocialChannel::class, 'slug', $request->qr_name);
             }
-        }
-        $size =16;
-        $matrixPointSize = min(max((int)$size, 4), 32);
-        ;
-
-        $output_data = QRcdrFn::validateUrl($request->url);
-        $backcolor = 'transparent';
-
-        $filename = $PNG_TEMP_DIR.md5($output_data.'|'.$errorCorrectionLevel.'|'.$matrixPointSize.time());
-        $filenamesvg = $filename.'.svg';
-        $basename = basename($filenamesvg, '.svg');
-
-        $codemargin = 'none';
-
-        $stringbackcolor ='#FFFFFF';
-        $stringfrontcolor = '#000000';
-        $backcolor = QRcdrFn::hexdecColor($stringbackcolor, '#FFFFFF');
-        $frontcolor = QRcdrFn::hexdecColor($stringfrontcolor, '#000000');
-
-        $content = QRcdr::svg($output_data, $filenamesvg, $errorCorrectionLevel, $matrixPointSize, $codemargin, false, $backcolor, $frontcolor, '');
-
-        $qrcodes_dir = QRcdrFn::getConfig('qrcodes_dir');
-        $decoded = json_decode($data);
-        $svgheader = '<?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';
-
-        $precontent = $svgheader.$content;
-        
-        if (class_exists('DOMDocument') && class_exists('XSLTProcessor')) {
-            $xsl = new DOMDocument;
-            $xsl->load('sanitize.xsl');
-            $proc = new XSLTProcessor;
-            $proc->importStyleSheet($xsl);
-            $xml = simplexml_load_string($precontent);
-            $content = $proc->transformToXML($xml);
+            $socialChannel->update($socialChannelData);
         } else {
-            $content = $precontent;
+            $socialChannelData['slug'] = SlugService::createSlug(SocialChannel::class, 'slug', $request->qr_name);
+            $socialChannel = SocialChannel::create($socialChannelData);
         }
 
-        $basename = filter_var($decoded->basename, FILTER_UNSAFE_RAW);
+        if($request->is_custom_banner==1){
+            // if ($request->bannerImage) {
+            //     $socialChannel->addMedia(storage_path('tempUpload/' . basename($request->bannerImage)))->toMediaCollection('header_image');
+            // }
 
-        if ($content && $basename) {
-            $filedir = $qrcodes_dir;
-            $filename_path = '../'.$filedir.'/'.$basename.'.svg';
-            try {
-                $handle = fopen($filename_path, "w");
-                fwrite($handle, $content);
-                fclose($handle);
-            } catch (Exception $e) {
-                $response = array('error' => 'Exception: ', $e->getMessage());
-                echo json_encode($response);
-                exit;
+            if ($request->input('bannerImage', false)) {
+                if (!$socialChannel->header_image || $request->input('bannerImage') !== $socialChannel->header_image->file_name) {
+                    if ($socialChannel->header_image) {
+                        $socialChannel->header_image->delete();
+                    }
+                    $socialChannel->addMedia(storage_path('tempUpload/' . basename($request->input('bannerImage'))))->toMediaCollection('header_image');
+                }
+            } elseif ($socialChannel->header_image) {
+                $socialChannel->header_image->delete();
             }
-            $response = array(
-                'basename' => $basename,
-                'filedir' => QRcdrFn::relativePath().$qrcodes_dir,
-            );
-            echo json_encode($response);
-        } else {
-            $response = array('error' => 'Creation failed');
-            echo json_encode($response);
+            
         }
+
+        // if ($request->welcomeLogo) {
+        //     $socialChannel->addMedia(storage_path('tempUpload/' . basename($request->welcomeLogo)))->toMediaCollection('loading_image');
+        // }
+
+        if ($request->input('welcomeLogo', false)) {
+            if (!$socialChannel->loading_image || $request->input('welcomeLogo') !== $socialChannel->loading_image->file_name) {
+                if ($socialChannel->loading_image) {
+                    $socialChannel->loading_image->delete();
+                }
+                $socialChannel->addMedia(storage_path('tempUpload/' . basename($request->input('welcomeLogo'))))->toMediaCollection('loading_image');
+            }
+        } elseif ($socialChannel->loading_image) {
+            $socialChannel->loading_image->delete();
         }
+
+        $socialChannel->qrcode()->forceDelete();
+
+        $qrData=[
+            'name'=> $request->qr_name,
+            'slug' => SlugService::createSlug(QrCode::class, 'slug', $request->qr_name),
+            'active'=> 1,
+            'published'=> 1,
+        ];
+
+        $qrCode = QrCode::create($qrData);
+
+        $qrCode->socialChannel()->sync($socialChannel->id);
+
+        $socialChannel->socials()->forceDelete();
+
+        $socialIds=array();
+
+        if(count($request->url)>0){
+            foreach ($request->url as $key => $url) {
+                $socialData=[
+                    'url'=>$url,
+                    'title'=>$request->social_name[$key],
+                    'channel_label'=>$request->channel_label[$key],
+                    'social_name'=>$request->social_name[$key],
+                    'channel_name'=>$request->social_name[$key],
+                    'icon_class'=>$request->icon_class[$key],
+                ];
+                $social = Social::create($socialData);
+               
+
+                $socialIds[]=$social->id;
+            }
+
+            $socialChannel->socials()->sync($socialIds);
+        }
+
+        $qrcodeData=[
+            'link'=>route('qrcode.social-media-preview',$socialChannel->slug),
+        ];
+
+        $qrcode=$this->generateqrcode($qrcodeData);
+        
+        $result = json_decode($qrcode);
+
+        $result->id=$socialChannel->id;
+
+        echo json_encode($result);
+    }
 }

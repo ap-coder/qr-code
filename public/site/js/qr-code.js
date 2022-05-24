@@ -107,21 +107,21 @@ $(document).ready(function() {
     });
 
     $('.previewtab').click(function() {
-        $('.preview-smartphone-wrapper').show();
-        $('.preview-qrcode').hide();
+        $('.website-preview-smartphone-wrapper').show();
+        $('.website-preview-qrcode').hide();
     });
 
     $('.qrcodetab').click(function() {
         var url = $('#UrlBarcode_url').val();
         var check = isUrlValid(url);
 
-        $('.preview-smartphone-wrapper').hide();
-        $('.preview-qrcode').show();
+        $('.website-preview-smartphone-wrapper').hide();
+        $('.website-preview-qrcode').show();
 
         if (check) {
             $('.box-input').removeClass('error');
             $('.box-input p').hide();
-            $('.preview-qrcode').removeClass('barCodeError');
+            $('.website-preview-qrcode').removeClass('barCodeError');
             $('.mockup__qrcode-error').hide();
 
             var _token = $('meta[name="csrf-token"]').attr('content');
@@ -133,18 +133,35 @@ $(document).ready(function() {
                 data: { '_token': _token, 'link': url },
                 success: function(data) {
                     // console.log(data.content);
-                    $('.barcodeSVG').html(data.content);
+                    $('.website-preview-qrcode .barcodeSVG').html(data.content);
                 }
             });
 
         } else {
             $('.box-input').addClass('error');
             $('.box-input p').show();
-            $('.preview-qrcode').addClass('barCodeError');
+            $('.website-preview-qrcode').addClass('barCodeError');
             $('.mockup__qrcode-error').show();
         }
 
+    });
 
+    $('.socialpreviewtab').click(function() {
+        $('.social-preview-smartphone-wrapper').show();
+        $('.social-preview-qrcode').hide();
+    });
+
+    $('.socialqrcodetab').click(function() {
+
+        $('.social-preview-smartphone-wrapper').hide();
+        $('.social-preview-qrcode').show();
+        var form = $('#socialForm').submit();
+        if (form.valid() == false) {
+            $('.social-preview-smartphone-wrapper').show();
+            $('.social-preview-qrcode').hide();
+            $('.state-generator-data .btn-group .btn').removeClass('active');
+            $('.socialpreviewtab').addClass('active');
+        }
 
     });
 
@@ -168,6 +185,9 @@ $(document).ready(function() {
 
         if (type == 1) {
             $('#websiteForm').submit();
+        }
+        if (type == 2) {
+            $('#socialForm').submit();
         }
         // if (type == 1) {
         //     title = $('#website_qr_title').val();
@@ -202,9 +222,9 @@ $(document).ready(function() {
 
     $(document).ready(function() {
 
-        $('#websiteForm').validate({ // initialize the plugin
+        $('#websiteForm').validate({
             rules: {
-                qrcode_title: {
+                qr_name: {
                     required: true,
                 },
                 url: {
@@ -227,6 +247,40 @@ $(document).ready(function() {
                     data: formData,
                     success: function(data) {
                         console.log(data);
+                    }
+                });
+
+                return false; // for demo
+            }
+        });
+
+        $('#socialForm').validate({
+            rules: {
+                qr_name: {
+                    required: true,
+                },
+                'url[]': {
+                    required: true,
+                }
+            },
+            submitHandler: function(form) { // for demo
+
+                var formData = $('#socialForm').serialize();
+
+                // console.log('formData', formData);
+                $('.ladda-label').text('');
+                $('.sk-three-bounce').show();
+                $(".ladda-button").prop("disabled", true);
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: basUrl + "api/qrcode/socialChannel",
+                    data: formData,
+                    success: function(data) {
+                        console.log(data);
+                        $('#socialId').val(data.id);
+                        $('.social-preview-qrcode .barcodeSVG').html(data.content);
                     }
                 });
 
@@ -308,9 +362,10 @@ $(document).ready(function() {
         var imgUrl = image.replace(/(?:^url\(["']?|["']?\)$)/g, "");
         var imgArray = image.replace(/(?:^url\(["']?|["']?\)$)/g, "").split('/');
         var fileName = imgArray[imgArray.length - 1];
-        console.log('imgUrl', imgUrl);
+        $('#existing_banner').val(fileName);
+        $('#is_custom_banner').val(0);
 
-        $('.social-media-preview iframe').contents().find('.avatar-container').css({ '-webkit-mask-image': 'url(' + imgUrl + ')', 'background-color': bgColor });
+        $('.social-media-preview iframe').contents().find('.avatar-container').css({ 'background': '', '-webkit-mask-image': 'url(' + imgUrl + ')', 'background-color': bgColor });
 
     });
 
@@ -320,6 +375,8 @@ $(document).ready(function() {
         $('.custom-image-border.color-selected div').css('background-color', bgColor);
 
         $('.social-media-preview iframe').contents().find('.avatar-container').css({ 'background-color': bgColor });
+
+        $('#banner_color').val(bgColor);
 
     });
 
@@ -386,6 +443,30 @@ $(document).ready(function() {
         })
 
     });
+
+    $(document).on('keyup', '.channelText', function() {
+        var text = $(this).val();
+        var rand = $(this).parents('.channels-container').attr('random');
+        var type = $(this).parents('.channels-container').attr('type');
+
+        if (type == 'website') {
+            $('.social-media-preview iframe').contents().find('#devent-details [random="' + rand + '"] .channel-name').text(text);
+        } else {
+            $('.social-media-preview iframe').contents().find('#devent-details [random="' + rand + '"] .channel-label').text(text);
+        }
+
+    });
+
+    $(document).on('keyup', '.channelName', function() {
+        var text = $(this).val();
+        var rand = $(this).parents('.channels-container').attr('random');
+        var type = $(this).parents('.channels-container').attr('type');
+
+        $('.social-media-preview iframe').contents().find('#devent-details [random="' + rand + '"] .channel-label').text(text);
+
+    });
+
+
 
     $(document).on('click', '.control-remove .fa-times', function() {
         var rand = $(this).parents('.channels-container').attr('random');
@@ -476,10 +557,11 @@ $(document).ready(function() {
                     url: basUrl + "crop-image-upload",
                     data: { '_token': _token, 'image': base64data },
                     success: function(data) {
-                        console.log(data);
+                        // console.log(data);
                         $modal.modal('hide');
                         $('.croppreviewimage img').attr('src', base64data);
                         $('.croppreviewimage').show();
+                        $('#welcomeLogo').val(data.fileName);
                         // alert("Crop image successfully uploaded");
                     }
                 });
@@ -491,12 +573,42 @@ $(document).ready(function() {
         $('#UploadCustomImage').slideToggle().show("slow");
         $('.photos-gallery').slideToggle().hide("slow");
         $('.customImageText').slideToggle().hide("slow");
+
+        var bannerImage = $('#bannerImage').val();
+
+        if (bannerImage) {
+            $('#is_custom_banner').val(1);
+        } else {
+            $('.social-media-preview iframe').contents().find('.avatar-container').hide("slow");
+        }
+
+        $('#existing_banner').val('');
+        $('#banner_color').val('');
+
     });
 
     $('.browseImage').click(function() {
         $('.photos-gallery').slideToggle().show("slow");
         $('#UploadCustomImage').slideToggle().hide("slow");
         $('.customImageText').slideToggle().show("slow");
+        var bannerImage = $('#bannerImage').val();
+
+        var image = $('.custom-image-border.color-selected').find('div').css('mask-image');
+        var bgColor = $('.custom-image-border.color-selected').find('div').css("background-color");
+
+        var imgUrl = image.replace(/(?:^url\(["']?|["']?\)$)/g, "");
+        var imgArray = image.replace(/(?:^url\(["']?|["']?\)$)/g, "").split('/');
+        var fileName = imgArray[imgArray.length - 1];
+
+        $('#existing_banner').val(fileName);
+        $('#banner_color').val(bgColor);
+
+        if (bannerImage) {
+            $('#is_custom_banner').val(1);
+        } else {
+            $('#is_custom_banner').val(0);
+        }
+        $('.social-media-preview iframe').contents().find('.avatar-container').show("slow");
     });
 
     $(".uploadImageText, .uploadBannerImage, .cropcustompreviewImage").click(function() {
@@ -592,8 +704,9 @@ $(document).ready(function() {
                         $('.cropcustompreviewImage img').attr('src', base64data);
                         $('.cropcustompreviewImage').show();
                         $('.uploadImageText').hide();
-
-                        $('.social-media-preview iframe').contents().find('.avatar-container').css({ '-webkit-mask-image': '', 'background': 'url(' + base64data + ')', 'background-size': '100%' });
+                        $('#bannerImage').val(data.fileName);
+                        $('#is_custom_banner').val(1);
+                        $('.social-media-preview iframe').contents().find('.avatar-container').css({ '-webkit-mask-image': '', 'background': 'url(' + base64data + ')', 'background-size': '100%', 'display': 'block' });
 
                         // alert("Crop image successfully uploaded");
                     }

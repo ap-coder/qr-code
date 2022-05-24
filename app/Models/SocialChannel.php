@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class SocialChannel extends Model implements HasMedia
 {
@@ -17,6 +18,7 @@ class SocialChannel extends Model implements HasMedia
     use MultiTenantModelTrait;
     use InteractsWithMedia;
     use HasFactory;
+    use Sluggable;
 
     public $table = 'social_channels';
 
@@ -36,11 +38,27 @@ class SocialChannel extends Model implements HasMedia
         'qr_name',
         'summery',
         'slug',
+        'is_sharing',
+        'is_custom_banner',
+        'primary_color',
+        'button_color',
+        'headline',
+        'banner_color',
+        'existing_banner',
         'created_by_id',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'qr_name'
+            ]
+        ];
+    }
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -75,6 +93,11 @@ class SocialChannel extends Model implements HasMedia
     public function socials()
     {
         return $this->belongsToMany(Social::class);
+    }
+
+    public function qrcode()
+    {
+        return $this->belongsToMany(QrCode::class);
     }
 
     public function created_by()

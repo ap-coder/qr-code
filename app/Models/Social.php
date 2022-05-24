@@ -25,6 +25,7 @@ class Social extends Model
         'social_name',
         'url',
         'channel_name',
+        'channel_label',
         'icon_class',
         'created_at',
         'updated_at',

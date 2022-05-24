@@ -147,5 +147,5 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
     Route::post('crop-image-upload', 'QrCodePortalController@uploadCropImage')->name('qr-code-generator.uploadCropImage');
 
 // Route::get('partners/qr-code', 'SiteController@qrcode_portal_login')->name('partners.qrcode-login');
-Route::get('social-media-preview', 'QrCodePreviewContoller@socialMediaPreview')->name('qrcode.social-media-preview');
+Route::get('social-media-preview/{slug?}', 'QrCodePreviewContoller@socialMediaPreview')->name('qrcode.social-media-preview');
 

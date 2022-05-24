@@ -13,23 +13,52 @@
         <link rel="stylesheet" href="{{ asset('site/css/qr-code.css') }}">
     </head>
 
+    @if (!empty($socialChannel))
+        @if ($socialChannel->is_custom_banner==1)
+            @php
+                $image = $socialChannel->header_image->getUrl();
+                $custom=1;
+            @endphp
+        @elseif($socialChannel->existing_banner)
+            @php
+                $image = asset('site/img/social-media-banner/'.$socialChannel->existing_banner);
+                $custom=0;
+            @endphp
+        @else
+            @php
+                $image = '';
+                $custom=0;
+            @endphp
+        @endif
+    @else
+        @php
+            $image = asset('site/img/social-media-banner/Header_SocialMedia_1.svg');
+            $custom=2;
+        @endphp
+    @endif
+
 <body id="dsocial-body">
     <div class="vcard-template style2">
 
-        <div class="blur-bgd hidden-sm hidden-xs" style="background: url({{ asset('site/img/social-media-banner/Header_SocialMedia_1.svg') }});">
+        <div class="blur-bgd hidden-sm hidden-xs" style="@if($image) background: url({{ $image }}); @endif">
         </div>
 
         <div class="vcard-header">
             <div class="vcard-header-wrapper">
                 <div class="vcard-top-info avatar-container"
-                style="background-color: #3766b8;-webkit-mask: url({{ asset('site/img/social-media-banner/Header_SocialMedia_1.svg') }}) no-repeat 50% 50%;mask: url({{ asset('site/img/social-media-banner/Header_SocialMedia_1.svg') }}) no-repeat 50% 50%;-webkit-mask-size: cover;mask-size: cover;background-size: 100%;">
+                @if($image && $custom==1)
+                style="background-color: {{ $socialChannel->banner_color }};background: url({{ $image }}) no-repeat 50% 50%;background-size: cover;"
+                @else 
+                style="background-color: {{ $socialChannel->banner_color ?? '#3766b8' }};-webkit-mask: url({{ $image }}) no-repeat 50% 50%;mask: url({{ $image }}) no-repeat 50% 50%;-webkit-mask-size: cover;mask-size: cover;background-size: 100%;"
+                @endif
+                >
             </div>
-            <div class="event-section-title shadow-2" style="background: rgb(68, 127, 182);">
+            <div class="event-section-title shadow-2" style="@if(@$socialChannel->primary_color)  background: {{ $socialChannel->primary_color }}; @else background: rgb(68, 127, 182); @endif">
                 <div class="event-content-container">
-                    <div class="event-title dynamicTextColor">Connect with us on social media</div>
-                    <div class="event-teaser mt-10 dynamicTextColor">
-                        Follow us and get updates delivered to your favorite social media channel.
-                    </div>
+                    <div class="event-title dynamicTextColor">{{ $socialChannel->headline ?? 'Connect with us on social media
+                        ' }}</div>
+                    <div class="event-teaser mt-10 dynamicTextColor">{{ $socialChannel->summery ?? 'Follow us and get updates delivered to your favorite social media channel.
+                        ' }}</div>
                 </div>
             </div>
             </div>
@@ -38,66 +67,108 @@
             <div class="vcard-body-wrapper">
                 <div class="vcard-body">
                     <div id="devent-details">
+                        @if (empty($socialChannel))
                         <a target="_self" class="channel-container"
-                            id="channel-item-website" href="#channel-item-website" random="1">
+                        id="channel-item-website" href="#channel-item-website" random="1">
+                        <div class="pl-55 pos-relative">
+                            <div class="channel-bgd-website channel-bgd">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="channel-prop-container pull-left">
+                                <span>
+                                   <span>
+                                        <div class="channel-name mb-5">
+                                            Visit us online
+                                        </div>
+                                        <div class="channel-label">
+                                            www.your-website.com
+                                        </div>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                    <a target="_self" class="channel-container"
+                        id="channel-item-facebook" href="#channel-item-facebook" random="2">
+                        <div class="pl-55 pos-relative">
+                            <div class="channel-bgd-facebook channel-bgd">
+                                <i class="fab fa-facebook"></i>
+                            </div>
+                            <div class="channel-prop-container pull-left">
+                                <span>
+                                   <span>
+                                        <div class="channel-name mb-5">
+                                            Facebook
+                                        </div>
+                                        <div class="channel-label">
+                                            Become a fan
+                                        </div>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                    <a target="_self" class="channel-container"
+                        id="channel-item-youtube" href="#channel-item-youtube" random="3">
+                        <div class="pl-55 pos-relative">
+                            <div class="channel-bgd-youtube channel-bgd">
+                                <i class="fab fa-youtube"></i>
+                            </div>
+                            <div class="channel-prop-container pull-left">
+                                <span>
+                                   <span>
+                                        <div class="channel-name mb-5">
+                                            Youtube
+                                        </div>
+                                        <div class="channel-label">
+                                            Watch our videos
+                                        </div>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                        @else 
+
+                        @if ($socialChannel->socials->count()>0)
+                            @foreach ($socialChannel->socials as $key => $social)
+                            <a target="_self" class="channel-container"
+                            id="channel-item-{{ $social->social_name }}" href="#channel-item-{{ $social->social_name }}" random="{{ $key }}">
                             <div class="pl-55 pos-relative">
-                                <div class="channel-bgd-website channel-bgd">
-                                    <i class="fas fa-globe"></i>
+                                <div class="channel-bgd-{{ strtolower($social->social_name)  }} channel-bgd">
+                                    <i class="{{ $social->icon_class }}"></i>
                                 </div>
                                 <div class="channel-prop-container pull-left">
                                     <span>
-                                       <span>
+                                        @if (strtolower($social->social_name)=='website')
+                                        <span>
                                             <div class="channel-name mb-5">
-                                                Visit us online
+                                                {{ $social->channel_label }}
                                             </div>
                                             <div class="channel-label">
-                                                www.your-website.com
+                                                {{ $social->url }}
                                             </div>
                                         </span>
+                                        @else
+                                        <span>
+                                            <div class="channel-name mb-5">
+                                                {{ $social->social_name }}
+                                            </div>
+                                            <div class="channel-label">
+                                                {{ $social->channel_label }}
+                                            </div>
+                                        </span>
+                                        @endif
+                                    
                                     </span>
                                 </div>
                             </div>
                         </a>
-                        <a target="_self" class="channel-container"
-                            id="channel-item-facebook" href="#channel-item-facebook" random="2">
-                            <div class="pl-55 pos-relative">
-                                <div class="channel-bgd-facebook channel-bgd">
-                                    <i class="fab fa-facebook"></i>
-                                </div>
-                                <div class="channel-prop-container pull-left">
-                                    <span>
-                                       <span>
-                                            <div class="channel-name mb-5">
-                                                Facebook
-                                            </div>
-                                            <div class="channel-label">
-                                                Become a fan
-                                            </div>
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                        </a>
-                        <a target="_self" class="channel-container"
-                            id="channel-item-youtube" href="#channel-item-youtube" random="3">
-                            <div class="pl-55 pos-relative">
-                                <div class="channel-bgd-youtube channel-bgd">
-                                    <i class="fab fa-youtube"></i>
-                                </div>
-                                <div class="channel-prop-container pull-left">
-                                    <span>
-                                       <span>
-                                            <div class="channel-name mb-5">
-                                                Youtube
-                                            </div>
-                                            <div class="channel-label">
-                                                Watch our videos
-                                            </div>
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                        </a>
+                            @endforeach
+                        @endif
+                            
+                        @endif
+                        
                     </div>
 
                     <div class="vcard-row follow-scroll share-container">
@@ -139,12 +210,22 @@
                                     </div>
                                 </div>
                             </div> --}}
+                            @if (empty(@$socialChannel))
                             <a class="fabshare" style="background: rgb(233, 30, 99);">
                                 <span class="hidden-xs" style="color: white;">
                                     <i class="prime fas fa-share-alt"></i>
                                     Share this page        </span>
                                 <i class="prime fas fa-share-alt visible-xs" style="color: white;"></i>
                             </a>
+                            @elseif (@$socialChannel->is_sharing==1)
+                                <a class="fabshare" style="background: {{ $socialChannel->button_color }}">
+                                    <span class="hidden-xs" style="color: white;">
+                                        <i class="prime fas fa-share-alt"></i>
+                                        Share this page        </span>
+                                    <i class="prime fas fa-share-alt visible-xs" style="color: white;"></i>
+                                </a>
+                            @endif
+                            
                         </div>
                     </div>
 

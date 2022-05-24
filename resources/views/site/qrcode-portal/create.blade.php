@@ -28,6 +28,11 @@
 
     <div class="generator-row">
 
+        <!-- Trigger the modal with a button -->
+        {{-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#designQrModal">Open Modal</button>
+
+        @include('site.qrcode-portal.partials.designQrModal') --}}
+
         @include('site.qrcode-portal.partials.stepone')
 
         @include('site.qrcode-portal.partials.websiteStep')

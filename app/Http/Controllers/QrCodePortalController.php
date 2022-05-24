@@ -146,7 +146,7 @@ class QrCodePortalController extends Controller
 
     public function uploadCropImage(Request $request)
     {
-        $folderPath = public_path('upload/');
+        $folderPath = storage_path('tempUpload/');
  
         $image_parts = explode(";base64,", $request->image);
         $image_type_aux = explode("image/", $image_parts[0]);
@@ -165,6 +165,6 @@ class QrCodePortalController extends Controller
         //  $saveFile->name = $imageName;
         //  $saveFile->save();
     
-        return response()->json(['success'=>'Crop Image Uploaded Successfully']);
+        return response()->json(['fileName'=>$imageName]);
     }
 }

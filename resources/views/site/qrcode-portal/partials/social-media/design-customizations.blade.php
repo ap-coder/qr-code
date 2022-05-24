@@ -257,6 +257,10 @@
                 </div>
             </div>
 
+            <input type="hidden" name="is_custom_banner" id="is_custom_banner" value="0">
+            <input type="hidden" name="existing_banner" id="existing_banner" value="Header_SocialMedia_1.svg">
+            <input type="hidden" name="banner_color" id="banner_color" value="rgb(55, 102, 184)">
+            <input type="hidden" name="bannerImage" id="bannerImage">
 
             <div class="modal fade" id="customImagemodal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">

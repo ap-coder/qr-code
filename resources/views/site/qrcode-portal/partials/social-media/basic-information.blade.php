@@ -24,7 +24,7 @@
                         Headline: <span>*</span>
                     </div>
                     <div class="col-sm-12 col-md-9 box-input">
-                        <input type="text" placeholder="Connect with us on social media" maxlength="500" id="formly_qrinput_title" name="formly_qrinput_title" required="required" value="Connect with us on social media">
+                        <input type="text" placeholder="Connect with us on social media" maxlength="500" id="formly_qrinput_title" name="headline" required="required" value="Connect with us on social media">
                     </div>
 
                 </div>
@@ -33,7 +33,7 @@
                         About us:
                     </div>
                     <div class="col-sm-12 col-md-9 box-input">
-                        <textarea placeholder="Follow us and get updates delivered to your favorite social media channel." maxlength="120" id="formly_qrinput_textarea_teaser" name="formly_qrinput_textarea_teaser" spellcheck="false" rows="4" class="aboutSocialMedia">Follow us and get updates delivered to your favorite social media channel.</textarea>
+                        <textarea placeholder="Follow us and get updates delivered to your favorite social media channel." maxlength="120" id="formly_qrinput_textarea_teaser" name="summery" spellcheck="false" rows="4" class="aboutSocialMedia">Follow us and get updates delivered to your favorite social media channel.</textarea>
                         <div class="charleft originalTextareaInfo"> <span>74</span> / 120</div>
                     </div>
 

@@ -10,17 +10,19 @@
     </div>
 
     <div class="col-sm-12 col-md-8 channel-input-container">
+        <input type="hidden" name="icon_class[]" value="fab fa-telegram">
+        <input type="hidden" name="social_name[]" value="Telegram">
         <div class="input-group">
             <span class="input-group-addon" id="prefix-addon8">
                 URL *
             </span>
-            <input type="text" class="form-control" placeholder="t.me/username" required="required"
-                id="channelInput-8" name="channelInput-8">
+            <input type="url" class="form-control" placeholder="t.me/username" required="required"
+                id="channelInput-8" name="url[]">
         </div>
         <div class="input-group">
             <span class="input-group-addon" id="label-addon8">Text</span>
-            <input type="text" class="form-control" placeholder="Get in touch" value="Get in touch"
-                id="qr_media_channels_channels_8" name="qr_media_channels_channels_8">
+            <input type="text" class="form-control channelText" placeholder="Get in touch" value="Get in touch"
+                id="qr_media_channels_channels_8" name="channel_label[]">
         </div>
     </div>
     @include('site.qrcode-portal.partials.common.right-icons')

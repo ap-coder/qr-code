@@ -21,7 +21,7 @@
                     </div>
                     <div class="col-sm-12 col-md-9 box-input mt-16">
                         <label for="share_button">
-                            <input type="checkbox" id="share_button" checked /> Add a share button to the page
+                            <input type="checkbox" id="share_button" checked name="is_sharing" value="1" /> Add a share button to the page
                         </label>
                     </div>
 

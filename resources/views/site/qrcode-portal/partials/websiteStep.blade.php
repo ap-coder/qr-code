@@ -59,7 +59,7 @@
             <button type="button" class="btn qrcodetab">QR Code</button>
           </div>
         <div class="preview-smartphone clearfix active mockup__smartphone">
-            <div class="preview-smartphone-wrapper noVideo mockup__smartphone-wrapper" style="display: block;">
+            <div class="preview-smartphone-wrapper website-preview-smartphone-wrapper noVideo mockup__smartphone-wrapper" style="display: block;">
                 <div id="smartphonePlaceholder" class="placeholder ratchet">
                     <div class="template template-url">
                         <header class="bar bar-nav">
@@ -81,7 +81,7 @@
                 </div>
             </div>
 
-            <div class="preview-qrcode" style="display: none;">
+            <div class="preview-qrcode website-preview-qrcode" style="display: none;">
                 <div class="code">
 
                     {{-- <img id="barcodeImage" src=""> --}}
