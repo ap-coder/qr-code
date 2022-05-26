@@ -67,6 +67,9 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     Route::apiResource('app-promotions', 'AppPromotionApiController');
 });
 
+Route::post('qrcode/createQrCode', 'Api\V1\QrProcessController@createQrCode')->name('api.qrcode.createQrCode');
+Route::post('qrcode/downloadPng', 'Api\V1\QrProcessController@downloadPng')->name('api.qrcode.downloadPng');
+Route::get('qrcode/downloadPdf', 'Api\V1\QrProcessController@downloadPdf')->name('api.qrcode.downloadPdf');
 Route::post('qrcode/process', 'Api\V1\QrProcessController@process')->name('api.qrcode.process');
 Route::post('qrcode/website', 'Api\V1\QrProcessController@website')->name('api.qrcode.website');
 Route::post('qrcode/socialChannel', 'Api\V1\QrProcessController@socialChannel')->name('api.qrcode.socialChannel');

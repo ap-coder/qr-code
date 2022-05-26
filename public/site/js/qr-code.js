@@ -246,7 +246,13 @@ $(document).ready(function() {
                     url: basUrl + "api/qrcode/website",
                     data: formData,
                     success: function(data) {
-                        console.log(data);
+                        $('#websiteId').val(data.id);
+                        $('#malink').val(data.link);
+                        $('.resultholder').html(data.content);
+                        $('#designQrModal').modal('show');
+                        $('.ladda-label').text('Next');
+                        $('.sk-three-bounce').hide();
+                        $(".ladda-button").prop("disabled", false);
                     }
                 });
 
@@ -278,9 +284,15 @@ $(document).ready(function() {
                     url: basUrl + "api/qrcode/socialChannel",
                     data: formData,
                     success: function(data) {
-                        console.log(data);
+                        // console.log(data);
                         $('#socialId').val(data.id);
+                        $('#malink').val(data.link);
+                        $('.resultholder').html(data.content);
+                        $('#designQrModal').modal('show');
                         $('.social-preview-qrcode .barcodeSVG').html(data.content);
+                        $('.ladda-label').text('Next');
+                        $('.sk-three-bounce').hide();
+                        $(".ladda-button").prop("disabled", false);
                     }
                 });
 
@@ -326,8 +338,8 @@ $(document).ready(function() {
 
         $('.social-media-preview iframe').contents().find('.event-section-title').css({ 'background': c1 });
         $('.social-media-preview iframe').contents().find('.fabshare').css({ 'background': c2 });
-        $('.social-media-preview iframe').contents().find('.avatar-container').css({ 'background-color': circleColor });
-        $('.custom-image-border.color-selected div').css('background-color', circleColor);
+        // $('.social-media-preview iframe').contents().find('.avatar-container').css({ 'background-color': circleColor });
+        // $('.custom-image-border.color-selected div').css('background-color', circleColor);
     });
 
     $('#formly_qrinput_title').on('keyup', function() {
@@ -715,6 +727,12 @@ $(document).ready(function() {
         });
     });
 
+
+    $('#designQrModal').modal({
+        show: false,
+        backdrop: 'static',
+        keyboard: false
+    });
 
     function isUrlValid(userInput) {
         var res = userInput.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);

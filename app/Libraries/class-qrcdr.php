@@ -2,6 +2,9 @@
 
 namespace App\Libraries;
 use App\Libraries\QRcode;
+use App\Libraries\Markers;
+use App\Libraries\EasySVG;
+use App\Libraries\Frames;
 /**
  * QRcdr - php QR Code generator
  * lib/class-qrcdr.php
@@ -197,7 +200,8 @@ class QRvct extends QRvect
      */
     private static function _vectSVG($frame, $pixelPerPoint = 4, $outerFrame = 4, $back_color = 0xFFFFFF, $fore_color = 0x000000, $style = false, $saveandprint = false)
     {
-        include dirname(__FILE__).'/markers.php';
+        $markers=Markers::markers();
+        $markersIn=Markers::markersIn();
 
         $watermark = isset($style['optionlogo']) && $style['optionlogo'] !== 'none' ? $style['optionlogo'] : false;
         $no_logo_bg = isset($style['no_logo_bg']) ? $style['no_logo_bg'] : false;
@@ -251,7 +255,7 @@ class QRvct extends QRvect
 
         if ($setframe) {
 
-            include dirname(__FILE__).'/frames.php';
+            $frames = Frames::frames();
 
             $custom_frame_color = isset($style['custom_frame_color']) ? $style['custom_frame_color'] : false;
 
@@ -544,14 +548,12 @@ class QRvct extends QRvect
             $label_text_size = isset($style['label_text_size']) ? intval($style['label_text_size']) : 100;
             $label_scale = $label_text_size/100;
 
-            include dirname(__FILE__).'/EasySVG.php';
-
             $text = html_entity_decode($framelabel);
             $svg = new EasySVG();
             // $svg->setFontSVG(dirname(__FILE__).'/fonts/'.$label_font);
             // $svg->setFontSize(100);
             // $svg->setFontColor($labeltext_color);
-            $svg->setFont(dirname(__FILE__).'/fonts/'.$label_font, 100, $labeltext_color);
+            $svg->setFont(public_path('site/fonts').'/'.$label_font, 100, $labeltext_color);
 
             $svg->addText($text);
 
@@ -577,16 +579,19 @@ class QRvct extends QRvect
             if (substr($watermark, 0, strlen($basemark)) === $basemark) {
                 $base64 = $watermark;
             } else {
-                $path = dirname(dirname(__FILE__)).'/images/watermarks/'.basename($watermark);
+                $path = public_path('site/img/watermarks/'.basename($watermark));
+                
                 if (file_exists($path)) {
                     $mimetype = mime_content_type($path);
                     $type = $mimetype == 'image/svg' ? $mimetype.'+xml' : $mimetype;
                     $data = file_get_contents($path);
+
                     $base64 = 'data:' . $type . ';base64,'.base64_encode($data);
                 }
             }
 
             if ($base64) {
+                
                 $watermark_pos = $realimgW/2 - $watermark_size/2;
                 $watermark_pos_y = $setframe && $framelabelpos == 'top' ? $watermark_pos + $framediff : $watermark_pos;
                 $output .= '<image xlink:href="'.$base64.'" width="'.$watermark_size.'" height="'.$watermark_size.'" x="'.$watermark_pos.'" y="'.$watermark_pos_y.'"/>'."\n";

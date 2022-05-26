@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Libraries\QRcdrFn;
 use App\Libraries\QRcdr;
+use App\Libraries\Frames;
 use App\Models\Website;
 use App\Models\QrCode;
 use App\Models\SocialChannel;
@@ -13,12 +14,113 @@ use App\Models\Social;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use DOMDocument;
 use XSLTProcessor;
+use PDF;
 
 class QrProcessController extends Controller
 {
     public function process(Request $request)
     {
-        $this->generateqrcode($request->all());        
+        $qrcode=$this->generateqrcode($request->all()); 
+        
+        echo $qrcode;
+    }
+
+    public function downloadPdf(Request $request)
+    {
+        $qrcode=public_path('qrcodes')."/".basename($request->f).".svg";
+
+        $image = '<!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+            <title>Qr Code</title>
+        </head>
+        <body>
+        <div style="width:100%; text-align: center;"><img style="height: auto; max-width:100%; margin:0 auto;" src="'.$qrcode.'" /></div>
+        </body>
+        </html>';
+
+        $pdf = PDF::loadHTML($image);
+    
+        return $pdf->download('qrcodes.pdf');
+
+    }
+
+    public function downloadPng(Request $request)
+    {
+        
+        $imgdata = filter_input(INPUT_POST, 'imgdata', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $filename = filter_input(INPUT_POST, 'filename', FILTER_SANITIZE_STRING);
+
+        if ($imgdata && $filename) {
+            $maindir = config('qrcdr.qrcodes_dir').'/';
+            $savedir = $maindir;
+            $basename = basename($filename, '.png');
+
+            if (file_exists($savedir.$basename.'.svg')) {
+                $basename = basename($filename, '.svg');
+
+                if (!file_exists($savedir.$filename)) {
+                    if (!file_exists($imgdata)) {
+                        $content = file_get_contents($imgdata);
+                    }
+                    if (!$content) {
+                        exit('error');
+                    }
+                    file_put_contents($savedir.$filename, $content);
+                }
+                echo $maindir.$filename;
+                exit;
+            }
+            exit('error');
+        }
+    }
+
+    public function createQrCode(Request $request)
+    {
+        $data=$request->create;
+        if ($data) {
+            $qrcodes_dir = config('qrcdr.qrcodes_dir');
+            $decoded = json_decode($data);
+            $svgheader = '<?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';
+            $precontent = $svgheader.$decoded->content;
+            
+            if (class_exists('DOMDocument') && class_exists('XSLTProcessor')) {
+                $xsl = new DOMDocument;
+                $xsl->load('sanitize.xsl');
+                $proc = new XSLTProcessor;
+                $proc->importStyleSheet($xsl);
+                $xml = simplexml_load_string($precontent);
+                $content = $proc->transformToXML($xml);
+            } else {
+                $content = $precontent;
+            }
+    
+            $basename = filter_var($decoded->basename, FILTER_UNSAFE_RAW);
+    
+            if ($content && $basename) {
+                $filedir = $qrcodes_dir;
+                $filename_path = $filedir.'/'.$basename.'.svg';
+                try {
+                    $handle = fopen($filename_path, "w");
+                    fwrite($handle, $content);
+                    fclose($handle);
+                } catch (Exception $e) {
+                    $response = array('error' => 'Exception: ', $e->getMessage());
+                    echo json_encode($response);
+                    exit;
+                }
+                $response = array(
+                    'basename' => $basename,
+                    'filedir' => url('qrcodes'),
+                );
+                echo json_encode($response);
+            } else {
+                $response = array('error' => 'Creation failed');
+                echo json_encode($response);
+            }
+        }
+       
     }
 
     public function generateqrcode($data)
@@ -32,7 +134,7 @@ class QrProcessController extends Controller
         $getsection = '#link';
         $setbackcolor = $data['backcolor'] ?? '';
         $setbackcolor = $setbackcolor ? $setbackcolor : config('qrcdr.qr_bgcolor');
-
+        
         $setfrontcolor = $data['frontcolor'] ?? '';
         $setfrontcolor = $setfrontcolor ? $setfrontcolor : config('qrcdr.qr_color');
 
@@ -141,15 +243,18 @@ class QrProcessController extends Controller
 
         $output_data = QRcdrFn::validateUrl($link);
 
+        $transparent = $data['transparent'] ?? '';
                 
         if ($output_data) {
 
-            $backcolor = $link ? 'transparent' : $backcolor;
+            $backcolor = $transparent ? 'transparent' : $backcolor;
 
             // $optionlogo = $optionlogo && $optionlogo !== 'none' ? $optionlogo : false;
             $filename = $PNG_TEMP_DIR.md5($output_data.'|'.$errorCorrectionLevel.'|'.$matrixPointSize.time());
             $filenamesvg = $filename.'.svg';
             $basename = basename($filenamesvg, '.svg');
+
+            $frames = Frames::frames();
 
             $codemargin = $outerframe !== 'none' ? $frames[$outerframe]['frame_border'] * 2 + 1 : 2;
             $content = QRcdr::svg($output_data, $filenamesvg, $errorCorrectionLevel, $matrixPointSize, $codemargin, false, $backcolor, $frontcolor, $optionstyle);
@@ -177,11 +282,22 @@ class QrProcessController extends Controller
             'qr_name'=> $request->qr_name,
             'website_name'=> $request->qr_name,
             'url'=> $request->url,
-            'slug' => SlugService::createSlug(Website::class, 'slug', $request->qr_name),
             'active'=> 1,
         ];
 
-        $website = Website::create($websiteData);
+        if ($request->websiteId) {
+            $website=Website::where('id',$request->websiteId)->first();
+
+            if($website->qr_name != $request->qr_name){
+                $websiteData['slug'] = SlugService::createSlug(Website::class, 'slug', $request->qr_name);
+            }
+            $website->update($websiteData);
+        } else {
+            $websiteData['slug'] = SlugService::createSlug(Website::class, 'slug', $request->qr_name);
+            $website = Website::create($websiteData);
+        }
+
+        $website->websitesQrCodes()->forceDelete();
 
         $qrData=[
             'name'=> $request->qr_name,
@@ -194,7 +310,18 @@ class QrProcessController extends Controller
 
         $qrCode->websites()->sync($website->id);
 
-        echo json_encode(1);
+        $qrcodeData=[
+            'link'=>$website->url,
+        ];
+
+        $qrcode=$this->generateqrcode($qrcodeData);
+        
+        $result = json_decode($qrcode);
+
+        $result->id=$website->id;
+        $result->link=$website->url;
+
+        echo json_encode($result);
     }
 
     public function socialChannel(Request $request)
@@ -303,6 +430,7 @@ class QrProcessController extends Controller
         $result = json_decode($qrcode);
 
         $result->id=$socialChannel->id;
+        $result->link=route('qrcode.social-media-preview',$socialChannel->slug);
 
         echo json_encode($result);
     }

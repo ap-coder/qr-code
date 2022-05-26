@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Gate;
 use App\Models\QrType;
 use App\Models\QrIndustry;
+use App\Libraries\Markers;
+use App\Libraries\Frames;
 
 class QrCodePortalController extends Controller
 {
@@ -20,9 +22,18 @@ class QrCodePortalController extends Controller
     {
         // abort_if(Gate::denies('qrcode_portal_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $markers=Markers::markers();
+        $markersIn=Markers::markersIn();
+        $frames=Frames::frames();
+        $fontdir =  public_path('site/fonts/');
+        
         $qrTypes = QrType::published()->get();
         $qrIndustries = QrIndustry::get();
-        return view('site.qrcode-portal.create',compact('qrTypes','qrIndustries'));
+
+        $waterdir = public_path('site/img/watermarks/');
+        $watermarks = glob($waterdir.'*.{gif,jpg,png,svg}', GLOB_BRACE);
+
+        return view('site.qrcode-portal.create',compact('qrTypes','qrIndustries','markers','markersIn','watermarks','frames','fontdir'));
     }
 
     /**

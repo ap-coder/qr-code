@@ -1,7 +1,8 @@
 
 
 		<!-- Vendor -->
-		<script src="{{ asset('site/vendor/jquery/jquery.min.js') }}"></script>
+		{{-- <script src="{{ asset('site/vendor/jquery/jquery.min.js') }}"></script> --}}
+		<script src="{{ asset('site/js/jquery-3.5.1.min.js') }}"></script> 
 		<script src="{{ asset('site/vendor/jquery.appear/jquery.appear.min.js') }}"></script>
 		<script src="{{ asset('site/vendor/jquery.easing/jquery.easing.min.js') }}"></script>
 		<script src="{{ asset('site/vendor/jquery.cookie/jquery.cookie.min.js') }}"></script>
@@ -40,4 +41,7 @@
 		<!-- Theme Initialization Files -->
 		<script src="{{ asset('site/js/theme.init.js') }}"></script>
 
+		
 		<script src="{{ asset('site/js/qr-code.js') }}"></script> 
+		<script src="{{ asset('site/js/qrcdr.min.js') }}"></script> 
+		<script src="{{ asset('site/js/call.js') }}"></script> 

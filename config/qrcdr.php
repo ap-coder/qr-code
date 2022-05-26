@@ -16,7 +16,7 @@
  */
 return [
     'lang' => 'en',                             // main language
-    'qrcodes_dir' => storage_path('qrcodes'),                 // qr codes directory
+    'qrcodes_dir' => public_path('qrcodes'),                 // qr codes directory
     'delete_old_files' => true,                 // delete periodically old files
     'file_lifetime' => 1,                       // delete files older than..(hours) from /qrcodes_dir/
     'uploader' => true,                         // let users upload their own logo

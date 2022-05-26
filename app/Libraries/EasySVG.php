@@ -1,5 +1,8 @@
 <?php
 namespace App\Libraries;
+use stdClass;
+use SimpleXMLElement;
+use XMLReader;
 /**
  * EasySVG - Generate SVG from PHP
  * @author Simon Tarchichi <kartsims@gmail.com>

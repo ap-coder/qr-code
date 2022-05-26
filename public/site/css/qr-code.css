@@ -2466,8 +2466,139 @@ ul.channels-list {
     height: 100%;
 }
 
+.resultholder svg {
+    width: 100%;
+    height: 100%;
+}
+
+.resultholder img {
+    width: 100%;
+    height: 100%;
+}
+
+.markers .input-group {
+    position: relative !important;
+    display: flex !important;
+}
+
+.logoselecta img {
+    min-height: 2em;
+    min-width: 2em;
+    max-width: 2em;
+    max-height: 2em;
+}
+
+.custom-watermark img {
+    max-width: 100%;
+    height: 2em;
+    margin: 0.375rem 0.75rem;
+}
+
+.styleselecta label {
+    min-width: 2.5em;
+}
+
+.btn.custom-watermark {
+    padding: 0;
+}
+
+input[type=range].qrcdr-slider-input {
+    margin: 10px 0;
+    width: 100%;
+    opacity: 0.7;
+}
+
+.qrmodalleft {
+    -webkit-box-shadow: inset -1px 0 0 0 #e6edf0;
+    box-shadow: inset -1px 0 0 0 #e6edf0;
+}
+
 .section-title__label--hide {
     display: none;
+}
+
+.preloader {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    font-size: 36px;
+    display: none;
+    -webkit-box-shadow: inset 0 3px 5px rgb(0 0 0 / 13%);
+    box-shadow: inset 0 3px 5px rgb(0 0 0 / 13%);
+}
+
+.preloader .fa-cog {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -18px;
+    margin-top: -18px;
+}
+
+.placeresult .linksholder .btn {
+    font-size: 2.5rem;
+    border-color: transparent;
+}
+
+
+/*
+ * CropIt
+ */
+
+.image-editor {
+    width: 248px;
+}
+
+.cropit-preview img {
+    max-width: none;
+}
+
+.cropit-preview {
+    background-size: cover;
+    width: 200px;
+    height: 200px;
+    margin: 25px;
+    border: 1px solid #E4E1E6;
+}
+
+.cropit-preview-image-container {
+    cursor: move;
+}
+
+input.cropit-image-input {
+    visibility: hidden;
+    display: none;
+}
+
+.cropit-preview-background {
+    opacity: .2;
+}
+
+input.cropit-image-zoom-input {
+    position: relative;
+}
+
+.cropit-image-zoom-input,
+.cropit-preview {
+    display: none;
+}
+
+.cropit-preview.cropit-image-loaded {
+    display: block;
+}
+
+.cropit-image-loaded.cropit-image-zoom-input:not([disabled]) {
+    display: inline-block;
+}
+
+@media (min-width: 992px) {
+    #designQrModal .modal-lg,
+    #designQrModal .modal-xl {
+        max-width: 1124px;
+    }
 }
 
 
