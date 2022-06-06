@@ -33,7 +33,7 @@
                         About us:
                     </div>
                     <div class="col-sm-12 col-md-9 box-input">
-                        <textarea placeholder="Follow us and get updates delivered to your favorite social media channel." maxlength="120" id="formly_qrinput_textarea_teaser" name="summery" spellcheck="false" rows="4" class="aboutSocialMedia">Follow us and get updates delivered to your favorite social media channel.</textarea>
+                        <textarea placeholder="Follow us and get updates delivered to your favorite social media channel." maxlength="120" id="formly_qrinput_textarea_teaser" name="summery" spellcheck="false" rows="4" class="aboutSocialMedia textareacount">Follow us and get updates delivered to your favorite social media channel.</textarea>
                         <div class="charleft originalTextareaInfo"> <span>74</span> / 120</div>
                     </div>
 

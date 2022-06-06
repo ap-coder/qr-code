@@ -73,3 +73,4 @@ Route::get('qrcode/downloadPdf', 'Api\V1\QrProcessController@downloadPdf')->name
 Route::post('qrcode/process', 'Api\V1\QrProcessController@process')->name('api.qrcode.process');
 Route::post('qrcode/website', 'Api\V1\QrProcessController@website')->name('api.qrcode.website');
 Route::post('qrcode/socialChannel', 'Api\V1\QrProcessController@socialChannel')->name('api.qrcode.socialChannel');
+Route::post('qrcode/vCardPlus', 'Api\V1\QrProcessController@vCardPlus')->name('api.qrcode.vCardPlus');

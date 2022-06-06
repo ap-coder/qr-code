@@ -2,7 +2,7 @@
     <div class="col-md-8">
         <form action="" id="websiteForm">
             @csrf
-            <input type="text" id="websiteId" name="websiteId">
+            <input type="hidden" id="websiteId" name="websiteId">
             <div class="section-title">
                 <div class="section-title__icon">
                     <i class="icon--title-editing fas fa-link"></i>

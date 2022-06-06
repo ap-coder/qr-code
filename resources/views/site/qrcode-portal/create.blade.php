@@ -39,6 +39,8 @@
 
         @include('site.qrcode-portal.partials.socialMediaStep')
 
+        @include('site.qrcode-portal.partials.vCardPlusStep')
+
         @include('site.qrcode-portal.partials.footerGenerator')
 
     </div>
@@ -48,6 +50,9 @@
 @endsection
 
 @section('scripts')
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyB72pcnRocqIZfZFEjnHuqRA6BVV92oZyg"></script>
+
     @parent
 
     <script>
@@ -55,4 +60,72 @@
             
         });
     </script>
+
+<script>
+    autocomplete();
+
+function autocomplete() {
+    var inputs = document.getElementsByClassName('autocomplete');
+
+    var options = {};
+
+    var autocompletes = [];
+
+    for (var i = 0; i < inputs.length; i++) {
+        var autocomplete = new google.maps.places.Autocomplete(inputs[i], options);
+        autocomplete.inputId = inputs[i].id;
+        autocomplete.index = i;
+        autocomplete.addListener('place_changed', fillIn);
+        autocompletes.push(autocomplete);
+
+    }
+}
+
+
+function fillIn() {
+    var place = this.getPlace();
+    // console.log(place);
+    var lat = place.geometry.location.lat();
+    var long = place.geometry.location.lng();
+    $('#latitude').val(lat);
+    $('#longitude').val(long);
+    // $('#street_address').val(place.formatted_address);
+
+    var address_components = place.address_components;
+    var locality = '';
+    var state = 0;
+    var country = 0;
+    var postal_code = '';
+
+    $.each(address_components, function(index, component) {
+
+        var types = component.types;
+        $.each(types, function(index, type) {
+            if (type == 'locality') {
+                locality = component.long_name;
+            }
+            if (type == 'administrative_area_level_1') {
+                state = component.short_name;
+            }
+            if (type == 'country') {
+                country = component.short_name;
+            }
+            if (type == 'postal_code') {
+                postal_code = component.short_name;
+            }
+
+        });
+    });
+    $('#city').val(locality);
+    $('#state').val(state);
+    $('#country').val(country);
+    $('#zipcode').val(postal_code);
+
+    $('#apiAddress').hide();
+    $('#fullAddress').show();
+    $('.additional-link').attr('type', 2);
+
+    $('#city').trigger('change');
+}
+</script>
 @endsection

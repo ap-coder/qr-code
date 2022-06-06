@@ -11,6 +11,8 @@ use App\Models\Website;
 use App\Models\QrCode;
 use App\Models\SocialChannel;
 use App\Models\Social;
+use App\Models\Address;
+use App\Models\Vcard;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use DOMDocument;
 use XSLTProcessor;
@@ -433,5 +435,138 @@ class QrProcessController extends Controller
         $result->link=route('qrcode.social-media-preview',$socialChannel->slug);
 
         echo json_encode($result);
+    }
+
+    public function vCardPlus(Request $request)
+    {
+
+        if ($request->street_address && $request->is_direction_show==1) {
+            $is_direction_show=1;
+        }else{
+            $is_direction_show=0;
+        }
+
+        $vCardData=[
+            'qr_name'=> $request->qr_name,
+            'summery'=> $request->summery,
+            'active'=> 1,
+            'is_sharing'=> $request->is_sharing,
+            'first_name'=> $request->first_name,
+            'last_name'=> $request->last_name,
+            'primary_color'=> $request->primary_color,
+            'button_color'=> $request->button_color,
+            'company'=> $request->company,
+            'email'=> $request->email,
+            'website_link'=> $request->website_link,
+            'home_phone'=> $request->home_phone,
+            'mobile_number'=> $request->mobile_number,
+            'fax_number'=> $request->fax_number,
+            'is_direction_show'=> $is_direction_show,
+            'is_show_gradient'=> $request->is_show_gradient,
+            'gradient_color'=> $request->is_show_gradient ? $request->gradient_color : '',
+            'designation'=> $request->designation,
+        ];
+
+        if ($request->vcardId) {
+            $Vcard=Vcard::where('id',$request->vcardId)->first();
+
+            if($Vcard->qr_name != $request->qr_name){
+                $vCardData['slug'] = SlugService::createSlug(Vcard::class, 'slug', $request->qr_name);
+            }
+            $Vcard->update($vCardData);
+        } else {
+            $vCardData['slug'] = SlugService::createSlug(Vcard::class, 'slug', $request->qr_name);
+            $Vcard = Vcard::create($vCardData);
+        }
+
+        if ($request->street_address)
+        {
+            $addressData=[
+                'street_address'=>$request->street_address,
+                'number'=>$request->number,
+                'city'=>$request->city,
+                'state'=>$request->state,
+                'zipcode'=>$request->zipcode,
+                'country'=>$request->country,
+                'latitude'=>$request->latitude,
+                'longitude'=>$request->longitude,
+            ];
+            $address=Address::create($addressData);
+
+            $Vcard->update(['address_id'=>$address->id]);
+        }
+
+        if ($request->input('vcardwelcomeLogo', false)) {
+            if (!$Vcard->loading_photo || $request->input('vcardwelcomeLogo') !== $Vcard->loading_photo->file_name) {
+                if ($Vcard->loading_photo) {
+                    $Vcard->loading_photo->delete();
+                }
+                $Vcard->addMedia(storage_path('tempUpload/' . basename($request->input('vcardwelcomeLogo'))))->toMediaCollection('loading_photo');
+            }
+        } elseif ($Vcard->loading_photo) {
+            $Vcard->loading_photo->delete();
+        }
+
+        if ($request->input('avtarImage', false)) {
+            if (!$Vcard->photo || $request->input('avtarImage') !== $Vcard->photo->file_name) {
+                if ($Vcard->photo) {
+                    $Vcard->photo->delete();
+                }
+                $Vcard->addMedia(storage_path('tempUpload/' . basename($request->input('avtarImage'))))->toMediaCollection('photo');
+            }
+        } elseif ($Vcard->photo) {
+            $Vcard->photo->delete();
+        }
+
+        $Vcard->qrcode()->forceDelete();
+
+        $qrData=[
+            'name'=> $request->qr_name,
+            'slug' => SlugService::createSlug(QrCode::class, 'slug', $request->qr_name),
+            'active'=> 1,
+            'published'=> 1,
+        ];
+
+        $qrCode = QrCode::create($qrData);
+
+        $qrCode->vcard()->sync($Vcard->id);
+
+        $Vcard->socials()->forceDelete();
+
+        $socialIds=array();
+
+        if(count($request->url)>0){
+            foreach ($request->url as $key => $url) {
+                $socialData=[
+                    'url'=>$url,
+                    'title'=>$request->social_name[$key],
+                    'channel_label'=>$request->channel_label[$key],
+                    'social_name'=>$request->social_name[$key],
+                    'channel_name'=>$request->social_name[$key],
+                    'icon_class'=>$request->icon_class[$key],
+                ];
+                $social = Social::create($socialData);
+               
+
+                $socialIds[]=$social->id;
+            }
+
+            $Vcard->socials()->sync($socialIds);
+        }
+
+        $qrcodeData=[
+            'link'=>route('qrcode.vcard-preview',$Vcard->slug),
+        ];
+
+        $qrcode=$this->generateqrcode($qrcodeData);
+        
+        $result = json_decode($qrcode);
+
+        $result->id=$Vcard->id;
+        $result->link=route('qrcode.vcard-preview',$Vcard->slug);
+
+        echo json_encode($result);
+
+
     }
 }

@@ -27,7 +27,7 @@
                                         data-original-title="Select a theme or choose your own colors below."
                                         aria-describedby="tooltip569732"></span>
                                 </div>
-                                <div class="col-sm-12 col-md-9 box-input">
+                                <div class="col-sm-12 col-md-9 box-input social-colors-list">
                                     <ul class="colors-list">
                                         <li>
                                             <a href="javascript:void(0);" class="active" c1="#447fb6"
@@ -92,7 +92,7 @@
                                 </div>
 
                                 <div class="col-sm-12 col-md-2 box-input">
-                                    <a href="javascript:void(0);" class="colorswapper">
+                                    <a href="javascript:void(0);" class="colorswapper colorswapperexchange">
                                         <i class="fas fa-exchange-alt" aria-hidden="true"></i>
                                     </a>
                                 </div>

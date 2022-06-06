@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\QrCode;
 use App\Models\SocialChannel;
 use App\Models\Social;
+use App\Models\Vcard;
 
 class QrCodePreviewContoller extends Controller
 {
@@ -18,5 +19,17 @@ class QrCodePreviewContoller extends Controller
         }
         
         return view('site.qrcode-portal.partials.social-media.preview',compact('socialChannel'));
+    }
+
+    public function vCardPreview($slug='')
+    {
+        if ($slug) {
+            $vCard=Vcard::where('slug',$slug)->first();
+            return view('site.qrcode-portal.partials.vcard-plus.preview',compact('vCard'));
+        }else{
+            return view('site.qrcode-portal.partials.vcard-plus.demo-preview');
+        }
+        
+        
     }
 }

@@ -12,16 +12,14 @@
         </div>
     </div>
     <div class="section-body">
-        <div class="section_type_container section_information socialMediaIcons">
+        <div class="section_type_container section_information vCardsocialMediaIcons">
             <div class="row form-input-row formly-field">
                 <div class="col-lg-offset-1 col-sm-12 col-lg-11 mb-10">
                     <p class="section-subheadline">Add your username or links to social media pages below. Delete a channel or use the arrows to rearrange the order of the links as they appear.</p>
                 </div>
                 
                 <div class="channel-row">
-                    @include('site.qrcode-portal.partials.common.website')
-                    @include('site.qrcode-portal.partials.common.facebook')
-                    @include('site.qrcode-portal.partials.common.youtube')
+                    
                 </div>
 
                 @include('site.qrcode-portal.partials.common.social-icons')

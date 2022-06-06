@@ -3,7 +3,7 @@
     <div class="col-sm-12 col-md-4 box-label">
         <span>Google Review</span>:
         <span class="ml-10">
-            <div class="channel-bgd-googlereview">
+            <div class="channel-bgd-google">
                 <i class="fab fa-google"></i>
             </div>
         </span>

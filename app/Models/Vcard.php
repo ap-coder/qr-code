@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Vcard extends Model implements HasMedia
 {
@@ -17,6 +18,7 @@ class Vcard extends Model implements HasMedia
     use MultiTenantModelTrait;
     use InteractsWithMedia;
     use HasFactory;
+    use Sluggable;
 
     public $table = 'vcards';
 
@@ -48,6 +50,13 @@ class Vcard extends Model implements HasMedia
         'home_phone',
         'mobile_number',
         'fax_number',
+        'primary_color',
+        'button_color',
+        'gradient_color',
+        'is_show_gradient',
+        'designation',
+        'is_direction_show',
+        'is_sharing',
         'created_at',
         'slug',
         'address_id',
@@ -55,6 +64,15 @@ class Vcard extends Model implements HasMedia
         'deleted_at',
         'created_by_id',
     ];
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'qr_name'
+            ]
+        ];
+    }
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -99,6 +117,16 @@ class Vcard extends Model implements HasMedia
     public function address()
     {
         return $this->belongsTo(Address::class, 'address_id');
+    }
+
+    public function socials()
+    {
+        return $this->belongsToMany(Social::class,'social_vcards');
+    }
+
+    public function qrcode()
+    {
+        return $this->belongsToMany(QrCode::class);
     }
 
     public function created_by()
