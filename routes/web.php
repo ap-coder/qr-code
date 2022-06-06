@@ -150,4 +150,5 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
 // Route::get('partners/qr-code', 'SiteController@qrcode_portal_login')->name('partners.qrcode-login');
 Route::get('social-media-preview/{slug?}', 'QrCodePreviewContoller@socialMediaPreview')->name('qrcode.social-media-preview');
 Route::get('vcard-preview/{slug?}', 'QrCodePreviewContoller@vCardPreview')->name('qrcode.vcard-preview');
+Route::get('business-preview/{slug?}', 'QrCodePreviewContoller@businessPreview')->name('qrcode.business-preview');
 

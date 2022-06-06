@@ -1,10 +1,10 @@
-<div class="row" type="3" id="stepform2" style="display: none;">
+<div class="row" type="3" id="stepform3" style="display: none;">
     <div class="col-md-8">
         <form action="" id="businessPageForm">
             @csrf
             <div class="section-title">
                 <div class="section-title__icon">
-                    <i class="icon--title-editing fas fa-bullhorn"></i>
+                    <i class="icon--title-editing fas fa-building"></i>
                 </div>
                 <div class="section-title__name">
                     <input type="text" name="qr_name" id="business_qr_name" class="input--title-editing"
@@ -17,32 +17,31 @@
             </div>
             
         
-            @include('site.qrcode-portal.partials.social-media.design-customizations')    
-            @include('site.qrcode-portal.partials.social-media.basic-information')    
-            @include('site.qrcode-portal.partials.social-media.social-media-channels')    
-            @include('site.qrcode-portal.partials.social-media.welcome-screen')    
-            @include('site.qrcode-portal.partials.social-media.advanced-options')    
+            @include('site.qrcode-portal.partials.business-page.design-customizations')    
+            {{-- @include('site.qrcode-portal.partials.business-page.basic-information')    
+            @include('site.qrcode-portal.partials.business-page.social-media-channels')    
+            @include('site.qrcode-portal.partials.business-page.welcome-screen')     --}}
 
-            <input type="hidden" name="businessId" id="socialId">
-            <input type="hidden" name="businessTab" id="socialTab">
+            <input type="hidden" name="businessId" id="businessId">
+            <input type="hidden" name="businessTab" id="businessTab">
         </form>
     </div>
 
     <div class="col-md-4 state-generator-data">
         <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn socialpreviewtab active">Preview</button>
-            <button type="button" class="btn socialqrcodetab">QR Code</button>
+            <button type="button" class="btn businesspreviewtab active">Preview</button>
+            <button type="button" class="btn businessqrcodetab">QR Code</button>
         </div>
         <div class="preview-smartphone clearfix active mockup__smartphone">
-            <div class="preview-smartphone-wrapper social-preview-smartphone-wrapper mockup__smartphone-wrapper social-media-preview" style="display: block;">
+            <div class="preview-smartphone-wrapper business-preview-smartphone-wrapper mockup__smartphone-wrapper business-preview" style="display: block;">
                 <div id="smartphonePlaceholder" class="placeholder ratchet">
                     <div class="template template-url">
-                        <iframe src="{{ route('qrcode.social-media-preview') }}" frameborder="0"></iframe>
+                        {{-- <iframe src="{{ route('qrcode.business-preview') }}" frameborder="0"></iframe> --}}
                     </div>
                 </div>
             </div>
 
-            <div class="preview-qrcode social-preview-qrcode" style="display: none;">
+            <div class="preview-qrcode business-preview-qrcode" style="display: none;">
                 <div class="code">
 
                     <div class="barcodeSVG"></div>

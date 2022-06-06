@@ -477,8 +477,9 @@ $(document).ready(function() {
 
         $('.social-media-preview iframe').contents().find('.event-section-title').css({ 'background': c1 });
         $('.social-media-preview iframe').contents().find('.fabshare').css({ 'background': c2 });
-        // $('.social-media-preview iframe').contents().find('.avatar-container').css({ 'background-color': circleColor });
-        // $('.custom-image-border.color-selected div').css('background-color', circleColor);
+        $('.social-media-preview iframe').contents().find('.avatar-container').css({ 'background-color': circleColor });
+        $('.custom-image-border.color-selected div').css('background-color', circleColor);
+        $('#banner_color').val(circleColor);
     });
 
     $('#formly_qrinput_title').on('keyup', function() {

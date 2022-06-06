@@ -40,6 +40,8 @@
         @include('site.qrcode-portal.partials.socialMediaStep')
 
         @include('site.qrcode-portal.partials.vCardPlusStep')
+        
+        @include('site.qrcode-portal.partials.businessPageStep')
 
         @include('site.qrcode-portal.partials.footerGenerator')
 
