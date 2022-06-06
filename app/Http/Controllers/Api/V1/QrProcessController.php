@@ -535,7 +535,7 @@ class QrProcessController extends Controller
 
         $socialIds=array();
 
-        if(count($request->url)>0){
+        if(isset($request->url) && count($request->url)>0){
             foreach ($request->url as $key => $url) {
                 $socialData=[
                     'url'=>$url,
