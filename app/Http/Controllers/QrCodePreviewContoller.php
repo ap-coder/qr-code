@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\QrCode;
 use App\Models\SocialChannel;
-use App\Models\Social;
 use App\Models\Vcard;
+use App\Models\BusinessPage;
 
 class QrCodePreviewContoller extends Controller
 {
@@ -28,8 +27,17 @@ class QrCodePreviewContoller extends Controller
             return view('site.qrcode-portal.partials.vcard-plus.preview',compact('vCard'));
         }else{
             return view('site.qrcode-portal.partials.vcard-plus.demo-preview');
+        }        
+    }
+
+    public function businessPreview($slug='')
+    {
+        if ($slug) {
+            $businessPage=BusinessPage::where('slug',$slug)->first();
+        }else{
+            $businessPage=array();
         }
         
-        
+        return view('site.qrcode-portal.partials.business-page.preview',compact('businessPage'));
     }
 }

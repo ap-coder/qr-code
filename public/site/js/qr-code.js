@@ -420,6 +420,25 @@ $(document).ready(function() {
 
     });
 
+    $('.business-colors-list .colors-list li a').click(function() {
+
+        $('.business-colors-list .colors-list li a').removeClass('active');
+        $(this).addClass('active');
+        var c1 = $(this).attr('c1');
+        var c2 = $(this).attr('c2');
+
+        $('#business_primary_color').val(c1);
+        $('#business_button_color').val(c2);
+        $('#business_primary_color').trigger('change');
+        $('#business_button_color').trigger('change');
+
+        $('.business-preview iframe').contents().find('.vcard-header .event-section-title').css({ 'background': c1 });
+
+        $('.business-preview iframe').contents().find('.fabshare').css({ 'background': c2 });
+        $('.business-preview iframe').contents().find('.event-slim-button').css({ 'color': c2 });
+
+    });
+
     $('.colorswapperexchange').click(function() {
 
         var c1 = $('#primary_color').val();
@@ -431,6 +450,21 @@ $(document).ready(function() {
 
         $('.social-media-preview iframe').contents().find('.event-section-title').css({ 'background': c2 });
         $('.social-media-preview iframe').contents().find('.fabshare').css({ 'background': c1 });
+
+    });
+
+    $('.businesscolorswapperexchange').click(function() {
+
+        var c1 = $('#business_primary_color').val();
+        var c2 = $('#business_button_color').val();
+        $('#business_primary_color').val(c2);
+        $('#business_button_color').val(c1);
+        $('#business_primary_color').trigger('change');
+        $('#business_button_color').trigger('change');
+
+        $('.business-preview iframe').contents().find('.event-section-title').css({ 'background': c2 });
+        $('.business-preview iframe').contents().find('.fabshare').css({ 'background': c1 });
+        $('.business-preview iframe').contents().find('.event-slim-button').css({ 'color': c1 });
 
     });
 
@@ -460,9 +494,13 @@ $(document).ready(function() {
     $('.colorpicker').on('click', function() {
         var c1 = $('#primary_color').val();
         var c2 = $('#button_color').val();
+
         var vc1 = $('#vcard_primary_color').val();
         var vc2 = $('#vcard_button_color').val();
         var gradient = $('#vcard_gradient').val();
+
+        var bc1 = $('#business_primary_color').val();
+        var bc2 = $('#business_button_color').val();
 
         var circleColor = $('.show-custom-color .color-picker-circle-input').val();
 
@@ -471,6 +509,10 @@ $(document).ready(function() {
         } else {
             var bg = vc1;
         }
+
+        $('.business-preview iframe').contents().find('.vcard-header .event-section-title').css({ 'background': bc1 });
+        $('.business-preview iframe').contents().find('.fabshare').css({ 'background': bc2 });
+        $('.business-preview iframe').contents().find('.event-slim-button').css({ 'color': bc2 });
 
         $('.vcard-preview iframe').contents().find('.vcard-header').css({ 'background': bg });
         $('.vcard-preview iframe').contents().find('#saveContact .fabshare').css({ 'background': vc2 });
@@ -741,7 +783,7 @@ $(document).ready(function() {
             dir = $(this).attr('sort');
         var rand = $(this).parents('.channels-container').attr('random');
 
-        console.log(rand);
+        // console.log(rand);
 
         var parentIframeDiv = $('.vcard-preview iframe').contents().find('#socialmedialinksContainer .channels-list [random="' + rand + '"]');
 
@@ -752,6 +794,42 @@ $(document).ready(function() {
             parentDiv.insertAfter(parentDiv.next());
             parentIframeDiv.insertAfter(parentIframeDiv.next());
         }
+    });
+
+    $(document).on('keyup change', '.BusinessInformations input, .BusinessInformations textarea', function() {
+
+        var business_company = $('#business_company').val();
+        var business_headline = $('#business_headline').val();
+        var business_summary = $('#business_summary').val();
+
+        if (business_company) {
+            $('.business-preview iframe').contents().find('.top-bar-desktop').show();
+            $('.business-preview iframe').contents().find('.event-content-container .event-title').text(business_company);
+        } else {
+            $('.business-preview iframe').contents().find('.top-bar-desktop').hide();
+        }
+        $('.business-preview iframe').contents().find('.event-section-title .event-tagline').text(business_headline);
+        $('.business-preview iframe').contents().find('.event-section-title .event-teaser').text(business_summary);
+
+    });
+
+    $('.buttonSelection li a.buttonLink').click(function() {
+        var text = $(this).text();
+        $('#business_button_text').val(text);
+    });
+
+    $('.buttonSelection li.customedit a').click(function() {
+        $('#business_button_text').focus().select();
+    });
+
+    $('.removeMenuButton').click(function() {
+        $('#businessMenuButtons .box-input').hide();
+        $('#businessMenuButtons #AddBusinessButtonDiv').show();
+    });
+
+    $('.AddBusinessButton').click(function() {
+        $('#businessMenuButtons .box-input').show();
+        $('#businessMenuButtons #AddBusinessButtonDiv').hide();
     });
 
     $(document).on('keyup change', '.vcardInformations input, .vcardInformations textarea', function() {
@@ -783,7 +861,7 @@ $(document).ready(function() {
         // $('.vcard-preview iframe').contents().find('[field="' + field.name + '"]').text(field.value);
 
         if (first_name || last_name || company) {
-            console.log('main');
+            // console.log('main');
             if (mobile_number || home_phone || email || city || street_address || zipcode || country || company || summary || website_link) {
 
                 // console.log('multi');
@@ -1390,6 +1468,96 @@ $(document).ready(function() {
                         $('.social-media-preview iframe').contents().find('.avatar-container').css({ '-webkit-mask-image': '', 'background': 'url(' + base64data + ')', 'background-size': '100%', 'display': 'block' });
 
                         // alert("Crop image successfully uploaded");
+                    }
+                });
+            }
+        });
+    });
+
+    // business cropper
+
+    $(".cropcustompreviewBusinessImage i").click(function() {
+        $('.cropcustompreviewBusinessImage img').attr('src', '');
+        $('.cropcustompreviewBusinessImage').hide();
+        $('.uploadBusinessImageText').show();
+        $('.business-preview iframe').contents().find('.avatar-container').hide();
+        $('.business-preview iframe').contents().find('.avatar-container').css({ 'background': 'url()' });
+        $('.business-preview iframe').contents().find('.blur-bgd div').css({ 'background': 'url()' });
+    });
+
+    $(".uploadBusinessImageText, .uploadBusinessBannerImage").click(function() {
+        $("input[id='business_banner_image']").click();
+    });
+
+    var $businesscustommodal = $('#customBusinessImagemodal');
+    var businesscustomimage = document.getElementById('cropcustomBusinessimage');
+    var businesscustomcropper;
+    $("body").on("change", "#business_banner_image", function(e) {
+        var files = e.target.files;
+        var done = function(url) {
+            businesscustomimage.src = url;
+            $businesscustommodal.modal({
+                show: true,
+                backdrop: 'static',
+                keyboard: false
+            });
+        };
+        var reader;
+        var file;
+        var url;
+        if (files && files.length > 0) {
+            file = files[0];
+            if (URL) {
+                done(URL.createObjectURL(file));
+            } else if (FileReader) {
+                reader = new FileReader();
+                reader.onload = function(e) {
+                    done(reader.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    });
+
+    $businesscustommodal.on('shown.bs.modal', function() {
+        businesscustomcropper = new Cropper(businesscustomimage, {
+            // aspectRatio: 1,
+            viewMode: 1,
+            preview: '.cropcustomBusinesspreview',
+
+        });
+    }).on('hidden.bs.modal', function() {
+        businesscustomcropper.destroy();
+        businesscustomcropper = null;
+    });
+    $("#customBusinesscrop").click(function() {
+        canvas = businesscustomcropper.getCroppedCanvas({
+            width: 160,
+            height: 160,
+        });
+        canvas.toBlob(function(blob) {
+            url = URL.createObjectURL(blob);
+            var reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = function() {
+                var base64data = reader.result;
+
+                var _token = $('meta[name="csrf-token"]').attr('content');
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: basUrl + "crop-image-upload",
+                    data: { '_token': _token, 'image': base64data },
+                    success: function(data) {
+                        // console.log(data);
+                        $businesscustommodal.modal('hide');
+                        $('.cropcustompreviewBusinessImage img').attr('src', base64data);
+                        $('.cropcustompreviewBusinessImage').show();
+                        $('.uploadBusinessImageText').hide();
+                        $('#businessBannerImage').val(data.fileName);
+                        $('.business-preview iframe').contents().find('.avatar-container').css({ 'background': 'url(' + base64data + ')', 'background-size': '100%', 'display': 'block' });
+
                     }
                 });
             }

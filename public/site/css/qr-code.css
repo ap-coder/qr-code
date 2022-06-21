@@ -18,6 +18,53 @@
     }
 }
 
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px solid rgba(0, 0, 0, 0.37);
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    cursor: pointer;
+}
+
+.caret--open {
+    content: "";
+    border-top: 0;
+    border-bottom: 4px solid rgba(0, 0, 0, 0.37);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    color: #323032;
+    font-weight: 400;
+}
+
+.open-hours--active {
+    font-size: 16px !important;
+}
+
 .generator-row {
     margin-bottom: 10rem!important;
 }
@@ -2033,7 +2080,35 @@ code__url a {
     right: 0;
 }
 
+.uploadBusinessImageText {
+    width: 273px;
+    height: 152px;
+    background-size: 100% !important;
+    margin: 20px auto 0;
+    background: url(#) 0% 0% / 100% no-repeat rgb(245, 248, 250);
+    border-radius: 0px;
+    border: 1px #eaeaea solid !important;
+    cursor: pointer;
+    display: none;
+}
+
+.uploadBusinessImageText span {
+    position: absolute;
+    top: calc(50% - 10px);
+    font-size: 15px;
+    text-align: center;
+    width: 100%;
+    color: #a4a6a8;
+    left: 0;
+    right: 0;
+}
+
 .uploadImageButtons {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.uploadBusinessImageButtons {
     text-align: center;
     margin-top: 40px;
 }
@@ -2073,12 +2148,45 @@ code__url a {
     height: 100%;
 }
 
+.cropcustompreviewBusinessImage i {
+    position: absolute;
+    right: 20px;
+    color: red;
+    cursor: pointer;
+}
+
+.cropcustompreviewBusinessImage {
+    position: absolute;
+    width: 270px;
+    height: 150px;
+    left: 42px;
+    top: 21px;
+}
+
+.cropcustompreviewBusinessImage img {
+    width: 100%;
+    height: 100%;
+}
+
 #cropcustomimage {
     width: 100%;
     height: 400px;
 }
 
+#cropcustomBusinessimage {
+    width: 100%;
+    height: 400px;
+}
+
 .cropcustompreview {
+    overflow: hidden;
+    width: 160px;
+    height: 160px;
+    margin: 10px;
+    border: 1px solid red;
+}
+
+.cropcustomBusinesspreview {
     overflow: hidden;
     width: 160px;
     height: 160px;
@@ -2661,7 +2769,8 @@ input.cropit-image-zoom-input {
 /* start preview css */
 
 body#dsocial-body,
-body#dvcard-body {
+body#dvcard-body,
+body#devent-body {
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif !important;
@@ -2691,6 +2800,387 @@ body#dvcard-body {
 
 .whiteTheme .dynamicTextColor {
     color: #fffefe !important;
+}
+
+.mb-30 {
+    margin-bottom: 30px !important;
+}
+
+span[class^='channel-bgd-'] {
+    display: block;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    margin-right: 15px;
+    top: calc(50% - 15px);
+}
+
+span[class^='channel-bgd-'] i {
+    font-size: 20px;
+    color: #fff;
+    line-height: 41px;
+}
+
+.section_information .dropdown-menu {
+    right: 0;
+    border: none;
+    box-shadow: 0px 3px 6px 0px rgb(121 125 128 / 70%);
+    padding: 5px 0;
+}
+
+.section_information .input-group-addon {
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.section_information .dropdown-menu li {
+    line-height: 24px;
+    padding: 8px 6px;
+    cursor: pointer;
+}
+
+.section_information .dropdown-menu li a {
+    color: #797d80 !important;
+    padding: 8px 17px !important;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.section_information .dropdown-menu li.customedit a {
+    color: #47bdef !important;
+    border-top: 1px solid #eaeaea;
+    margin-left: 16px;
+    margin-right: 16px;
+    padding-left: 8px !important;
+    padding-top: 12px !important;
+    margin-top: 6px;
+}
+
+#devent-body .vcard-template .vcard-body .vcard-row .channel-container {
+    border-bottom: none;
+    padding: 0;
+    min-height: 0;
+}
+
+#devent-body .vcard-template.style2 .vcard-body-wrapper {
+    background: #f7f7f7;
+}
+
+#devent-body .vcard-template .vcard-body .vcard-row small {
+    display: block;
+    font-size: 14px;
+    color: #000;
+    opacity: 0.54;
+    font-weight: 400;
+}
+
+#devent-body .features-container li {
+    margin-right: 10px;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+#devent-body .event-section-title {
+    background: #447fb6;
+    padding: 30px 20px;
+    min-height: 56px;
+    float: left;
+    width: 100%;
+}
+
+#devent-body .features-container li i {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+#devent-body .event-content-container {
+    max-width: 442px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+#devent-body .event-title {
+    font-size: 24px;
+    color: #fffefe;
+    font-weight: 400;
+    text-align: left;
+}
+
+#devent-body .blur-bgd {
+    height: 500px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+#devent-body .blur-bgd div {
+    -webkit-filter: blur(20px);
+    -moz-filter: blur(20px);
+    -o-filter: blur(20px);
+    -ms-filter: blur(20px);
+    filter: blur(20px);
+    height: 500px;
+    background-repeat: no-repeat !important;
+    background-size: 100% !important;
+    background-position: center !important;
+    width: 100%;
+}
+
+#devent-body .vcard-template.style2 .vcard-header .vcard-top-info {
+    margin: 0 auto 0 auto;
+    max-width: 100%;
+    background-repeat: no-repeat !important;
+    height: 360px;
+}
+
+#devent-body .vcard-template.style2 .vcard-header .avatar-container {
+    background-position: center center !important;
+}
+
+#devent-body .event-tagline {
+    font-size: 24px;
+    color: #fffefe;
+    font-weight: 400;
+    text-align: left;
+    margin-top: 5px;
+}
+
+#devent-body .event-teaser {
+    margin-top: 10px;
+    opacity: 0.7;
+    font-size: 15px;
+    color: #fffefe;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+#devent-body .text-break {
+    word-wrap: break-word;
+    white-space: pre-line;
+}
+
+#devent-body .event-action-btn {
+    margin-top: 15px;
+    margin-bottom: 14px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 11px 20px;
+    line-height: 1.2;
+    background: #fff;
+    border-radius: 2px;
+    color: #ea4b88;
+    box-shadow: 0px 3px 4.7px 0.3px rgb(0 0 0 / 24%), 0px 1px 6.86px 0.14px rgb(0 0 0 / 16%);
+    -webkit-box-shadow: 0px 3px 4.7px 0.3px rgb(0 0 0 / 24%), 0px 1px 6.86px 0.14px rgb(0 0 0 / 16%);
+    -moz-box-shadow: 0px 3px 4.7px 0.3px rgba(0, 0, 0, 0.24), 0px 1px 6.86px 0.14px rgba(0, 0, 0, 0.16);
+}
+
+#devent-body .ripplelink {
+    display: block;
+    float: left;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    z-index: 0;
+    padding: 10px 15px;
+}
+
+#devent-body .vcard-template.style2 .vcard-body {
+    padding-top: 0;
+}
+
+#devent-body .vcard-template .vcard-body {
+    max-width: 570px;
+    margin: 0 auto 0 auto;
+    padding-bottom: 20px;
+    z-index: 50;
+}
+
+#devent-body .vcard-template .vcard-body .vcard-row {
+    position: relative;
+    padding: 25px 0 20px 65px;
+    display: inline-block;
+    width: 100%;
+}
+
+#devent-body .vcard-template .vcard-body .vcard-row label {
+    font-size: 14px;
+    color: #000;
+    opacity: 0.54;
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 10px !important;
+}
+
+#devent-body .vcard-template .vcard-body .vcard-row label+i {
+    position: absolute;
+    top: 23px;
+    left: 13px;
+    font-size: 24px;
+    color: rgba(0, 0, 0, 0.37);
+}
+
+.open-now {
+    color: #70c250;
+    font-size: 10px;
+}
+
+.closed-now {
+    color: #f65f6e;
+    font-size: 10px;
+}
+
+.fixed-blur-bgd {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999999;
+    display: none;
+}
+
+#devent-body .vcard-template .vcard-body .vcard-row h4 {
+    font-size: 16px;
+    font-weight: 400;
+    color: #000;
+}
+
+#devent-body .vcard-template .vcard-body .vcard-row .fabshare {
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+}
+
+#devent-body .event-slim-button {
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-transform: uppercase;
+    padding: 11px 20px;
+    line-height: 1.2;
+    background: transparent !important;
+    border-radius: 2px;
+    color: #ea4b88;
+}
+
+.text-muted,
+.row.text-muted h4 {
+    color: #82848f !important;
+}
+
+.open-hours--not-active {
+    font-size: 14px !important;
+}
+
+.row:before,
+.row:after {
+    display: table;
+    content: " ";
+}
+
+.row:after {
+    clear: both;
+}
+
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.col-xs-4 {
+    width: 33.33333333%;
+}
+
+.col-xs-8 {
+    width: 66.66666667%;
+}
+
+.col-md-2 {
+    width: 16.66666667%;
+}
+
+.col-xs-1,
+.col-xs-2,
+.col-xs-3,
+.col-xs-4,
+.col-xs-5,
+.col-xs-6,
+.col-xs-7,
+.col-xs-8,
+.col-xs-9,
+.col-xs-10,
+.col-xs-11,
+.col-xs-12 {
+    float: left;
+}
+
+.col-xs-1,
+.col-sm-1,
+.col-md-1,
+.col-lg-1,
+.col-xs-2,
+.col-sm-2,
+.col-md-2,
+.col-lg-2,
+.col-xs-3,
+.col-sm-3,
+.col-md-3,
+.col-lg-3,
+.col-xs-4,
+.col-sm-4,
+.col-md-4,
+.col-lg-4,
+.col-xs-5,
+.col-sm-5,
+.col-md-5,
+.col-lg-5,
+.col-xs-6,
+.col-sm-6,
+.col-md-6,
+.col-lg-6,
+.col-xs-7,
+.col-sm-7,
+.col-md-7,
+.col-lg-7,
+.col-xs-8,
+.col-sm-8,
+.col-md-8,
+.col-lg-8,
+.col-xs-9,
+.col-sm-9,
+.col-md-9,
+.col-lg-9,
+.col-xs-10,
+.col-sm-10,
+.col-md-10,
+.col-lg-10,
+.col-xs-11,
+.col-sm-11,
+.col-md-11,
+.col-lg-11,
+.col-xs-12,
+.col-sm-12,
+.col-md-12,
+.col-lg-12 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 
 .vcard-template.style2 .vcard-header .title {
@@ -2954,10 +3444,10 @@ a {
 .channel-container {
     border-bottom: 1px rgba(0, 0, 0, 0.12) solid;
     cursor: pointer;
-    min-height: 50px;
+    min-height: 70px;
     display: block;
     position: relative;
-    padding: 16px 100px;
+    padding: 16px 35px;
 }
 
 .pos-relative {
@@ -3142,7 +3632,19 @@ a {
     z-index: -1;
 }
 
+@media (max-width: 400px) and (min-width: 385px) {
+    #devent-body .vcard-template.style2 .vcard-header .vcard-top-info {
+        height: 225px;
+    }
+}
+
 @media (max-width: 320px) {
+    #devent-body .event-section-title {
+        padding: 18px 0px 18px 20px;
+    }
+    #devent-body .vcard-template.style2 .vcard-header .vcard-top-info {
+        height: 170px;
+    }
     #dsocial-body .vcard-template.style2 .vcard-header .vcard-top-info {
         height: 170px;
     }
@@ -3278,6 +3780,24 @@ a {
 }
 
 @media (min-width: 690px) {
+    #devent-body .vcard-template.style2 .vcard-body-wrapper {
+        width: 640px;
+        margin: 0 auto;
+        background: #fff;
+        box-shadow: 0px 4px 7.36px 0.64px rgb(0 0 0 / 24%), 0px 1px 7.68px 0.32px rgb(0 0 0 / 16%);
+        margin-bottom: 60px;
+    }
+    #devent-body .vcard-template.style2 .vcard-body {
+        padding-bottom: 40px;
+    }
+    #devent-body .vcard-template.style2 .vcard-header {
+        padding-top: 60px;
+    }
+    #devent-body .vcard-template.style2 .vcard-header .vcard-header-wrapper {
+        width: 640px;
+        margin: 0 auto;
+        box-shadow: 0px 4px 7.36px 0.64px rgb(0 0 0 / 24%), 0px 1px 7.68px 0.32px rgb(0 0 0 / 16%);
+    }
     #dsocial-body .vcard-template.style2 .vcard-header .vcard-header-wrapper {
         width: 640px;
         margin: 0 auto;
@@ -3319,6 +3839,26 @@ a {
         padding: 25px 0 20px 15px;
         display: inline-block;
         width: 100%;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    #devent-body .top-bar-desktop {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+    }
+    #devent-body .top-bar-desktop>div {
+        width: auto !important;
+        margin: 0 auto !important;
+        max-width: none !important;
+    }
+    #devent-body .vcard-header-wrapper {
+        margin-top: 80px !important;
+    }
+    #devent-body .top-info-desktop {
+        margin: 0 0 0 30px !important;
     }
 }
 

@@ -8,7 +8,7 @@
                 </div>
                 <div class="section-title__name">
                     <input type="text" name="qr_name" id="business_qr_name" class="input--title-editing"
-                        placeholder="My Social Media QR Code">
+                        placeholder="My Business Page QR Code">
                     <label class="section-title__label" for="business_qr_name">Name your QR Code</label>
                     <span class="btn-help-icon section-title__icon_tooltip" rel="tooltip" data-trigger="hover"
                         data-placement="left"
@@ -18,8 +18,8 @@
             
         
             @include('site.qrcode-portal.partials.business-page.design-customizations')    
-            {{-- @include('site.qrcode-portal.partials.business-page.basic-information')    
-            @include('site.qrcode-portal.partials.business-page.social-media-channels')    
+             @include('site.qrcode-portal.partials.business-page.basic-information')    
+           {{-- @include('site.qrcode-portal.partials.business-page.social-media-channels')    
             @include('site.qrcode-portal.partials.business-page.welcome-screen')     --}}
 
             <input type="hidden" name="businessId" id="businessId">
@@ -36,7 +36,7 @@
             <div class="preview-smartphone-wrapper business-preview-smartphone-wrapper mockup__smartphone-wrapper business-preview" style="display: block;">
                 <div id="smartphonePlaceholder" class="placeholder ratchet">
                     <div class="template template-url">
-                        {{-- <iframe src="{{ route('qrcode.business-preview') }}" frameborder="0"></iframe> --}}
+                        <iframe src="{{ route('qrcode.business-preview') }}" frameborder="0"></iframe>
                     </div>
                 </div>
             </div>
