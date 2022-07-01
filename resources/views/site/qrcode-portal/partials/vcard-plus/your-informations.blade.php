@@ -132,7 +132,7 @@
                         <input type="hidden" name="longitude" id="longitude">
                 </div>
                 <div class="addressBox">
-                    <div class="additional-link" type="1">
+                    <div class="additional-link additional-button" type="1">
                         Enter address        
                     </div>
                 </div>

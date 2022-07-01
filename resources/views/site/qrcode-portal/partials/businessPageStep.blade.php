@@ -18,9 +18,12 @@
             
         
             @include('site.qrcode-portal.partials.business-page.design-customizations')    
-             @include('site.qrcode-portal.partials.business-page.basic-information')    
-           {{-- @include('site.qrcode-portal.partials.business-page.social-media-channels')    
-            @include('site.qrcode-portal.partials.business-page.welcome-screen')     --}}
+            @include('site.qrcode-portal.partials.business-page.basic-information')    
+            @include('site.qrcode-portal.partials.business-page.opening-hours')    
+            @include('site.qrcode-portal.partials.business-page.address-and-location')    
+            @include('site.qrcode-portal.partials.business-page.about-contact-information')    
+            @include('site.qrcode-portal.partials.business-page.social-media-channels')    
+            @include('site.qrcode-portal.partials.business-page.welcome-screen')    
 
             <input type="hidden" name="businessId" id="businessId">
             <input type="hidden" name="businessTab" id="businessTab">

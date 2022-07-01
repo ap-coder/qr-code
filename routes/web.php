@@ -145,6 +145,7 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
     Route::post('getTypePreview', 'QrCodePortalController@getTypePreview')->name('qr-code-generator.getTypePreview');
     Route::post('getsocialchannel', 'QrCodePortalController@getsocialchannel')->name('qr-code-generator.getsocialchannel');
     Route::post('getvcardsocialchannel', 'QrCodePortalController@getvcardsocialchannel')->name('qr-code-generator.getvcardsocialchannel');
+    Route::post('getbusinesssocialchannel', 'QrCodePortalController@getbusinesssocialchannel')->name('qr-code-generator.getbusinesssocialchannel');
     Route::post('crop-image-upload', 'QrCodePortalController@uploadCropImage')->name('qr-code-generator.uploadCropImage');
 
 // Route::get('partners/qr-code', 'SiteController@qrcode_portal_login')->name('partners.qrcode-login');

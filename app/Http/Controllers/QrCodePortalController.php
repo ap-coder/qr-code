@@ -179,6 +179,30 @@ class QrCodePortalController extends Controller
         echo json_encode($data);
     }
 
+    public function getbusinesssocialchannel(Request $request)
+    {
+        $type=$request->type;
+
+        $rand=rand();
+        $html = view('site.qrcode-portal.partials.common.'.$type,compact('rand'))->render();
+
+        $data['html']=$html;
+
+        $socialChannel='<div class="col-xs-4 col-sm-3 col-md-2" style="margin-top: 20px;" random="'.$rand.'"><a
+        href="" target="_blank"
+        class="channel-container" id="channel-item-'.$type.'"
+        >
+            <div class="channel-bgd-'.$type.'">
+               <i></i>
+            </div>
+         </a></div>';
+
+        $data['channel']=$socialChannel;
+        $data['random']=$rand;
+
+        echo json_encode($data);
+    }
+
     public function uploadCropImage(Request $request)
     {
         $folderPath = storage_path('tempUpload/');

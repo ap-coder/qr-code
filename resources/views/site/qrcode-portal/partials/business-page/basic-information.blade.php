@@ -84,7 +84,7 @@
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-5 box-input">
-                        <input type="text" placeholder="http://www." id="business_button_lnk" name="button_lnk"
+                        <input type="url" placeholder="http://www." id="business_button_lnk" name="button_lnk"
                             required="required">
                             <button type="button" class="btn btn-link pull-right removeMenuButton">Remove button</button>
                     </div>

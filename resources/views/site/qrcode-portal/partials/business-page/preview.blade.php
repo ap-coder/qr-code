@@ -42,7 +42,7 @@
                             </div>
     
                            <a class="ripplelink event-action-btn" style="color: rgb(68, 127, 182);">
-                                Learn more
+                                View Menu
                             </a>
                         </div>
                     </div>
@@ -54,163 +54,206 @@
                     <div class="vcard-body">
 
                         <div id="devent-details">
-                            <div class="vcard-row" style="padding-right: 10px !important; cursor: pointer;">
+                            <div class="vcard-row" style="padding-right: 10px !important; cursor: pointer;" id="opening_hours_section">
                                 <label>Opening Hours</label>
                                 <i class="fa fa-clock"></i>
-                        <div class="row mb-5 mb-10">
-                                    <div class="col-xs-4">
-                                        <h4 style="white-space: nowrap;" class="open-hours--active">
-                                            Tue
-                                            <span class="caret caret--open hide"></span>
-                                        </h4>
-                                        <span>
-                                            <span class="open-now">Open Now</span>
-                                            <span class="closed-now hide">Closed Now</span>
-                                        </span>
-                                    </div>
-                                    <div class="col-xs-8">
-                                        <div>
-                                            <h4 style="white-space: nowrap;" class=" open-hours--active">
-                                                8:00 am - 8:00 pm
-                                                <span class="caret caret--open"></span>
+                        
+                                <div id="opening_hours_box">
+                                        {{-- <div class="row mb-5 mb-10">
+                                        <div class="col-xs-4">
+                                            <h4 style="white-space: nowrap;" class="open-hours--active">
+                                                Tue
+                                                <span class="caret caret--open hide"></span>
                                             </h4>
+                                            <span>
+                                                <span class="open-now">Open Now</span>
+                                                <span class="closed-now hide">Closed Now</span>
+                                            </span>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <div>
+                                                <h4 style="white-space: nowrap;" class=" open-hours--active">
+                                                    8:00 am - 8:00 pm
+                                                    <span class="caret caret--open"></span>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                    
+                                    <div class="row mb-5 text-muted">
+                                        <div class="col-xs-4">
+                                            <h4  style="white-space: nowrap;" class=" open-hours--not-active">
+                                                Mon
+                                                <span class="caret caret--open hide" ></span>
+                                            </h4>
+                                            <span  >
+                                                <span class="open-now hide" >Open Now</span>
+                                                <span class="closed-now hide">Closed Now</span>
+                                            </span>
+                                        </div>
+                                        <div class="col-xs-8">
+                                        <div >
+                                                <h4  style="white-space: nowrap;" class=" open-hours--not-active">
+                                                    8:00 am - 8:00 pm
+                                                    <span class="caret caret--open hide"></span>
+                                                </h4>
+                                            </div>
+                            
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row mb-5 text-muted">
-                                    <div class="col-xs-4">
-                                        <h4 class="open-hours--not-active">
-                                            Wed
-                                            <span class="caret caret--open  hide"></span>
-                                        </h4>
-                                        <span>
-                                            <span class="open-now  hide">Open Now</span>
-                                            <span class="closed-now  hide">Closed Now</span>
-                                        </span>
+                                    <div class="row mb-5 text-muted">
+                                        <div class="col-xs-4">
+                                            <h4  style="white-space: nowrap;" class=" open-hours--not-active">
+                                                Tue
+                                                <span class="caret caret--open hide" ></span>
+                                            </h4>
+                                            <span  >
+                                                <span class="open-now hide" >Open Now</span>
+                                                <span class="closed-now hide">Closed Now</span>
+                                            </span>
+                                        </div>
+                                        <div class="col-xs-8">
+                                        <div >
+                                                <h4  style="white-space: nowrap;" class=" open-hours--not-active">
+                                                    8:00 am - 8:00 pm
+                                                    <span class="caret caret--open hide"></span>
+                                                </h4>
+                                            </div>
+                            
+                                        </div>
                                     </div>
-                                    <div class="col-xs-8">
-                                        <div>
-                                            <h4 style="white-space: nowrap;" class="open-hours--not-active">
-                                                8:00 am - 8:00 pm
+                                    <div class="row mb-5 text-muted">
+                                        <div class="col-xs-4">
+                                            <h4 class="open-hours--not-active">
+                                                Wed
                                                 <span class="caret caret--open  hide"></span>
                                             </h4>
+                                            <span>
+                                                <span class="open-now  hide">Open Now</span>
+                                                <span class="closed-now  hide">Closed Now</span>
+                                            </span>
                                         </div>
-                        
-                                        
+                                        <div class="col-xs-8">
+                                            <div>
+                                                <h4 style="white-space: nowrap;" class="open-hours--not-active">
+                                                    8:00 am - 8:00 pm
+                                                    <span class="caret caret--open  hide"></span>
+                                                </h4>
+                                            </div>
+                            
+                                            
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row mb-5 text-muted">
-                                    <div class="col-xs-4">
-                                        <h4 style="white-space: nowrap;" class=" open-hours--not-active">
-                                            Thu
-                                            <span class="caret caret--open hide"></span>
-                                        </h4>
-                                        <span>
-                                            <span class="open-now  hide">Open Now</span>
-                                            <span class="closed-now  hide">Closed Now</span>
-                                        </span>
+                                    <div class="row mb-5 text-muted">
+                                        <div class="col-xs-4">
+                                            <h4 style="white-space: nowrap;" class=" open-hours--not-active">
+                                                Thu
+                                                <span class="caret caret--open hide"></span>
+                                            </h4>
+                                            <span>
+                                                <span class="open-now  hide">Open Now</span>
+                                                <span class="closed-now  hide">Closed Now</span>
+                                            </span>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <div>
+                                                <h4  style="white-space: nowrap;" class=" open-hours--not-active">
+                                                    8:00 am - 8:00 pm
+                                                    <span class="caret caret--open hide"></span>
+                                                </h4>
+                                            </div>
+                            
+                                            
+                                        </div>
                                     </div>
-                                    <div class="col-xs-8">
+                                    <div class="row mb-5 text-muted">
+                                        <div class="col-xs-4">
+                                            <h4  style="white-space: nowrap;" class=" open-hours--not-active">
+                                                Fri
+                                                <span class="caret caret--open hide"></span>
+                                            </h4>
+                                            <span>
+                                                <span class="open-now hide">Open Now</span>
+                                                <span class="closed-now hide">Closed Now</span>
+                                            </span>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <div>
+                                                <h4  style="white-space: nowrap;" class=" open-hours--not-active">
+                                                    8:00 am - 8:00 pm
+                                                    <span class="caret caret--open hide"></span>
+                                                </h4>
+                                            </div>
+                            
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5 text-muted">
+                                        <div class="col-xs-4">
+                                            <h4  style="white-space: nowrap;" class=" open-hours--not-active">
+                                                Sat
+                                                <span class="caret caret--open hide"></span>
+                                            </h4>
+                                            <span>
+                                                <span class="open-now hide">Open Now</span>
+                                                <span class="closed-now hide">Closed Now</span>
+                                            </span>
+                                        </div>
+                                        <div class="col-xs-8">
                                         <div>
-                                            <h4  style="white-space: nowrap;" class=" open-hours--not-active">
-                                                8:00 am - 8:00 pm
-                                                <span class="caret caret--open hide"></span>
-                                            </h4>
+                                                <h4  style="white-space: nowrap;" class=" open-hours--not-active">
+                                                    8:00 am - 8:00 pm
+                                                    <span class="caret caret--open hide"></span>
+                                                </h4>
+                                            </div>
+                            
+                                            
                                         </div>
-                        
-                                        
+                                    </div>
+                                    <div class="row mb-5 text-muted" >
+                                        <div class="col-xs-4">
+                                            <h4  style="white-space: nowrap;" class=" open-hours--not-active">
+                                                Sun
+                                                <span class="caret caret--open hide" ></span>
+                                            </h4>
+                                            <span  >
+                                                <span class="open-now hide" >Open Now</span>
+                                                <span class="closed-now hide">Closed Now</span>
+                                            </span>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <div >
+                                                <h4  style="white-space: nowrap;" class=" open-hours--not-active">
+                                                    8:00 am - 8:00 pm
+                                                    <span class="caret caret--open hide"></span>
+                                                </h4>
+                                            </div>
+                            
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row mb-5 text-muted">
-                                    <div class="col-xs-4">
-                                        <h4  style="white-space: nowrap;" class=" open-hours--not-active">
-                                            Fri
-                                            <span class="caret caret--open hide"></span>
-                                        </h4>
-                                        <span>
-                                            <span class="open-now hide">Open Now</span>
-                                            <span class="closed-now hide">Closed Now</span>
-                                        </span>
-                                    </div>
-                                    <div class="col-xs-8">
-                                        <div>
-                                            <h4  style="white-space: nowrap;" class=" open-hours--not-active">
-                                                8:00 am - 8:00 pm
-                                                <span class="caret caret--open hide"></span>
-                                            </h4>
-                                        </div>
-                        
-                                        
-                                    </div>
-                                </div>
-                                <div class="row mb-5 text-muted">
-                                    <div class="col-xs-4">
-                                        <h4  style="white-space: nowrap;" class=" open-hours--not-active">
-                                            Sat
-                                            <span class="caret caret--open hide"></span>
-                                        </h4>
-                                        <span>
-                                            <span class="open-now hide">Open Now</span>
-                                            <span class="closed-now hide">Closed Now</span>
-                                        </span>
-                                    </div>
-                                    <div class="col-xs-8">
-                                       <div>
-                                            <h4  style="white-space: nowrap;" class=" open-hours--not-active">
-                                                8:00 am - 8:00 pm
-                                                <span class="caret caret--open hide"></span>
-                                            </h4>
-                                        </div>
-                        
-                                        
-                                    </div>
-                                </div>
-                                <div class="row mb-5 text-muted" >
-                                    <div class="col-xs-4">
-                                        <h4  style="white-space: nowrap;" class=" open-hours--not-active">
-                                            Sun
-                                            <span class="caret caret--open hide" ></span>
-                                        </h4>
-                                        <span  >
-                                            <span class="open-now hide" >Open Now</span>
-                                            <span class="closed-now hide">Closed Now</span>
-                                        </span>
-                                    </div>
-                                    <div class="col-xs-8">
-                                        <div >
-                                            <h4  style="white-space: nowrap;" class=" open-hours--not-active">
-                                                8:00 am - 8:00 pm
-                                                <span class="caret caret--open hide"></span>
-                                            </h4>
-                                        </div>
-                        
-                                    </div>
-                                </div><div class="row mb-5 text-muted">
-                                    <div class="col-xs-4">
-                                        <h4  style="white-space: nowrap;" class=" open-hours--not-active">
-                                            Mon
-                                            <span class="caret caret--open hide" ></span>
-                                        </h4>
-                                        <span  >
-                                            <span class="open-now hide" >Open Now</span>
-                                            <span class="closed-now hide">Closed Now</span>
-                                        </span>
-                                    </div>
-                                    <div class="col-xs-8">
-                                       <div >
-                                            <h4  style="white-space: nowrap;" class=" open-hours--not-active">
-                                                8:00 am - 8:00 pm
-                                                <span class="caret caret--open hide"></span>
-                                            </h4>
-                                        </div>
-                        
-                                    </div>
-                                </div>
+                                
                             </div>
 
                             <div class="vcard-separator"></div>
 
-                            <div class="vcard-row">
+                            <div class="vcard-row" id="address_box">
+                                <label>Location</label>
+                                <i class="fa fa-map-marker-alt"></i>
+                                <h4> <span id="street_address_h4">
+                                    Mission Street</span> <span id="number_h4"> 526</span> </h4>
+                                <h4> <span id="city_h4">San Francisco</span> <span id="state_h4"> CA</span> <span id="zipcode_h4"> 94105</span>
+                                </h4>
+                                <h4 id="country_h4">United States
+                                </h4>
+    
+                                <div class="floated-container" id="street_address">
+                                    <a class="event-slim-button ripplelink left_20 mt-10" style="color: rgb(233, 30, 99);">
+                                        Show on map </a>
+                                </div>
+                            </div>
+
+                            {{-- <div class="vcard-row" id="address_box">
                                 <label>Location</label>
                                 <i class="fa fa-map-marker-alt"></i>
                                 <h4>Mission Street 526</h4>
@@ -222,101 +265,112 @@
                                     <a class="event-slim-button ripplelink left_20 mt-10" style="color: rgb(233, 30, 99);">
                                         Show on map</a>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="vcard-row">
+                            <div class="vcard-row" style="display: none;" id="features-container">
                                 <label class="">Facility Features</label>
                                 <ul class="features-container">
-                                   <li>
+                                    {{-- <li>
                                         <i class="fa fa-wifi"></i>
                                     </li>
-                                   <li>
-                                        <i class="fa fa-wifi"></i>
+                                    <li>
+                                        <i class="fas fa-chair"></i>
                                     </li>
-                                   <li>
-                                        <i class="fa fa-wifi"></i>
+                                    <li>
+                                        <i class="fa fa-wheelchair"></i>
                                     </li>
-                                   <li>
-                                        <i class="fa fa-wifi"></i>
+                                    <li>
+                                        <i class="fa fa-toilet"></i>
                                     </li>
-                                   <li>
-                                        <i class="fa fa-wifi"></i>
+                                    <li>
+                                        <i class="fa fa-child"></i>
                                     </li>
+                                    <li>
+                                        <i class="fa fa-paw"></i>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-parking"></i>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-train"></i>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-taxi"></i>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-bed"></i>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-coffee"></i>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-wine-glass-alt"></i>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-utensils"></i>
+                                    </li> --}}
                                 </ul>
                             </div>
 
                             <div class="vcard-separator"></div>
 
-                            <div class="vcard-row">
+                            <div class="vcard-row" id="about" style="display: none;">
                                 <label>About</label>
                                 <i class="fa fa-info-circle"></i>
-                                <h4 class="text-break">About We aim to provide fresh and healthy snacks for people on the go.</h4>
+                                <h4 class="text-break"></h4>
                             </div>
 
                             <div class="vcard-separator"></div>
 
-                            <div class="vcard-row">
+                            <div class="vcard-row" id="contact-info">
                                 <label>Contact</label>
                                 <i class="fa fa-address-book"></i>
                         
-                                <div>
+                                <div id="name">
                                     <h4>Joy</h4>
                                     <small class="mb-30">Name</small>
                                 </div>
                         
-                                <div>
+                                <div id="phone">
                                     <h4><a href="tel:4150000000">(415) 000-0000</a></h4>
                                     <small class="mb-30">Phone</small>
                                 </div>
                         
-                                <div>
+                                <div id="email"> 
                                     <h4><a href="mailto:hello@joyscafe.com" target="_blank" >hello@joyscafe.com</a></h4>
                                     <small class="mb-30">Email</small>
                                 </div>
                         
-                                <div>
+                                <div id="website">
                                     <h4><a href="http://www.joyscafe.com" target="_blank" >www.joyscafe.com</a></h4>
                                     <small class="mb-30">Website</small>
                                 </div>
                             </div>
 
-                            <div class="vcard-separator"></div>
+                            <div id="social-icons" style="display: none;">
+                                <div class="vcard-separator"></div>
 
-                            <div class="vcard-row">
-                                <label>Social Media</label>
-                                <i class="fas fa-bullhorn" style="font-size: 30px;"></i>
-                        
-                                <div class="row">
-                                    <div class="col-xs-4 col-sm-3 col-md-2" style="margin-bottom: 10px;">
-                        
-                                        <a href="https://codefarming.com/" target="_blank" class="channel-container" id="channel-item-Facebook">
-                                            <span class="channel-bgd-facebook">
-                                                <i class="fab fa-facebook"></i>
-                                            </span>
-                                        </a>
-                        
+                                <div class="vcard-row">
+                                    <label>Social Media</label>
+                                    <i class="fas fa-bullhorn" style="font-size: 30px;"></i>
+                            
+                                    <div class="row">
+
+                                        {{-- <div class="col-xs-4 col-sm-3 col-md-2" style="margin-bottom: 10px;">
+                            
+                                            <a href="https://codefarming.com/" target="_blank" class="channel-container" id="channel-item-Facebook">
+                                                <span class="channel-bgd-facebook">
+                                                    <i class="fab fa-facebook"></i>
+                                                </span>
+                                            </a>
+                            
+                                        </div> --}}
+                                       
                                     </div>
-                                    <div class="col-xs-4 col-sm-3 col-md-2" style="margin-bottom: 10px;">
-                        
-                                        <a href="http://www.twitter.com/tapas" target="_blank" class="channel-container" id="channel-item-Twitter">
-                                            <span class="channel-bgd-twitter">
-                                                <i class="fab fa-twitter"></i>
-                                            </span>
-                                        </a>
-                        
-                                    </div>
-                                    <div class="col-xs-4 col-sm-3 col-md-2" style="margin-bottom: 10px;">
-                        
-                                        <a href="http://www.instagram.com/tapas" target="_blank" class="channel-container" id="channel-item-Instagram">
-                                            <span class="channel-bgd-instagram">
-                                                <i class="fab fa-instagram"></i>
-                                            </span>
-                                        </a>
-                        
-                                    </div>
+                            
                                 </div>
-                        
                             </div>
+                            
 
                             <div class="vcard-row follow-scroll share-container">
                                 <div class="fabs" id="shareFab" style="position: fixed; display: block; top: 47px; right: 213px; bottom: auto;">

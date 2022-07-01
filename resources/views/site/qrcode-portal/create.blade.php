@@ -91,7 +91,7 @@ function fillIn() {
     var long = place.geometry.location.lng();
     $('#latitude').val(lat);
     $('#longitude').val(long);
-    // $('#street_address').val(place.formatted_address);
+    $('#street_address').val(place.name);
 
     var address_components = place.address_components;
     var locality = '';
@@ -127,7 +127,19 @@ function fillIn() {
     $('#fullAddress').show();
     $('.additional-link').attr('type', 2);
 
+    $('#business_city').val(locality);
+    $('#business_state').val(state);
+    $('#business_country').val(country);
+    $('#business_zipcode').val(postal_code);
+
+    $('#business_street_address').val(place.name);
+
+    $('#businessapiAddress').hide();
+    $('#businessfullAddress').show();
+    $('.additional-business-button').attr('type', 2);
+
     $('#city').trigger('change');
+    $('#business_city').trigger('change');
 }
 </script>
 @endsection

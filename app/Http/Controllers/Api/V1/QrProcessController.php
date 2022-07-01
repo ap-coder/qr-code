@@ -13,6 +13,7 @@ use App\Models\SocialChannel;
 use App\Models\Social;
 use App\Models\Address;
 use App\Models\Vcard;
+use App\Models\BusinessPage;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use DOMDocument;
 use XSLTProcessor;
@@ -567,6 +568,113 @@ class QrProcessController extends Controller
 
         echo json_encode($result);
 
+    }
 
+    public function businessPage(Request $request)
+    {
+        $businessData=[
+            'qr_name'=> $request->qr_name,
+            'summery'=> $request->summery,
+            'active'=> 1,
+            'company'=> $request->company,
+            'headline'=> $request->headline,
+            'primary_color'=> $request->primary_color,
+            'button_color'=> $request->button_color,
+            'button_text'=> $request->button_text,
+            'button_lnk'=> $request->button_lnk,
+            'about'=> $request->about,
+            'contact_name'=> $request->contact_name,
+            'email'=> $request->email,
+            'website_link'=> $request->website_link,
+            'phone'=> $request->phone,
+        ];
+
+        if ($request->businessId) {
+            $businessPage=BusinessPage::where('id',$request->businessId)->first();
+
+            if($businessPage->qr_name != $request->qr_name){
+                $businessData['slug'] = SlugService::createSlug(BusinessPage::class, 'slug', $request->qr_name);
+            }
+            $businessPage->update($businessData);
+        } else {
+            $businessData['slug'] = SlugService::createSlug(BusinessPage::class, 'slug', $request->qr_name);
+            $businessPage = BusinessPage::create($businessData);
+        }
+
+        if ($request->street_address)
+        {
+            $addressData=[
+                'street_address'=>$request->street_address,
+                'number'=>$request->number,
+                'city'=>$request->city,
+                'state'=>$request->state,
+                'zipcode'=>$request->zipcode,
+                'country'=>$request->country,
+                'latitude'=>$request->latitude,
+                'longitude'=>$request->longitude,
+            ];
+            $address=Address::create($addressData);
+
+            $businessPage->update(['address_id'=>$address->id]);
+        }
+
+        if ($request->input('businesswelcomeLogo', false)) {
+            if (!$businessPage->loading_image || $request->input('businesswelcomeLogo') !== $businessPage->loading_image->file_name) {
+                if ($businessPage->loading_image) {
+                    $businessPage->loading_image->delete();
+                }
+                $businessPage->addMedia(storage_path('tempUpload/' . basename($request->input('businesswelcomeLogo'))))->toMediaCollection('loading_image');
+            }
+        } elseif ($businessPage->loading_image) {
+            $businessPage->loading_image->delete();
+        }
+
+        $businessPage->businessPagesQrCodes()->forceDelete();
+
+        $qrData=[
+            'name'=> $request->qr_name,
+            'slug' => SlugService::createSlug(QrCode::class, 'slug', $request->qr_name),
+            'active'=> 1,
+            'published'=> 1,
+        ];
+
+        $qrCode = QrCode::create($qrData);
+
+        $qrCode->business_pages()->sync($businessPage->id);
+
+        $businessPage->socials()->forceDelete();
+
+        $socialIds=array();
+
+        if(isset($request->url) && count($request->url)>0){
+            foreach ($request->url as $key => $url) {
+                $socialData=[
+                    'url'=>$url,
+                    'title'=>$request->social_name[$key],
+                    'channel_label'=>$request->channel_label[$key],
+                    'social_name'=>$request->social_name[$key],
+                    'channel_name'=>$request->social_name[$key],
+                    'icon_class'=>$request->icon_class[$key],
+                ];
+                $social = Social::create($socialData);
+               
+                $socialIds[]=$social->id;
+            }
+
+            $businessPage->socials()->sync($socialIds);
+        }
+
+        $qrcodeData=[
+            'link'=>route('qrcode.business-preview',$businessPage->slug),
+        ];
+
+        $qrcode=$this->generateqrcode($qrcodeData);
+        
+        $result = json_decode($qrcode);
+
+        $result->id=$businessPage->id;
+        $result->link=route('qrcode.business-preview',$businessPage->slug);
+
+        echo json_encode($result);
     }
 }

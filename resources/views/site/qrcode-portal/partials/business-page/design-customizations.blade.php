@@ -155,7 +155,7 @@
                 </div>
             </div>
 
-            <input type="hidden" name="bannerImage" id="businessBannerImage">
+            <input type="hidden" name="bannerImage" id="businessBannerImage" value="header.jpg">
 
             <div class="modal fade" id="customBusinessImagemodal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">

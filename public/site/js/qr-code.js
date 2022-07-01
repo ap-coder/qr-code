@@ -156,6 +156,11 @@ $(document).ready(function() {
         $('.vcard-preview-qrcode').hide();
     });
 
+    $('.businesspreviewtab').click(function() {
+        $('.business-preview-smartphone-wrapper').show();
+        $('.business-preview-qrcode').hide();
+    });
+
     $('.socialqrcodetab').click(function() {
 
         $('.social-preview-smartphone-wrapper').hide();
@@ -190,6 +195,23 @@ $(document).ready(function() {
 
     });
 
+    $('.businessqrcodetab').click(function() {
+
+        $('.business-preview-smartphone-wrapper').hide();
+        $('.business-preview-qrcode').show();
+        $('#businessTab').val('tab');
+
+        var form = $('#businessPageForm').submit();
+
+        if (form.valid() == false) {
+            $('.business-preview-smartphone-wrapper').show();
+            $('.business-preview-qrcode').hide();
+            $('.state-generator-data .btn-group .btn').removeClass('active');
+            $('.businesspreviewtab').addClass('active');
+        }
+
+    });
+
 
 
     $('.input--title-editing').keyup(function() {
@@ -215,10 +237,15 @@ $(document).ready(function() {
             $('#socialTab').val('button');
             $('#socialForm').submit();
         }
+        if (type == 3) {
+            $('#businessTab').val('button');
+            $('#businessPageForm').submit();
+        }
         if (type == 4) {
             $('#vCardTab').val('button');
             $('#vCardPlusForm').submit();
         }
+
         // if (type == 1) {
         //     title = $('#website_qr_title').val();
         //     var url = $('#UrlBarcode_url').val();
@@ -367,6 +394,46 @@ $(document).ready(function() {
                             $('#designQrModal').modal('show');
                         }
                         $('.vcard-preview-qrcode .barcodeSVG').html(data.content);
+                        $('.ladda-label').text('Next');
+                        $('.sk-three-bounce').hide();
+                        $(".ladda-button").prop("disabled", false);
+                    }
+                });
+
+                return false; // for demo
+            }
+        });
+
+        $('#businessPageForm').validate({
+            rules: {
+                qr_name: {
+                    required: true,
+                },
+
+            },
+            submitHandler: function(form) { // for demo
+
+                var formData = $('#businessPageForm').serialize();
+
+                // console.log('formData', formData);
+                $('.ladda-label').text('');
+                $('.sk-three-bounce').show();
+                $(".ladda-button").prop("disabled", true);
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: basUrl + "api/qrcode/businessPage",
+                    data: formData,
+                    success: function(data) {
+                        var tab = $('#businessTab').val();
+                        $('#businessId').val(data.id);
+                        $('#malink').val(data.link);
+                        $('.resultholder').html(data.content);
+                        if (tab == 'button') {
+                            $('#designQrModal').modal('show');
+                        }
+                        $('.business-preview-qrcode .barcodeSVG').html(data.content);
                         $('.ladda-label').text('Next');
                         $('.sk-three-bounce').hide();
                         $(".ladda-button").prop("disabled", false);
@@ -608,7 +675,7 @@ $(document).ready(function() {
         $('.originalTextareaInfo span').text(val.length);
     });
 
-    $('.additional-link').click(function() {
+    $('.additional-button').click(function() {
         var type = $(this).attr('type');
         if (type == 1) {
             $('#apiAddress').hide();
@@ -631,6 +698,117 @@ $(document).ready(function() {
             $('#latitude').val('');
             $('#longitude').val('');
         }
+    });
+
+    $('.additional-business-button').click(function() {
+        var type = $(this).attr('type');
+        if (type == 1) {
+            $('#businessapiAddress').hide();
+            $('#businessfullAddress').show();
+            $(this).attr('type', 2);
+            $(this).text('Reset address');
+
+        } else {
+            $('#businessapiAddress').show();
+            $('#businessfullAddress').hide();
+            $(this).attr('type', 1);
+            $(this).text('Enter address');
+
+            $('#business_street_address').val('');
+            $('#business_city').val('');
+            $('#business_state').val('');
+            $('#business_country').val('');
+            $('#business_zipcode').val('');
+            $('#business_number').val('');
+            $('#business_address').val('');
+            $('#business_latitude').val('');
+            $('#business_longitude').val('');
+
+            $('.business-preview iframe').contents().find('#address_box').hide();
+
+        }
+    });
+
+    $(document).on('click', '.features-container li i', function() {
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+            $('#feature_icons' + $(this).attr('key')).prop('checked', false);
+        } else {
+            $('#feature_icons' + $(this).attr('key')).prop('checked', true);
+            $(this).addClass('active');
+        }
+
+        var html = '';
+
+        $(".features-container li i.active").each(function(index, value) {
+            html += '<li><i class="' + $(value).attr('class') + '"></i></li>';
+        });
+
+        if (html) {
+            $('.business-preview iframe').contents().find('#features-container').show();
+            $('.business-preview iframe').contents().find('.features-container').html(html);
+        } else {
+            $('.business-preview iframe').contents().find('#features-container').hide();
+        }
+
+        // var feature_icons = $("input[name='feature_icons[]']:checked")
+        //     .map(function() { return $(this).val(); }).get();
+
+        // console.log('feature_icons', feature_icons);
+
+    });
+
+    $(document).on('keyup change', '#businessfullAddress input', function() {
+        var street_address = $('#business_street_address').val();
+        var city = $('#business_city').val();
+        var state = $('#business_state').val();
+        var country = $('#business_country').val();
+        var zipcode = $('#business_zipcode').val();
+        var number = $('#business_number').val();
+
+        if (street_address) {
+            $('.business-preview iframe').contents().find('#street_address_h4').show();
+            $('.business-preview iframe').contents().find('#street_address_h4').text(street_address);
+        } else {
+            $('.business-preview iframe').contents().find('#street_address_h4').hide();
+        }
+        if (city) {
+            $('.business-preview iframe').contents().find('#city_h4').show();
+            $('.business-preview iframe').contents().find('#city_h4').text(city);
+        } else {
+            $('.business-preview iframe').contents().find('#city_h4').hide();
+        }
+        if (state) {
+            $('.business-preview iframe').contents().find('#state_h4').show();
+            $('.business-preview iframe').contents().find('#state_h4').text(state);
+        } else {
+            $('.business-preview iframe').contents().find('#state_h4').hide();
+        }
+        if (zipcode) {
+            $('.business-preview iframe').contents().find('#zipcode_h4').show();
+            $('.business-preview iframe').contents().find('#zipcode_h4').html(',' + zipcode);
+        } else {
+            $('.business-preview iframe').contents().find('#zipcode_h4').hide();
+        }
+        if (country) {
+            $('.business-preview iframe').contents().find('#country_h4').show();
+            $('.business-preview iframe').contents().find('#country_h4').text(country);
+        } else {
+            $('.business-preview iframe').contents().find('#country_h4').hide();
+        }
+        if (number) {
+            $('.business-preview iframe').contents().find('#number_h4').show();
+            $('.business-preview iframe').contents().find('#number_h4').text(number);
+        } else {
+            $('.business-preview iframe').contents().find('#number_h4').hide();
+        }
+
+        if (street_address || city || state || zipcode || country) {
+            $('.business-preview iframe').contents().find('#address_box').show();
+        } else {
+            $('.business-preview iframe').contents().find('#address_box').hide();
+        }
+
     });
 
     $('.socialMediaIcons ul.channels-list li').click(function() {
@@ -728,6 +906,44 @@ $(document).ready(function() {
 
     });
 
+    $('.businessSocialMediaIcons ul.channels-list li').click(function() {
+
+        var type = $(this).attr('type');
+
+        var _token = $('meta[name="csrf-token"]').attr('content');
+
+        $.ajax({
+            url: basUrl + "getbusinesssocialchannel",
+            method: "POST",
+            dataType: 'Json',
+            data: {
+                type: type,
+                _token: _token
+            },
+            success: function(response) {
+
+                $('.business-preview iframe').contents().find('#social-icons').show();
+
+                $('.businessSocialMediaIcons .channel-row').append(response.html);
+
+                $('.business-preview iframe').contents().find('#socialmedialinksContainer').show();
+
+                var url = $(response.html).find('input:first').attr('placeholder');
+                var text = $(response.html).find('input:last').attr('placeholder');
+                var title = $(response.html).find('.box-label span:first').text();
+                var icon = $(response.html).find('.channel-bgd-' + type + ' i').attr('class');
+
+                $('.business-preview iframe').contents().find('#social-icons .row').append(response.channel);
+
+                $('.business-preview iframe').contents().find('#social-icons .row [random="' + response.random + '"] .channel-bgd-' + type + ' i').addClass(icon);
+
+                $('.btn-help-icon').tooltip();
+
+            }
+        })
+
+    });
+
     $(document).on('keyup', '.channelText', function() {
         var text = $(this).val();
         var rand = $(this).parents('.channels-container').attr('random');
@@ -760,6 +976,12 @@ $(document).ready(function() {
         var rand = $(this).parents('.channels-container').attr('random');
         $(this).parents('.channels-container').remove();
         $('.vcard-preview iframe').contents().find('#socialmedialinksContainer .channels-list [random="' + rand + '"]').remove();
+    });
+
+    $(document).on('click', '.businessSocialMediaIcons .control-remove .fa-times', function() {
+        var rand = $(this).parents('.channels-container').attr('random');
+        $(this).parents('.channels-container').remove();
+        $('.business-preview iframe').contents().find('#social-icons .row [random="' + rand + '"]').remove();
     });
 
     $(document).on('click', '.socialMediaIcons .control-arrange i', function() {
@@ -796,11 +1018,35 @@ $(document).ready(function() {
         }
     });
 
+    $(document).on('click', '.businessSocialMediaIcons .control-arrange i', function() {
+        var parentDiv = $(this).parents('.channels-container'),
+            dir = $(this).attr('sort');
+        var rand = $(this).parents('.channels-container').attr('random');
+
+        var parentIframeDiv = $('.business-preview iframe').contents().find('#social-icons .row  [random="' + rand + '"]');
+
+        if (dir === 'up') {
+            parentDiv.insertBefore(parentDiv.prev());
+            parentIframeDiv.insertBefore(parentIframeDiv.prev());
+        } else if (dir === 'down') {
+            parentDiv.insertAfter(parentDiv.next());
+            parentIframeDiv.insertAfter(parentIframeDiv.next());
+        }
+    });
+
     $(document).on('keyup change', '.BusinessInformations input, .BusinessInformations textarea', function() {
 
         var business_company = $('#business_company').val();
         var business_headline = $('#business_headline').val();
         var business_summary = $('#business_summary').val();
+        var business_button_text = $('#business_button_text').val();
+        var business_button_lnk = $('#business_button_lnk').val();
+
+        var business_about = $('#business_about').val();
+        var business_contact_name = $('#business_contact_name').val();
+        var business_phone = $('#business_phone').val();
+        var business_email = $('#business_email').val();
+        var business_website_link = $('#business_website_link').val();
 
         if (business_company) {
             $('.business-preview iframe').contents().find('.top-bar-desktop').show();
@@ -810,12 +1056,151 @@ $(document).ready(function() {
         }
         $('.business-preview iframe').contents().find('.event-section-title .event-tagline').text(business_headline);
         $('.business-preview iframe').contents().find('.event-section-title .event-teaser').text(business_summary);
+        $('.business-preview iframe').contents().find('.event-action-btn').text(business_button_text);
+        $('.business-preview iframe').contents().find('.event-action-btn').attr('href', business_button_lnk);
+
+        if (business_contact_name == '' && business_phone == '' && business_email == '' && business_website_link == '') {
+            $('.business-preview iframe').contents().find('#contact-info').hide();
+        } else {
+            $('.business-preview iframe').contents().find('#contact-info').show();
+        }
+
+        if (business_about) {
+            $('.business-preview iframe').contents().find('#about').show();
+            $('.business-preview iframe').contents().find('#about h4').text(business_about);
+        } else {
+            $('.business-preview iframe').contents().find('#about').hide();
+        }
+
+        if (business_contact_name) {
+            $('.business-preview iframe').contents().find('#name').show();
+            $('.business-preview iframe').contents().find('#name h4').text(business_contact_name);
+        } else {
+            $('.business-preview iframe').contents().find('#name').hide();
+        }
+
+        if (business_phone) {
+            $('.business-preview iframe').contents().find('#phone').show();
+            $('.business-preview iframe').contents().find('#phone h4 a').text(business_phone);
+            $('.business-preview iframe').contents().find('#phone h4 a').attr('href', 'tel:' + business_phone);
+        } else {
+            $('.business-preview iframe').contents().find('#phone').hide();
+        }
+
+        if (business_email) {
+            $('.business-preview iframe').contents().find('#email').show();
+            $('.business-preview iframe').contents().find('#email h4 a').text(business_email);
+            $('.business-preview iframe').contents().find('#email h4 a').attr('href', 'mailto:' + business_email);
+        } else {
+            $('.business-preview iframe').contents().find('#email').hide();
+        }
+
+        if (business_website_link) {
+            $('.business-preview iframe').contents().find('#website').show();
+            $('.business-preview iframe').contents().find('#website h4 a').text(business_website_link);
+            $('.business-preview iframe').contents().find('#website h4 a').attr('href', business_website_link);
+        } else {
+            $('.business-preview iframe').contents().find('#website').hide();
+        }
+
+
+    });
+
+    $(document).on('click', '.time-list li a', function() {
+        var text = $(this).text();
+        $(this).closest('.input-group').find("input").val(text);
+    });
+
+
+
+    $(document).on('click', '.add-time-range', function() {
+        var html = $(this).parents('.qr-time-range-clone').clone();
+        $(html).find('.day-range-button-div').html('<button type="button" class="btn remove-time-range"><span class="fa fa-minus"></span></button>');
+        $(this).parents('.qr-time-range-clone').after(html);
+        $(this).prop('disabled', true);
+    });
+
+    $(document).on('click', '.remove-time-range', function() {
+        $(this).parents('.qr-time-range-list').find('.add-time-range').prop('disabled', false);
+        $(this).parents('.qr-time-range-clone').remove();
+    });
+
+    $(document).on('change', '.day-range-checkbox [type="checkbox"]', function() {
+        var val = $(this).val();
+        if ($(this).is(":checked")) {
+            $('#day_range_' + val).find('input').prop('disabled', false);
+            $('#day_range_' + val).find('.input-group').removeClass('disabled');
+            $('#day_range_' + val).find('.input-group-addon').removeClass('disabled');
+        } else {
+            $('#day_range_' + val).find('input').prop('disabled', true);
+            $('#day_range_' + val).find('.input-group').addClass('disabled');
+            $('#day_range_' + val).find('.input-group-addon').addClass('disabled');
+        }
+    });
+
+    $(document).on('change click', '.day-range-section .day-range-checkbox [type="checkbox"], .day-range-section [type="text"], .day-range-section .add-time-range, .day-range-section .remove-time-range, .day-range-section .time-list li a', function() {
+
+        var openingHourHtml = '';
+        var isOpen = 0;
+
+        $('.day-range-section .day-range-checkbox [type="checkbox"]').each(function(i) {
+
+            var val = $(this).val();
+
+            openingHourHtml += '<div class="row mb-5 text-muted">' +
+                '<div class="col-xs-4">' +
+                '<h4  style="white-space: nowrap;text-transform: capitalize;" class=" open-hours--not-active">' + val + '</h4>' +
+                '</div>' +
+                '<div class="col-xs-8">';
+
+            if ($(this).is(":checked")) {
+
+                var opentime = $("input[name='open_time[" + val + "]']")
+                    .map(function() { return $(this).val(); }).get();
+
+                var closetime = $("input[name='closing_time[" + val + "]']")
+                    .map(function() { return $(this).val(); }).get();
+
+                $.each(opentime, function(index, value) {
+                    openingHourHtml += '<div>' +
+                        '<h4  style="white-space: nowrap;" class=" open-hours--not-active">' +
+                        '' + value + ' - ' + closetime[index] +
+                        '</h4>' +
+                        '</div>';
+                });
+
+                isOpen = 1;
+
+            } else {
+                openingHourHtml += '<div>' +
+                    '<h4  style="white-space: nowrap;" class=" open-hours--not-active">' +
+                    'Closed' +
+                    '</h4>' +
+                    '</div>';
+            }
+
+            openingHourHtml += '</div>' +
+                '</div>';
+
+            // console.log(val + ':-' + opentime + ' - ' + closetime);
+
+        });
+
+        if (isOpen == 1) {
+            $('.business-preview iframe').contents().find('#opening_hours_section').show();
+            $('.business-preview iframe').contents().find('#opening_hours_box').html(openingHourHtml);
+        } else {
+            $('.business-preview iframe').contents().find('#opening_hours_section').hide();
+        }
+
+
 
     });
 
     $('.buttonSelection li a.buttonLink').click(function() {
         var text = $(this).text();
         $('#business_button_text').val(text);
+        $('.business-preview iframe').contents().find('.event-action-btn').text(text);
     });
 
     $('.buttonSelection li.customedit a').click(function() {
@@ -825,11 +1210,13 @@ $(document).ready(function() {
     $('.removeMenuButton').click(function() {
         $('#businessMenuButtons .box-input').hide();
         $('#businessMenuButtons #AddBusinessButtonDiv').show();
+        $('.business-preview iframe').contents().find('.event-action-btn').hide();
     });
 
     $('.AddBusinessButton').click(function() {
         $('#businessMenuButtons .box-input').show();
         $('#businessMenuButtons #AddBusinessButtonDiv').hide();
+        $('.business-preview iframe').contents().find('.event-action-btn').show();
     });
 
     $(document).on('keyup change', '.vcardInformations input, .vcardInformations textarea', function() {
@@ -1225,6 +1612,83 @@ $(document).ready(function() {
         });
     });
 
+    //Busibess welcome logo cropper
+
+    $(".businesswelcomeImage, .businesswelcomecroppreviewimage, .changebusinesswelcomeImage").click(function() {
+        $("input[id='business_welcome_image']").click();
+    });
+
+    var $businesswelcomemodal = $('#business_welcome_modal');
+    var businesswelcomecropimage = document.getElementById('businesswelcomecropimage');
+    var businesswelcomecropper;
+    $("body").on("change", "#business_welcome_image", function(e) {
+        var files = e.target.files;
+        var done = function(url) {
+            businesswelcomecropimage.src = url;
+            $businesswelcomemodal.modal({
+                show: true,
+                backdrop: 'static',
+                keyboard: false
+            });
+        };
+        var reader;
+        var file;
+        var url;
+        if (files && files.length > 0) {
+            file = files[0];
+            if (URL) {
+                done(URL.createObjectURL(file));
+            } else if (FileReader) {
+                reader = new FileReader();
+                reader.onload = function(e) {
+                    done(reader.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    });
+    $businesswelcomemodal.on('shown.bs.modal', function() {
+        businesswelcomecropper = new Cropper(businesswelcomecropimage, {
+            // aspectRatio: 1,
+            viewMode: 1,
+            preview: '.businesswelcomecroppreview'
+        });
+    }).on('hidden.bs.modal', function() {
+        businesswelcomecropper.destroy();
+        businesswelcomecropper = null;
+    });
+    $("#businesswelcomecrop").click(function() {
+        canvas = businesswelcomecropper.getCroppedCanvas({
+            width: 160,
+            height: 160,
+        });
+        canvas.toBlob(function(blob) {
+            url = URL.createObjectURL(blob);
+            var reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = function() {
+                var base64data = reader.result;
+
+                var _token = $('meta[name="csrf-token"]').attr('content');
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: basUrl + "crop-image-upload",
+                    data: { '_token': _token, 'image': base64data },
+                    success: function(data) {
+                        // console.log(data);
+                        $businesswelcomemodal.modal('hide');
+                        $('.businesswelcomecroppreviewimage img').attr('src', base64data);
+                        $('.businesswelcomecroppreviewimage').show();
+                        $('#businesswelcomeLogo').val(data.fileName);
+                        // alert("Crop image successfully uploaded");
+                    }
+                });
+            }
+        });
+    });
+
     // avtar image cropper
 
     function getRoundedCanvas(sourceCanvas) {
@@ -1479,6 +1943,7 @@ $(document).ready(function() {
     $(".cropcustompreviewBusinessImage i").click(function() {
         $('.cropcustompreviewBusinessImage img').attr('src', '');
         $('.cropcustompreviewBusinessImage').hide();
+        $('#businessBannerImage').val('');
         $('.uploadBusinessImageText').show();
         $('.business-preview iframe').contents().find('.avatar-container').hide();
         $('.business-preview iframe').contents().find('.avatar-container').css({ 'background': 'url()' });
