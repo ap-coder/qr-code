@@ -34,10 +34,11 @@ class QrCodePreviewContoller extends Controller
     {
         if ($slug) {
             $businessPage=BusinessPage::where('slug',$slug)->first();
+            return view('site.qrcode-portal.partials.business-page.preview',compact('businessPage'));
         }else{
-            $businessPage=array();
+            return view('site.qrcode-portal.partials.business-page.demo-preview');
         }
         
-        return view('site.qrcode-portal.partials.business-page.preview',compact('businessPage'));
+       
     }
 }

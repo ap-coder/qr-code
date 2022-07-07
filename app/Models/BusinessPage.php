@@ -58,22 +58,6 @@ class BusinessPage extends Model implements HasMedia
     ];
     
 
-    public const FEATURE_ICONS = [
-        1   => 'fa fa-wifi',
-        2  => 'fas fa-chair',
-        3   => 'fa fa-wheelchair',
-        4 => 'fa fa-toilet',
-        5   => 'fa fa-child',
-        6   => 'fa fa-paw',
-        7   => 'fas fa-parking',
-        8   => 'fa fa-train',
-        9   => 'fa fa-taxi',
-        10   => 'fa fa-bed',
-        11   => 'fa fa-coffee',
-        12   => 'fa fa-wine-glass-alt',
-        13   => 'fa fa-utensils',
-    ];
-
     public function sluggable(): array
     {
         return [
@@ -137,4 +121,15 @@ class BusinessPage extends Model implements HasMedia
     {
         return $this->belongsToMany(Social::class);
     }
+
+    public function featureIcons()
+    {
+        return $this->hasMany(BusinessFeatureIcon::class,'business_page_id','id');
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class, 'address_id');
+    }
+
 }

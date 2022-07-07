@@ -1208,12 +1208,15 @@ $(document).ready(function() {
     });
 
     $('.removeMenuButton').click(function() {
+        $('#business_button_text').val('');
+        $('#business_button_lnk').val('');
         $('#businessMenuButtons .box-input').hide();
         $('#businessMenuButtons #AddBusinessButtonDiv').show();
         $('.business-preview iframe').contents().find('.event-action-btn').hide();
     });
 
     $('.AddBusinessButton').click(function() {
+        $('#business_button_text').val('View menu');
         $('#businessMenuButtons .box-input').show();
         $('#businessMenuButtons #AddBusinessButtonDiv').hide();
         $('.business-preview iframe').contents().find('.event-action-btn').show();

@@ -77,7 +77,7 @@
 
                         <div class="featureIcons">
                             <ul class="features-container">
-                                @foreach(App\Models\BusinessPage::FEATURE_ICONS as $key => $icon)
+                                @foreach(App\Models\BusinessFeatureIcon::FEATURE_ICONS as $key => $icon)
                                 <li>
                                     <i class="{{ $icon }}" key="{{ $key }}"></i>
                                 </li>

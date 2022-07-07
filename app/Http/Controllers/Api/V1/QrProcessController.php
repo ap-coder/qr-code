@@ -14,10 +14,13 @@ use App\Models\Social;
 use App\Models\Address;
 use App\Models\Vcard;
 use App\Models\BusinessPage;
+use App\Models\BusinessFeatureIcon;
+use App\Models\Hour;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use DOMDocument;
 use XSLTProcessor;
 use PDF;
+use File;
 
 class QrProcessController extends Controller
 {
@@ -572,9 +575,10 @@ class QrProcessController extends Controller
 
     public function businessPage(Request $request)
     {
+        
         $businessData=[
             'qr_name'=> $request->qr_name,
-            'summery'=> $request->summery,
+            'summary'=> $request->summery,
             'active'=> 1,
             'company'=> $request->company,
             'headline'=> $request->headline,
@@ -618,6 +622,22 @@ class QrProcessController extends Controller
             $businessPage->update(['address_id'=>$address->id]);
         }
 
+        if($request->input('bannerImage')=='header.jpg'){
+            File::copy(public_path('site/img/' . basename($request->input('bannerImage'))), storage_path('tempUpload/' . basename($request->input('bannerImage'))));
+            $businessPage->addMedia(storage_path('tempUpload/' . basename($request->input('bannerImage'))))->toMediaCollection('header_image');
+        }else{
+            if ($request->input('bannerImage', false)) {
+                if (!$businessPage->header_image || $request->input('bannerImage') !== $businessPage->header_image->file_name) {
+                    if ($businessPage->header_image) {
+                        $businessPage->header_image->delete();
+                    }
+                    $businessPage->addMedia(storage_path('tempUpload/' . basename($request->input('bannerImage'))))->toMediaCollection('header_image');
+                }
+            } elseif ($businessPage->header_image) {
+                $businessPage->header_image->delete();
+            }
+        }
+
         if ($request->input('businesswelcomeLogo', false)) {
             if (!$businessPage->loading_image || $request->input('businesswelcomeLogo') !== $businessPage->loading_image->file_name) {
                 if ($businessPage->loading_image) {
@@ -642,6 +662,7 @@ class QrProcessController extends Controller
 
         $qrCode->business_pages()->sync($businessPage->id);
 
+        //social icons
         $businessPage->socials()->forceDelete();
 
         $socialIds=array();
@@ -662,6 +683,49 @@ class QrProcessController extends Controller
             }
 
             $businessPage->socials()->sync($socialIds);
+        }
+
+        //feature icons
+        BusinessFeatureIcon::where('business_page_id',$businessPage->id)->delete();
+        
+        if(isset($request->feature_icons) && count($request->feature_icons)>0){
+            foreach ($request->feature_icons as $key => $icon) {
+                $iconData=[
+                    'feature_icon_id'=>$icon,
+                    'business_page_id'=>$businessPage->id,
+                ];
+                $icons = BusinessFeatureIcon::create($iconData);
+            }
+
+        }
+
+        //busniess hours
+
+        $businessPage->hours()->forceDelete();
+
+        $hoursIds=array();
+
+        if(isset($request->day) && count($request->day)>0){
+
+            
+            foreach ($request->day as $key => $day) {
+                foreach ($request->open_time as $key => $open_time) {
+                    if(isset($open_time[$day])){
+
+                        $hourData=[
+                            'day'=>$day,
+                            'open_time'=>$open_time[$day],
+                            'closing_time'=>$request->closing_time[$key][$day],
+                        ];
+
+                        $Hour = Hour::create($hourData);
+                        $hoursIds[]=$Hour->id;
+                    }
+                }
+            }
+
+            $businessPage->hours()->sync($hoursIds);
+            
         }
 
         $qrcodeData=[

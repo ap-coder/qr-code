@@ -31,7 +31,7 @@
                                     <div class="input-group">
                                         @include('site.qrcode-portal.partials.business-page.times')
             
-                                        <input type="text" name="open_time[{{ $key }}]" value="08:00 am" id="open_time_{{ $key }}">
+                                        <input type="text" name="open_time[][{{ $key }}]" value="08:00 am" id="open_time_{{ $key }}">
                                         <span class="input-group-addon" data-toggle="dropdown">
                                             <span class="fa fa-angle-down"></span>
                                         </span>
@@ -41,7 +41,7 @@
                                     <div class="input-group">
                                         @include('site.qrcode-portal.partials.business-page.times')
             
-                                        <input type="text" name="closing_time[{{ $key }}]" value="08:00 pm" id="closing_time_{{ $key }}">
+                                        <input type="text" name="closing_time[][{{ $key }}]" value="08:00 pm" id="closing_time_{{ $key }}">
                                         <span class="input-group-addon" data-toggle="dropdown">
                                             <span class="fa fa-angle-down"></span>
                                         </span>
